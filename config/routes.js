@@ -32,21 +32,35 @@ module.exports.routes = {
   // located at `views/home/index.ejs`
   // 
   // (This would also work if you had a file at: `/views/home.ejs`)
+ 
   '/': {
-    view: 'main/index'
+    view: 'static/index'
   },
-  '/rest-examples': {
-    view: 'main/rest'
-  },
-  '/todos': 'MainController.todos',
 
-  //
-  // Passport Auth Routes
-  //
-  'get /login':  'PassportAuthController.login',
-  'post /login': 'PassportAuthController.loginProcess',
-  '/logout':     'PassportAuthController.logout',
-  '/protected':  'PassportAuthController.protected'
+  'get /project': 'ProjectController.show',
+
+
+  'post /cObject': {
+    controller: 'cObjectController',
+    action: 'create'
+  }
+
+//thore where the standard route for this project
+  // '/': {
+  //   view: 'main/index'
+  // },
+  // '/rest-examples': {
+  //   view: 'main/rest'
+  // },
+  // '/todos': 'MainController.todos',
+
+  // //
+  // // Passport Auth Routes
+  // //
+  // 'get /login':  'PassportAuthController.login',
+  // 'post /login': 'PassportAuthController.loginProcess',
+  // '/logout':     'PassportAuthController.logout',
+  // '/protected':  'PassportAuthController.protected'
 
 
 

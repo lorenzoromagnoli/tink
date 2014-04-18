@@ -16,17 +16,22 @@ module.exports.policies = {
 
   // Default policy for all controllers and actions
   // (`true` allows public access) 
-  '*': true,
+ 	'*': "flash",
 
-  RestErrorController: {
-    unauthorized: 'isAuthorized',
-    forbidden:    false           // Acts oddly in socket mode?
-  },
+	user: {
+		'new': "flash",
+		subscribe: ["flash", "authenticated"],
+		create: "flash",
+		show: "userCanSeeProfile",
+		edit: "userCanSeeProfile",
+		update: "userCanSeeProfile",
+		projectList:"userCanSeeProfile",
+		'*': "admin"
+	},
 
-  PassportAuthController: {
-    '*': true,
-    protected: 'isPassportAuthenticated'
-  }
+	cObject:{
+		'*':true
+	}
 
   /*
 	// Here's an example of adding some policies to a controller

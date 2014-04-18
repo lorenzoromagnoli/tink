@@ -1,0 +1,45 @@
+<div class='container'>
+	<h1><%= user.name %> </h1>
+	<% if (user.admin) { %>
+		<img src="/images/admin.png">admin
+	<% } else { %>
+			<img src="/images/pawn.png">pawn
+	<% } %>		
+	<h3><%= user.title %> </h3>
+	<hr>
+	<h3>contact: <%= user.email %> </h3>
+	
+	<a class="btn btn-medium btn-primary" href="/user/edit/<%= user.id %>">Edit</a>
+	
+	<h2>Project List</h2>
+
+	<%var projects=user.projectList %> 
+
+	<table class='table'>
+
+<% _.each(projects, function(project) { %>
+		<tr data-id="<%= project.id %>" data-model="project">
+
+			<td><%= project.name %></td>
+
+			<td><a href="/project/open/<%= project.id %>" class="btn btn-sm btn-primary">Show</a></td>
+
+			<td><form action="/project/destroy/<%= project.id %>" method="POST">
+				<input type="hidden" name="_method" value="delete"/>
+				<input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+				<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+			</form></td>
+		</tr> 
+
+		<% }) %>
+
+	</table>
+	
+		<form action="/project/create" method="POST" class="form-create">
+		<input type="text" class="form-control" placeholder="ProjectName" name="name">
+		<input type="submit" class="btn btn-lg btn-primary btn-block" value="create new project"/>
+		<input type="hidden" name="owner" value="<%= session.User.id %>" />
+		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+	
+</form>
+</div>

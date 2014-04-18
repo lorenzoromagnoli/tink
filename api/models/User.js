@@ -1,69 +1,88 @@
-// Credit:
-// @adityamukho https://gist.github.com/adityamukho/6260759
-
-var bcrypt = require('bcrypt');
-
-function hashPassword(values, next) {
-  bcrypt.hash(values.password, 10, function(err, hash) {
-    if (err) {
-      return next(err);
-    }
-    values.password = hash;
-    next();
-  });
-}
+/**
+ * User
+ *
+ * @module      :: Model
+ * @description :: A short summary of how this model works and what it represents.
+ *
+ */
 
 module.exports = {
+
+  schema: true,
+
   attributes: {
-    username: {
-      type: 'STRING',
-      required: true,
-      unique: true
+    
+    name: {
+      type: 'string',
+      required: true
     },
-    password: {
-      type: 'STRING',
-      required: true,
-      minLength: 6
+
+    title: {
+      type: 'string'
     },
+
     email: {
-      type: 'email',
+      type: 'string',
+      email: true,
       required: true,
       unique: true
     },
-    // Override toJSON instance method to remove password value
+
+    encryptedPassword: {
+      type: 'string'
+    },
+
+    online: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
+    admin: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
+    projectList:{
+      collection:'project',
+      via:'owner'
+    },
+
     toJSON: function() {
       var obj = this.toObject();
       delete obj.password;
+      delete obj.confirmation;
+      delete obj.encryptedPassword;
+      delete obj._csrf;
       return obj;
-    },
-    validPassword: function(password, callback) {
-      var obj = this.toObject();
-      if (callback) {
-        //callback (err, res)
-        return bcrypt.compare(password, obj.password, callback);
+    }
+
+  },
+
+
+  beforeValidation: function (values, next) {
+    if (typeof values.admin !== 'undefined') {
+      if (values.admin === 'unchecked') {
+        values.admin = false;
+      } else  if (values.admin[1] === 'on') {
+        values.admin = true;
       }
-      return bcrypt.compareSync(password, obj.password);
     }
+     next();
   },
-  // Lifecycle Callbacks
-  beforeCreate: function(values, next) {
-    hashPassword(values, next);
-  },
-  beforeUpdate: function(values, next) {
-    if (values.password) {
-      hashPassword(values, next);
+
+  beforeCreate: function (values, next) {
+
+    // This checks to make sure the password and password confirmation match before creating record
+    if (!values.password || values.password != values.confirmation) {
+      return next({err: ["Password doesn't match password confirmation."]});
     }
-    else {
-      //IMPORTANT: The following is only needed when a BLANK password param gets submitted through a form. Otherwise, a next() call is enough.
-      User.findOne(values.id).done(function(err, user) {
-        if (err) {
-          next(err);
-        }
-        else {
-          values.password = user.password;
-          next();
-        }
-      });
-    }
+
+    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
+      if (err) return next(err);
+      values.encryptedPassword = encryptedPassword;
+      // values.online= true;
+      next();
+    });
   }
+
 };

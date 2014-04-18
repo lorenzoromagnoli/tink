@@ -25,7 +25,7 @@ module.exports.views = {
   // For more options, check out the docs:
   // https://github.com/balderdashy/sails-wiki/blob/0.9/config.views.md#engine
 
-  engine: 'jade',
+  engine: 'ejs',
 
 
 
@@ -51,7 +51,7 @@ module.exports.views = {
   // (the file extension, e.g. ".ejs", should be omitted)
   //
 
-  layout: false
+  layout: 'layout'
 
 
 

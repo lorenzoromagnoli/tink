@@ -1,0 +1,39 @@
+<section ng-app="app">
+
+	<section ng-controller="projectCtrl" ng-init="projectId='<%= project.id %>'">
+
+    <ui-view>
+
+			<div id="project-left" ui-view="left">
+			        <i>Some content will load here!</i>
+
+
+			</div>
+
+			<div id="project-center" ui-view="center">
+				
+				<h2>{{name}} </h2>
+
+				<a ui-sref="edit.addEntity"> add Entity </a>
+				<a ui-sref="prova"> prova </a>
+
+				<div system-diagram> </div system-diagram>
+
+				<!-- <ng-include src="'/linker/js/project/partials/snapSystemDiagram.ejs'"></ng-include >
+ -->
+
+
+
+
+			</div>
+
+			<div id="project-right" ui-view="right">
+		
+			</div>
+    
+    </ui-view>
+
+	</section>
+
+
+</section>

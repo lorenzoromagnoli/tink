@@ -45,11 +45,11 @@ module.exports = function (grunt) {
 
     // Below, as a demonstration, you'll see the built-in dependencies 
     // linked in the proper order order
-    'linker/js/jquery.js',
+    'linker/js/lib/jquery.js',
     'linker/js/angular.js',
     'linker/js/ui-bootstrap.js',
     'linker/js/ui-bootstrap-tpls.js',
-    'linker/js/socket.io.js',
+    'linker/js/lib/socket.io.js',
     'linker/js/angular-socket.io.js',
     'linker/js/angular-sails.io.js',
     'linker/js/app.js',
@@ -152,7 +152,16 @@ module.exports = function (grunt) {
           { '.tmp/public/linker/js/angular.js':           './bower_components/angular/angular.js' },
           { '.tmp/public/linker/js/ui-bootstrap.js':      './bower_components/angular-bootstrap/ui-bootstrap.js' },
           { '.tmp/public/linker/js/ui-bootstrap-tpls.js': './bower_components/angular-bootstrap/ui-bootstrap-tpls.js' },
-          { '.tmp/public/linker/js/angular-socket.io.js': './bower_components/angular-socket-io/socket.js' }
+          { '.tmp/public/linker/js/angular-socket.io.js': './bower_components/angular-socket-io/socket.js' },
+          { '.tmp/public/linker/js/angular-ui-router.js': './bower_components/angular-ui-router/release/angular-ui-router.min.js' },
+          { '.tmp/public/linker/js/angular-resource.js': './bower_components/angular-resource/angular-resource.js' },
+          { '.tmp/public/linker/js/angular-route.js': './bower_components/angular-route/angular-route.js' },
+          { '.tmp/public/linker/js/snap.svg-min.js': './bower_components/snap.svg/dist/snap.svg-min.js' },
+          { '.tmp/public/linker/js/spinnaker.js': './bower_components/spinnaker/lib/spinnaker.js' }
+
+
+
+
         ]
       },
       prod : {
@@ -198,20 +207,21 @@ module.exports = function (grunt) {
     },
 
     less: {
-      bootstrap: {
-        options: {
-          paths: ['assets/linker/styles', 'bower_components/bootstrap/less']
-        },
+      dev: {
         files: [
-          { '.tmp/public/linker/styles/bootstrap.css': 'assets/linker/styles/bootstrap.less' }
-        ]
-      },
-      fontawesome: {
-        options: {
-          paths: ['assets/linker/styles', 'bower_components/font-awesome/less']
-        },
-        files: [
-          { '.tmp/public/linker/styles/font-awesome.css': 'assets/linker/styles/font-awesome.less' }
+          {
+          expand: true,
+          cwd: 'assets/styles/',
+          src: ['*.less'],
+          dest: '.tmp/public/styles/',
+          ext: '.css'
+        }, {
+          expand: true,
+          cwd: 'assets/linker/styles/',
+          src: ['*.less'],
+          dest: '.tmp/public/linker/styles/',
+          ext: '.css'
+        }
         ]
       }
     },

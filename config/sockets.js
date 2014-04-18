@@ -15,7 +15,7 @@ module.exports.sockets = {
   // Keep in mind that Sails' RESTful simulation for sockets 
   // mixes in socket.io events for your routes and blueprints automatically.
   onConnect: function(session, socket) {
-
+    console.log("connected");
     // By default: do nothing
     // This is a good place to subscribe a new socket to a room, inform other users that
     // someone new has come online, or any other custom socket.io logic
@@ -23,6 +23,7 @@ module.exports.sockets = {
 
   // This custom onDisconnect function will be run each time a socket disconnects
   onDisconnect: function(session, socket) {
+    console.log("disconnected");
 
     // By default: do nothing
     // This is a good place to broadcast a disconnect message, or any other custom socket.io logic
