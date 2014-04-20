@@ -1,17 +1,20 @@
 
 <svg  width="600" height="600" style="border:1px solid #000000;">
-	<text x="10" y="10">Project Title</text>	
+	<text x="10" y="10">{{name}}</text>	
 	<g 
 	ng-repeat="cObject in cObjects" 
 	ng-controller="cObjectCtrl" 
+	ng-init="setObjectData(cObject)"
 	transform="translate({{cObject.positionX}},{{cObject.positionY}})"
 	ng-click="selectCobject(cObject)"
 	ng-mousedown="objectDragStarted($event,cObject)"
 	ng-mouseup="objectDragFinished($event)"
 	ng-mousemove="objectDrag($event)"
+	ng-init="setObjectData(cObject)"
 	>
-		<text x="1" y="1">{{cObject.name}} </text>
-		<circle cx="30" cy="30" r="20"></circle>
+		<text x="1" y="1">{{cObject.name}}</text>
+<!-- 		<circle cx="30" cy="30" r="20"></circle>
+ -->		<image xlink:href="{{bigImage}}" x="0" y="0" height="90px" width="90px"/> 
 		<text x="1" y="60">({{cObject.positionX}},{{cObject.positionY}}) </text>
 
 	</g>	

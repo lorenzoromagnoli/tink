@@ -23,7 +23,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
       
       if(project.cObjects){ 
         $scope.selectedCObject=project.cObjects[0];
-
       } 
 
 		});		

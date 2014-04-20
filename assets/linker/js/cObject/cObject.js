@@ -6,7 +6,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
 
     function($scope, $routeParams, $route, $location, CObject ) {
 
-        // $scope.$watch('projectId', function () {//wait until the variable is initialized
+   //      $scope.$watch('$parent.selectedCObject', function () {//wait until the variable is initialized
             
 
      //         var cObject = CObject.get({cObjectId:id}, function(){
@@ -17,28 +17,29 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         // $scope.create=CObject.save({ProjectId:projectid}, function(){
 
         // })
-
-        $scope.cObjectId=$scope.$parent.selectedCObject.id; 
-
+        $scope.setObjectData=function(cO){
+            $scope.name=cO.name;
+            $scope.bigImage='/images/'+cO.image+'_big.png';
+            $scope.smallImage='/images/'+cO.image+'_big.png';
+            $scope.id=cO.id;
+            console.log($scope.bigImage);
+        }
 
         $scope.create = function() {
             var projectid=$scope.$parent.projectId; 
-
 
             var cObject=CObject.salva({project:projectid}, function(){
 
                 console.log(cObject);
                 $scope.$parent.cObjects.push(cObject);
-
                 $scope.$parent.selectedCObject=cObject;
-
                console.log($scope.$parent.selectedCObject);
             });
         }
 
 
         $scope.updateName=function(){
-            cObjectId=$scope.cObjectId;
+            cObjectId=$scope.$parent.selectedCObject.id; 
             newname=$scope.$parent.selectedCObject.name;
             CObject.update({id:cObjectId, name: newname});
             console.log("nameUpdated");
@@ -84,7 +85,6 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
       }
 
       $scope.objectDrag=function(dragEvent, cObject){
-
         if(dragStarted){
          //  console.log("offset",dragEvent.offsetX, dragEvent.offsetY);
           // console.log("client",dragEvent.clientX, dragEvent.clientY);
@@ -101,7 +101,6 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
 
     }
 ]);
-
 
 
  cObject.factory('CObject', ['$resource',function($resource){

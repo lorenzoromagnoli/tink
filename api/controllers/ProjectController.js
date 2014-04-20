@@ -40,7 +40,7 @@ module.exports = {
         // If error redirect back to sign-up page
         return res.redirect('/user/projectList');
       }
-        res.redirect('/project/index/' + project.id);
+        res.redirect('/project/open/' + project.id);
       //res.json(project)
       });
   },
