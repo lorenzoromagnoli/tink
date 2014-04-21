@@ -1,5 +1,5 @@
 
-<svg  width="600" height="600" style="border:1px solid #000000;">
+<svg  width="60%" height="100%" style="border:1px solid #000000;">
 	<text x="10" y="10">{{name}}</text>	
 	<g 
 	ng-repeat="cObject in cObjects" 
@@ -11,6 +11,7 @@
 	ng-mouseup="objectDragFinished($event)"
 	ng-mousemove="objectDrag($event)"
 	ng-init="setObjectData(cObject)"
+	style="display: block; margin: auto"
 	>
 		<text x="1" y="1">{{cObject.name}}</text>
 <!-- 		<circle cx="30" cy="30" r="20"></circle>

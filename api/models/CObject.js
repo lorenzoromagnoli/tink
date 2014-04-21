@@ -35,8 +35,11 @@ module.exports = {
   		type:'integer',
       defaultsTo: '100'
 
-  	}
-
+  	},
+    cOData:{
+      collection:'COData',
+      via:'cObject',
+    },
 
   	
   }

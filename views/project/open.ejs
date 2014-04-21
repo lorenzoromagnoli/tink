@@ -1,16 +1,14 @@
-<section ng-app="app">
+<div class="main-container">
+<section ng-app="app" class="project">
 
-	<section ng-controller="projectCtrl" ng-init="projectId='<%= project.id %>'">
+	<section ng-controller="projectCtrl" ng-init="projectId='<%= project.id %>'" ui-view class="project">
 
-    <ui-view>
 
-			<div id="project-left" ui-view="left">
+			<div class="project-left" ui-view="left">
 			        <i>Some content will load here!</i>
-
-
 			</div>
 
-			<div id="project-center" ui-view="center">
+			<div class="project-center" ui-view="center">
 				
 				<h2>{{name}} </h2>
 
@@ -27,13 +25,13 @@
 
 			</div>
 
-			<div id="project-right" ui-view="right">
+			<div class="project-right" ui-view="right">
 		
 			</div>
     
-    </ui-view>
 
 	</section>
 
 
 </section>
+</div>
