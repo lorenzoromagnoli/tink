@@ -33,10 +33,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
     //console.log($scope.selectdCObject);
     $state.go('edit.addcObject');
   }
-
-
-
-
 }]);
 
  // project.factory('Project', ['$resource',function($resource){
@@ -80,8 +76,6 @@ project.directive('systemDiagram', function() {
         restrict:'AE',
         //replace: true,
         link: function(scope,elem,attrs){
-          
-
         },
         templateUrl: "/linker/js/project/partials/systemDiagram.ejs",
     };

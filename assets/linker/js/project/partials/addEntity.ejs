@@ -1,42 +1,42 @@
 
 
 	<div id="addEntity">
-		<div class="addEntity">
+		<div class="header">
 			<h3>ADD NEW</h3>
 		</div>
+		<div class="content">
+			<div class="entityType" ng-controller="cObjectCtrl">
+				<p>
+					<img src="/images/connectedObject.png"/>
+					<a ui-sref="edit.addcObject" ng-click="create()">
+						Connected Object
+					</a>
+				</p>
+			</div>
+			<div class="entityType">
+				<p>
+				<img src="/images/webService.png"/>
 
-		<div class="entityType" ng-controller="cObjectCtrl">
-			<p>
-				<img src="/images/connectedObject.png"/>
-				<a ui-sref="edit.addcObject" ng-click="create()">
-					Connected Object
-				</a>
-			</p>
+					<a>
+						Web Service
+					</a>
+				</p>
+			</div>	
+			<div class="entityType">
+				<p>
+				<img src="/images/dataAnalyst.png"/>
+					<a>
+						Data analyst
+					</a>
+				</p>
+			</div>	
+			<div class="entityType">
+				<p>
+				<img src="/images/device.png"/>				
+					<a>
+						Device
+					</a>
+				</p>
+			</div>
 		</div>
-		<div class="entityType">
-			<p>
-			<img src="/images/webService.png"/>
-
-				<a>
-					Web Service
-				</a>
-			</p>
-		</div>	
-		<div class="entityType">
-			<p>
-			<img src="/images/dataAnalyst.png"/>
-				<a>
-					Data analyst
-				</a>
-			</p>
-		</div>	
-		<div class="entityType">
-			<p>
-			<img src="/images/device.png"/>				
-				<a>
-					Device
-				</a>
-			</p>
-		</div>
-		
 	</div>

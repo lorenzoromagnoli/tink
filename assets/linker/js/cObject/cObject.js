@@ -22,7 +22,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
             $scope.bigImage='/images/'+cO.image+'_big.png';
             $scope.smallImage='/images/'+cO.image+'_big.png';
             $scope.id=cO.id;
-            console.log($scope.bigImage);
+            console.log('init',cO);
         }
 
         $scope.create = function() {
@@ -42,7 +42,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
             cObjectId=$scope.$parent.selectedCObject.id; 
             newname=$scope.$parent.selectedCObject.name;
             CObject.update({id:cObjectId, name: newname});
-            console.log("nameUpdated");
+            //console.log("nameUpdated");
         }
 
         $scope.updatePosition=function(){
@@ -56,7 +56,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
                 positionY:newPositionY
             });
             
-            console.log("positionUpdated");
+            //console.log("positionUpdated");
         }
 
       var dragStarted=false;
@@ -68,7 +68,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         //console.log(dragEvent);
         dragStarted=true;
         cObjectDragged=cObject;
-        console.log(cObjectDragged);
+        //console.log(cObjectDragged);
         startingX=cObjectDragged.positionX;
         startingY=cObjectDragged.positionY;
         startingMouseX=dragEvent.clientX;
@@ -77,7 +77,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
       
       $scope.objectDragFinished=function(dragEvent){
         $scope.updatePosition();
-        console.log(dragEvent);
+        //console.log(dragEvent);
         dragStarted=false;
         cObjectDragged=null;
         startingPositionX=0;

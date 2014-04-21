@@ -1,47 +1,57 @@
-<div id="addCObject" ng-controller="cObjectCtrl" >
+<div 
+	id="addCObject" 
+	ng-controller="cObjectCtrl" 		
+	ng init="setObjectData(selectedCObject)"
+>
+	<div class="header">
+		<image src="/images/connectedObject.png" class="header-img"/>
+		<h3>CONNECTED OBJECT</h3>
+	</div>
 	
-	<h1>Connected Object</h1>
+	<div class="content">
+		<image src="{{name}}"/>
+		<h2>{{smallImage}}</h2>
 
-	<h2>{{selectedCObject.name}}</h2>
+		<input type="text" ng-model="selectedCObject.name" ng-change="updateName()">
 
-	<input type="text" ng-model="selectedCObject.name" ng-change="updateName()">
-
-	<div class="cObject settings">
-		<div class="cObject icon">
-		<div>
-		
-		<div class="cObject title">
-		<div>
-		
 		<div class="cObject settings">
-		<div>
+			<div class="cObject icon">
+			<div>
+			
+			<div class="cObject title">
+			<div>
+			
+			<div class="cObject settings">
+			<div>
+		</div>
+
+		<div class="cObject controllers">
+			<div class="data block">
+				<div class="title">
+				Data to track
+				</div>
+				<div class="data list">
+				</div>
+			</div>
+
+			<div class="trigger block">
+				<div class="title">
+				Triggers
+				</div>
+				<div class="trigger list">
+				</div>
+			</div>
+
+			<div class="action block">
+				<div class="title">
+				Actions
+				</div>
+				<div class="action list">
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<div class="cObject controllers">
-		<div class="data block">
-			<div class="title">
-			Data to track
-			</div>
-			<div class="data list">
-			</div>
-		</div>
-
-		<div class="trigger block">
-			<div class="title">
-			Triggers
-			</div>
-			<div class="trigger list">
-			</div>
-		</div>
-
-		<div class="action block">
-			<div class="title">
-			Actions
-			</div>
-			<div class="action list">
-			</div>
-		</div>
-	</div>
 
 
 </div>
