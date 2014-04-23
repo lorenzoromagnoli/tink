@@ -12,7 +12,7 @@ module.exports = {
 
   	name: {
   		type: 'string',
-  		defaultsTo: 'name'
+  		defaultsTo: 'new data to track'
   	},
 
     codeVariables:{

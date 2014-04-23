@@ -11,7 +11,9 @@ var app = angular.module('app', [
 	'sails.io', 
 	'app.project',
 	'app.cObject',
+    'app.cOData',
 	'ngResource',
+    'ui.ace',
 	 
 	]);
 

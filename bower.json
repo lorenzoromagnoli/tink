@@ -25,6 +25,7 @@
     "angular-resource": "~1.2.16",
     "angular-route": "~1.2.16",
     "snap.svg": "~0.2.0",
-    "spinnaker": "~0.0.7"
+    "spinnaker": "~0.0.7",
+    "angular-ui-ace": "bower"
   }
 }

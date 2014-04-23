@@ -1,20 +1,28 @@
 <div 
 	id="addCObject" 
-	ng-controller="cObjectCtrl" 		
-	ng init="setObjectData(selectedCObject)"
+	ng-controller="cObjectCtrl"
 >
 	<div class="header">
 		<image src="/images/connectedObject.png" class="header-img"/>
 		<h3>CONNECTED OBJECT</h3>
 	</div>
 	
+
 	<div class="content">
-		<image src="{{name}}"/>
-		<h2>{{smallImage}}</h2>
+		
+		<image src="/images/{{selectedCObject.image}}_small.png" width="50px" height="50px"/ class="icon_small">
+   		<div ng-hide="editorEnabled" class="project-title">
+			<h2>{{selectedCObject.name}}</h2>
+      		<a href="" ng-click="editorEnabled=!editorEnabled" class="glyphicon glyphicon-pencil"></a>
+    	</div>
+    	<div ng-show="editorEnabled" class="project-title">
+      		<input ng-model="selectedCObject.name">
+      		<a href="" ng-click="editorEnabled=!editorEnabled; updateName() " class="glyphicon glyphicon-ok"></a>
+    	</div>
+      	<a href="" ng-click="" class="glyphicon glyphicon glyphicon-cog"></a>
 
-		<input type="text" ng-model="selectedCObject.name" ng-change="updateName()">
 
-		<div class="cObject settings">
+		<div class="settings">
 			<div class="cObject icon">
 			<div>
 			
@@ -25,27 +33,41 @@
 			<div>
 		</div>
 
-		<div class="cObject controllers">
-			<div class="data block">
-				<div class="title">
+		<div class="actions">
+			<div class="block" ng-controller="cODataCtrl">
+				<span class="title">
 				Data to track
-				</div>
-				<div class="data list">
+				</span>
+				<image src="/images/plus_cyano.png" class="add_action" ng-click="create()"/>
+				<div class="data list" >
+					<div class="cOData" 
+					ng-repeat="cOData in selectedCObject.cODatas" 
+					ng-click="selectCOData(cOData)"
+					>
+						<div class="cOData-left"></div>
+						<div class="cOData-body" ng-click="selectCOData(cOData)">{{cOData.name}}</div> <div class="cOData-right"></div>
+								
+					</div>
+
 				</div>
 			</div>
 
-			<div class="trigger block">
-				<div class="title">
+			<div class="block">
+				<span class="title">
 				Triggers
-				</div>
+				</span>
+				<image src="/images/plus_orange.png" class="add_action"/>
+
 				<div class="trigger list">
 				</div>
 			</div>
 
-			<div class="action block">
-				<div class="title">
+			<div class="block">
+				<span class="title">
 				Actions
-				</div>
+				</span>
+				<image src="/images/plus_yellow.png" class="add_action"/>
+
 				<div class="action list">
 				</div>
 			</div>

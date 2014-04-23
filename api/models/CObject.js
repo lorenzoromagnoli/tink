@@ -36,12 +36,11 @@ module.exports = {
       defaultsTo: '100'
 
   	},
-    cOData:{
-      collection:'COData',
+    cODatas:{
+      collection:'cOData',
       via:'cObject',
     },
 
-  	
   }
 };
 

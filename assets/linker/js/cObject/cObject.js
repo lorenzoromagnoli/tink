@@ -22,7 +22,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
             $scope.bigImage='/images/'+cO.image+'_big.png';
             $scope.smallImage='/images/'+cO.image+'_big.png';
             $scope.id=cO.id;
-            console.log('init',cO);
+           // console.log('init',cO);
         }
 
         $scope.create = function() {
@@ -33,7 +33,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
                 console.log(cObject);
                 $scope.$parent.cObjects.push(cObject);
                 $scope.$parent.selectedCObject=cObject;
-               console.log($scope.$parent.selectedCObject);
+             //  console.log($scope.$parent.selectedCObject);
             });
         }
 
@@ -73,6 +73,8 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         startingY=cObjectDragged.positionY;
         startingMouseX=dragEvent.clientX;
         startingMouseY=dragEvent.clientY;
+
+        console.log($scope.$parent.cObjects);
       }
       
       $scope.objectDragFinished=function(dragEvent){
@@ -102,14 +104,14 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
     }
 ]);
 
-
  cObject.factory('CObject', ['$resource',function($resource){
      return $resource('/cObject/:id', {}, 
         {
             id:'@id', 
             'salva': {method:'POST', params:{project:'@id'}, url:'/cObject/create/' },
             'find': {method:'GET', params:{id:'@id'}, url:'/cObject/find/' },
-         
+            'getCOData': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOData/:id'},
+
             'update': {
                 method:'POST', 
                 params:{

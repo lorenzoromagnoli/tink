@@ -157,7 +157,12 @@ module.exports = function (grunt) {
           { '.tmp/public/linker/js/angular-resource.js': './bower_components/angular-resource/angular-resource.js' },
           { '.tmp/public/linker/js/angular-route.js': './bower_components/angular-route/angular-route.js' },
           { '.tmp/public/linker/js/snap.svg-min.js': './bower_components/snap.svg/dist/snap.svg-min.js' },
-          { '.tmp/public/linker/js/spinnaker.js': './bower_components/spinnaker/lib/spinnaker.js' }
+          { '.tmp/public/linker/js/spinnaker.js': './bower_components/spinnaker/lib/spinnaker.js' },
+          { '.tmp/public/linker/js/ace.js': './bower_components/ace-builds/src-min-noconflict/ace.js' },
+          { '.tmp/public/linker/js/ace-ui.js': './bower_components/angular-ui-ace/ui-ace.js' },
+          { '.tmp/public/linker/js/theme-monokai.js': './bower_components/ace-builds/src-min-noconflict/theme-monokai.js' },
+          { '.tmp/public/linker/js/mode-c_cpp.js': './bower_components/ace-builds/src-min-noconflict/mode-c_cpp.js' },
+
 
 
 

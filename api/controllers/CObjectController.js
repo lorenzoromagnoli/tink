@@ -49,12 +49,22 @@ module.exports = {
   },
 
   index: function(req, res, next) {
-
     // Get an array of all users in the User collection(e.g. table)
     CObject.find(function foundUsers(err, cObjects) {
       if (err) return next(err);
       // pass the array down to the /views/index.ejs page
       res.send(cObjects)
+    });
+  },
+
+ 'getCOData': function(req, res, next) {
+  CObject.findOne({id:req.param('id')}).populate('cODatas').exec(function foundProject(err, cODatas) {
+      if (err) return next(err);
+            if (!CObject) return next();
+      // pass the array down to the /views/index.ejs page
+       res.send(cODatas)
+      //  res.json(user)
+
     });
   },
 
