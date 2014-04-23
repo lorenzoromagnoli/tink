@@ -10,6 +10,7 @@
 @black: #1C1C1C;
 @darkBlue: #106E8D;
 @darkGray: #666666;   // paragraphs
+@superDarkGray: #333333;
 @red: #D16565; // error
 html {
     height: 100%;
@@ -26,7 +27,7 @@ padding-top: 0px;
 }
 .navbar{
   height:100px;
-  background-color: @darkGray;
+  background-color: @superDarkGray;
   position:relative;
   margin-bottom: 0px;
 
@@ -175,11 +176,15 @@ padding: 7px 9px;
     }
     
   }
+  .cOData{
+      display: table;
+      margin-top: 5px;
+    }
 }
 
 .cOData{
       display: table;
-      margin-top: 5px;
+      margin-top: 0px;
     }
     .cOData-left{
       background-image:url('/images/data_left.png');
@@ -205,9 +210,11 @@ padding: 7px 9px;
         color: @white;
         border:0px;
       }
+
     }
-
-
+      .glyphicon{
+        margin-left:5px;
+      }
 .overlay{
   position:absolute;
   width: 100%;
