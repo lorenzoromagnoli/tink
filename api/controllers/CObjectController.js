@@ -64,6 +64,31 @@ module.exports = {
       // pass the array down to the /views/index.ejs page
        res.send(cODatas)
       //  res.json(user)
+       console.log("datas",cODatas);
+
+    });
+  },
+
+ 'getCOTrigger': function(req, res, next) {
+  CObject.findOne({id:req.param('id')}).populate('cOTriggers').exec(function foundProject(err, cOTriggers) {
+      if (err) return next(err);
+            if (!CObject) return next();
+      // pass the array down to the /views/index.ejs page
+       res.send(cOTriggers)
+      //  res.json(user)
+       console.log("triggers",cOTriggers);
+
+    });
+  },
+
+     'getCOAction': function(req, res, next) {
+  CObject.findOne({id:req.param('id')}).populate('cOActions').exec(function foundProject(err, cOActions) {
+      if (err) return next(err);
+            if (!CObject) return next();
+      // pass the array down to the /views/index.ejs page
+       res.send(cOActions);
+       console.log("actions",cOActions);
+      //  res.json(user)
 
     });
   },

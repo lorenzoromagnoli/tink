@@ -177,7 +177,12 @@ padding: 7px 9px;
     
   }
   .cOData{
-      display: table;
+      margin-top: 5px;
+    }
+    .cOTrigger{
+      margin-top: 5px;
+    }
+    .cOAction{
       margin-top: 5px;
     }
 }
@@ -212,9 +217,74 @@ padding: 7px 9px;
       }
 
     }
-      .glyphicon{
-        margin-left:5px;
+
+
+.cOTrigger{
+      display: table;
+      margin-top: 0px;
+    }
+.cOTrigger-left{
+      background-image:url('/images/trigger_left.png');
+      width:23px;
+      height: 19px;
+      float:left;
+}
+.cOTrigger-right{
+      background-image:url('/images/trigger_right.png');
+      width:23px;
+      height: 19px;
+      float:left;
+}
+.cOTrigger-body{
+      background-color:@darkGray;
+      height: 19px;
+      float:left;
+      color: @white;
+      
+      input{
+        height:19px;
+        background-color: @darkGray;
+        color: @white;
+        border:0px;
       }
+
+}
+
+
+.cOAction{
+      display: table;
+      margin-top: 0px;
+    }
+.cOAction-left{
+      background-image:url('/images/action_left.png');
+      width:23px;
+      height: 19px;
+      float:left;
+}
+.cOAction-right{
+      background-image:url('/images/action_right.png');
+      width:23px;
+      height: 19px;
+      float:left;
+}
+.cOAction-body{
+      background-color:@darkGray;
+      height: 19px;
+      float:left;
+      color: @white;
+      
+      input{
+        height:19px;
+        background-color: @darkGray;
+        color: @white;
+        border:0px;
+      }
+
+}
+
+.glyphicon{
+        margin-left:5px;
+}
 .overlay{
   position:absolute;
   width: 100%;
@@ -246,6 +316,35 @@ padding: 7px 9px;
 
 .project-center column{
   width:70%;
+}
+
+.systemDiagram{
+  
+  .cObject{
+    .name{
+      font-size: 20px;
+    }
+    .iconMask{
+      stroke: @green;
+      fill: none;
+      stroke-width: 5;    
+    }
+      
+    .cOTrigger-rect{
+      fill: @darkGray;
+    }
+    .cOTrigger-text{
+      fill: @white;
+
+    }
+    .cOAction-rect{
+      fill: @darkGray;
+    }
+    .cOAction-text{
+      fill: @white;
+
+    }
+  }
 }
 
 .project-right{

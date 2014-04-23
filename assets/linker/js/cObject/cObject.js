@@ -111,6 +111,8 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
             'salva': {method:'POST', params:{project:'@id'}, url:'/cObject/create/' },
             'find': {method:'GET', params:{id:'@id'}, url:'/cObject/find/' },
             'getCOData': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOData/:id'},
+            'getCOTrigger': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOTrigger/:id'},
+            'getCOAction': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOAction/:id'},
 
             'update': {
                 method:'POST', 

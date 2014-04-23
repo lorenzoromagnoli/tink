@@ -1,23 +1,84 @@
 
-<svg  width="60%" height="100%" style="border:1px solid #000000;">
-	<text x="10" y="10">{{name}}</text>	
-	<g 
-	ng-repeat="cObject in cObjects" 
-	ng-controller="cObjectCtrl" 
-	ng-init="setObjectData(cObject)"
-	transform="translate({{cObject.positionX}},{{cObject.positionY}})"
-	ng-click="selectCobject(cObject)"
-	ng-mousedown="objectDragStarted($event,cObject)"
-	ng-mouseup="objectDragFinished($event)"
-	ng-mousemove="objectDrag($event)"
-	style="display: block; margin: auto"
-	>
-		<text x="1" y="1">{{cObject.name}}</text>
-<!-- 		<circle cx="30" cy="30" r="20"></circle>
- -->		<image xlink:href="{{bigImage}}" x="0" y="0" height="90px" width="90px"/> 
-		<text x="1" y="60">({{cObject.positionX}},{{cObject.positionY}}) </text>
+<svg version="1.1"
+ 	xmlns = 'http://www.w3.org/2000/svg' 
+ 	width="60%" 
+ 	height="100%" 
+ 	style="border:1px solid #000000;" 
+ 	class="systemDiagram"
+ 	id="systemDiagram"
+	
+	ng-mousedown="mouseDown($event)"
+	ng-mouseup="mouseUp($event)"
+	ng-mousemove="mouseMove($event)"
+ 
+ 	>
 
-	</g>	
 
-	<div ng-shape></div ng-shape>
+		<text x="10" y="10">{{name}}</text>	
+		<g 
+		ng-repeat="cObject in cObjects" 
+		ng-controller="cObjectCtrl" 
+		ng-init="setObjectData(cObject)"
+		transform="translate({{cObject.positionX}},{{cObject.positionY}})"
+		ng-click="selectCobject(cObject)"
+
+		class="cObject"
+		style="display: block; margin: auto"
+		>
+			
+			<!-- DRAW THE NAME -->
+			<text x="1" y="1" class="name">{{cObject.name}}</text>	
+
+			<!-- DRAW THE TRIGGERS -->
+			<g ng-repeat="cOTriggers in cObject.cOTriggers"
+				transform="translate(-110,{{(100+($index*25))}})"
+				> 
+				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="cOTrigger-left"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="cOTrigger-rect">{{cOTriggers.name}}</rect>
+				<text x="23" y="15"  class="cOTrigger-text">{{cOTriggers.name}}</text>
+				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="out cOTrigger-right" id="{{cOTriggers.id}}"></image> 
+
+			</g>
+
+			<!-- DRAW THE ACTIONS -->
+			<g ng-repeat="cOAction in cObject.cOActions"
+				transform="translate(60,{{(100+($index*25))}})"
+				> 
+				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" in cOAction-left" id="{{cOActions.id}}"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="cOAction-rect">{{cOAction.name}}</rect>
+				<text x="23" y="15"  class="cOAction-text">{{cOAction.name}}</text>
+				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="out cOAction-right" id="{{cOActions.id}}"></image> 
+
+			</g>
+
+			<!-- DRAW THE ICON -->
+ 			<clipPath id="ellipseMask">
+	 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
+ 			</clipPath>
+			<image xlink:href="{{bigImage}}" 
+				x="0" y="0" 
+				height="90px" 
+				width="90px" 
+				clip-path="url(#ellipseMask)"
+				ng-mousedown="objectDragStarted($event,cObject)"
+				ng-mouseup="objectDragFinished($event)"
+				ng-mousemove="objectDrag($event)">
+			</image> 
+ 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
+
+			
+
+		</g>
+
+		<!-- DRAW THE CONNECTION -->
+			<g ng-repeat="connection in connections">
+				<path d="M{{connection.x1}},{{connection.y1}} 
+						C{{connection.x1+50}},{{connection.y1}}
+						{{connection.x2-50}},{{connection.y2}} 
+						{{connection.x2}},{{connection.y2}}" 
+						style="stroke: #000000; fill:none;">
+				</path>
+			</g>	
+
+		<div ng-shape></div ng-shape>
 </svg>

@@ -40,7 +40,16 @@ module.exports = {
       collection:'cOData',
       via:'cObject',
     },
+    
+    cOTriggers:{
+      collection:'cOTrigger',
+      via:'cObject',
+    },
 
+    cOActions:{
+      collection:'cOAction',
+      via:'cObject',
+    },
   }
 };
 

@@ -45,30 +45,49 @@
 					ng-click="selectCOData(cOData)"
 					>
 						<div class="cOData-left"></div>
-						<div class="cOData-body" ng-click="selectCOData(cOData)">{{cOData.name}}</div> <div class="cOData-right"></div>
+						<div class="cOData-body" >{{cOData.name}}</div> 
+						<div class="cOData-right"></div>
 								
 					</div>
 
 				</div>
 			</div>
 
-			<div class="block">
+			<div class="block" ng-controller="cOTriggerCtrl">
 				<span class="title">
 				Triggers
 				</span>
-				<image src="/images/plus_orange.png" class="add_action"/>
+				<image src="/images/plus_orange.png" class="add_action" ng-click="create()"/>
 
 				<div class="trigger list">
+					<div class="cOTrigger" 
+					ng-repeat="cOTrigger in selectedCObject.cOTriggers" 
+					ng-click="selectCOTrigger(cOTrigger)"
+					>
+						<div class="cOTrigger-left"></div>
+						<div class="cOTrigger-body">{{cOTrigger.name}}</div> 
+						<div class="cOTrigger-right"></div>
+								
+					</div>
 				</div>
 			</div>
 
-			<div class="block">
+			<div class="block" ng-controller="cOActionCtrl">
 				<span class="title">
 				Actions
 				</span>
-				<image src="/images/plus_yellow.png" class="add_action"/>
+				<image src="/images/plus_yellow.png" class="add_action" ng-click="create()"/>
 
-				<div class="action list">
+				<div class="trigger list">
+					<div class="cOAction" 
+					ng-repeat="cOAction in selectedCObject.cOActions" 
+					ng-click="selectCOAction(cOAction)"
+					>
+						<div class="cOAction-left"></div>
+						<div class="cOAction-body">{{cOAction.name}}</div> 
+						<div class="cOAction-right"></div>
+								
+					</div>
 				</div>
 			</div>
 		</div>
