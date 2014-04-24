@@ -22,6 +22,10 @@ module.exports = {
       collection:'cObject',
       via:'project',
     },
+    connections:{
+      collection:"connections",
+      via: 'project',
+    }
   }
 
 };

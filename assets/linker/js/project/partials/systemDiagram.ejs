@@ -35,10 +35,10 @@
 			<g ng-repeat="cOTriggers in cObject.cOTriggers"
 				transform="translate(-110,{{(100+($index*25))}})"
 				> 
-				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="cOTrigger-left"></image> 
+				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="cOTrigger left"></image> 
 				<rect x="23" y="0" height="19px" width="100px" class="cOTrigger-rect">{{cOTriggers.name}}</rect>
 				<text x="23" y="15"  class="cOTrigger-text">{{cOTriggers.name}}</text>
-				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="out cOTrigger-right" id="{{cOTriggers.id}}"></image> 
+				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="start cOTrigger right" id="{{cOTriggers.id}}"></image> 
 
 			</g>
 
@@ -46,10 +46,10 @@
 			<g ng-repeat="cOAction in cObject.cOActions"
 				transform="translate(60,{{(100+($index*25))}})"
 				> 
-				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" in cOAction-left" id="{{cOAction.id}}"></image> 
+				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" end cOAction left" id="{{cOAction.id}}"></image> 
 				<rect x="23" y="0" height="19px" width="100px" class="cOAction-rect">{{cOAction.name}}</rect>
 				<text x="23" y="15"  class="cOAction-text">{{cOAction.name}}</text>
-				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="out cOAction-right" id="{{cOAction.id}}"></image> 
+				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="start cOAction right" id="{{cOAction.id}}"></image> 
 
 			</g>
 

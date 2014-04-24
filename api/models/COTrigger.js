@@ -31,9 +31,7 @@ module.exports = {
   		model:'cObject',
   	},
 
-    connectTo:{
-      model:'cOaction',
-    }
+
 
   }
 };

@@ -64,7 +64,7 @@ module.exports = {
       // pass the array down to the /views/index.ejs page
        res.send(cODatas)
       //  res.json(user)
-       console.log("datas",cODatas);
+      // console.log("datas",cODatas);
 
     });
   },
@@ -76,7 +76,7 @@ module.exports = {
       // pass the array down to the /views/index.ejs page
        res.send(cOTriggers)
       //  res.json(user)
-       console.log("triggers",cOTriggers);
+       //console.log("triggers",cOTriggers);
 
     });
   },
@@ -87,7 +87,7 @@ module.exports = {
             if (!CObject) return next();
       // pass the array down to the /views/index.ejs page
        res.send(cOActions);
-       console.log("actions",cOActions);
+     //  console.log("actions",cOActions);
       //  res.json(user)
 
     });

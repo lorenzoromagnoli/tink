@@ -22,6 +22,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
             $scope.bigImage='/images/'+cO.image+'_big.png';
             $scope.smallImage='/images/'+cO.image+'_big.png';
             $scope.id=cO.id;
+            
            // console.log('init',cO);
         }
 
@@ -74,7 +75,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         startingMouseX=dragEvent.clientX;
         startingMouseY=dragEvent.clientY;
 
-        console.log($scope.$parent.cObjects);
+        //console.log($scope.$parent.cObjects);
       }
       
       $scope.objectDragFinished=function(dragEvent){

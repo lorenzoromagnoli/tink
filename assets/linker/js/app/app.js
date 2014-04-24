@@ -14,6 +14,7 @@ var app = angular.module('app', [
     'app.cOData',
     'app.cOTrigger',
     'app.cOAction',
+    'app.connection',
 	'ngResource',
     'ui.ace',
 	 

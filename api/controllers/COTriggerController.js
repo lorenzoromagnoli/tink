@@ -10,7 +10,6 @@ module.exports = {
 
     var cOTriggerObj = {
       cObject: req.param('cObject'),
-      name: req.param('name'),
 
     }
     COTrigger.create(cOTriggerObj, function cObjectCreated(err, COTrigger) {

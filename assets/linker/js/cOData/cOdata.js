@@ -7,7 +7,7 @@ cOData.controller('cODataCtrl', ['$scope','$route', '$routeParams','$location', 
     function($scope, $routeParams, $route, $location, COData ,$state) {
 
          $scope.$watch('$scope.$parent.selectedCOData', function () {//wait until the variable is initialized
-            console.log('update selectedCOData',$scope.$parent.selectedCOData);
+            //console.log('update selectedCOData',$scope.$parent.selectedCOData);
             
             if($scope.$parent.selectedCOData){
                 $scope.id=$scope.$parent.selectedCOData.id; 

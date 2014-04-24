@@ -10,7 +10,6 @@ module.exports = {
 
     var cODataObj = {
       cObject: req.param('cObject'),
-      name: req.param('name'),
 
     }
     COData.create(cODataObj, function cObjectCreated(err, COData) {

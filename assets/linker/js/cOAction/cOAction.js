@@ -7,7 +7,7 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
     function($scope, $routeParams, $route, $location, COAction ,$state) {
 
          $scope.$watch('$scope.$parent.selectedCOAction', function () {//wait until the variable is initialized
-            console.log('update selectedCOAction',$scope.$parent.selectedCOAction);
+            //console.log('update selectedCOAction',$scope.$parent.selectedCOAction);
             
             if($scope.$parent.selectedCOAction){
                 $scope.id=$scope.$parent.selectedCOAction.id; 

@@ -7,7 +7,7 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
     function($scope, $routeParams, $route, $location, COTrigger ,$state) {
 
          $scope.$watch('$scope.$parent.selectedCOTrigger', function () {//wait until the variable is initialized
-            console.log('update selectedCOTrigger',$scope.$parent.selectedCOTrigger);
+            //console.log('update selectedCOTrigger',$scope.$parent.selectedCOTrigger);
             
             if($scope.$parent.selectedCOTrigger){
                 $scope.id=$scope.$parent.selectedCOTrigger.id; 
@@ -77,6 +77,7 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
               $scope.$parent.selectedCOTrigger.codeVariables = $scope.codeVariables;
               $scope.$parent.selectedCOTrigger.codeSetup = $scope.codeSetup;
               $scope.$parent.selectedCOTrigger.codefunction = $scope.codeFunction;
+              
         }
 
 

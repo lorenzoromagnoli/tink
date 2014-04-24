@@ -10,26 +10,22 @@ module.exports = {
 
   attributes: {
 
-  	name: {
-  		type: 'string',
-  		defaultsTo: 'new trigger'
+    project: {
+      model:'project',
+      required:true
+    },
+
+  	start: {
+  		type: 'String',
+      required: true
+
   	},
 
-    codeVariables:{
-      type:'string',
-    },
+    end: {
+      type: 'String',
+      required: true
 
-    codeSetup:{
-      type:'string',
     },
-
-    codefunction:{
-      type:'string',
-    },
-
-  	cObject: {
-  		model:'cObject',
-  	},
     
   }
 };
