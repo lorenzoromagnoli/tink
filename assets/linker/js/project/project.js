@@ -67,10 +67,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
 
         $scope.connections=new Array();
-        $scope.connections=[{x1:20, y1:20, x2:200, y2:150,},
-                            {x1:50, y1:50, x2:100, y2:150,}]
-
-
         $scope.connectionsid=new Array();
 
 		  });		
@@ -103,13 +99,17 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
       $state.go('edit.editCOAction');
     }
 
-
     var dragStarted=false;
-    var initialTriggerId;
-    var offsetX;
-    var offsetY;
+    var dragArrowStarted=false;
+    var calcOffsetX;
+    var calcOffsetY;
+    var scrollX;
+    var scrollY;
 
     $scope.mouseDown=function(mouseEvent){
+      
+      dragStarted=true;
+
       var elem = document.elementFromPoint(mouseEvent.clientX, mouseEvent.clientY);
       //console.log(elem);
       //console.log(mouseEvent.clientX, mouseEvent.clientY);
@@ -118,41 +118,104 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
       offsetX=SDElem.offset().left;
       offsetY=SDElem.offset().top;
 
+      scrollX=$(window).scrollLeft();
+      scrollY=$(window).scrollTop();
+
+      calcOffsetX=offsetX-scrollX;
+      calcOffsetY=offsetY-scrollY;
+
+      console.log("offset",offsetX,offsetY)
+
+      console.log("scroll",scrollX,scrollY);
+      
+      console.log("calcOffset",calcOffsetX,calcOffsetY)
+
     //console.log($(elem).attr('class'));
     
-    console.log($(elem).hasClass('out'));
+    //console.log($(elem).hasClass('out'));
+      $scope.updatingConnection=false;
 
 
-      // if ($(elem).hasClass("out")){
-      //   dragStarted=true;
-      //   console.log("I start a new arrow");
+      if ($(elem).hasClass("out")){
+        dragArrowStarted=true;
+        console.log("I start a new arrow");
         
-      //   initialTriggerId=elem.id;
-      //   console.log(initialTriggerId);
+        outputID=elem.id;
+        console.log(outputID);
 
-      //   var newX1=mouseEvent.clientX-offsetX;
-      //   var newY1=mouseEvent.clientY-offsetY;
+        // var newX1=mouseEvent.clientX-calcOffsetX;
+        // var newY1=mouseEvent.clientY-calcOffsetY;
 
-      //   $scope.connections.push({x1:newX1,y1:newY1,x2:newX1,y2:newY1});
-      //   $scope.connectionsid.push({out:initialTriggerId, in:initialTriggerId});
-      // }
+        var newX1=$('#'+outputID).offset().left-offsetX ;
+        var newY1=$('#'+outputID).offset().top-offsetY;
+
+        $scope.connections.push({x1:newX1,y1:newY1,x2:newX1,y2:newY1});
+        $scope.connectionsid.push({out:outputID, in:null});
+      }
     }
 
     $scope.mouseMove=function(mouseEvent){
-      if(dragStarted){
-        $scope.connections[$scope.connections.length-1].x2=mouseEvent.clientX-offsetX;
-        $scope.connections[$scope.connections.length-1].y2=mouseEvent.clientY-offsetY;
-
+      if(dragArrowStarted){
+        $scope.connections[$scope.connections.length-1].x2=mouseEvent.clientX-calcOffsetX;
+        $scope.connections[$scope.connections.length-1].y2=mouseEvent.clientY-calcOffsetY;
+      }
+      if (dragStarted&&!dragArrowStarted){
+        updateConnections();
+        console.log("dragging something else than an arrow")
       }
     }
 
     $scope.mouseUp=function(mouseEvent){
+      if(dragArrowStarted){
+        var elem = document.elementFromPoint(mouseEvent.clientX, mouseEvent.clientY);
+          if ($(elem).hasClass("in")){
+            console.log("this is the right place!");
+
+            inputId=elem.id;
+            console.log(inputId);
+
+            $scope.connectionsid[$scope.connectionsid.length-1].in=inputId;
+            updateConnections();
+
+          }else{
+            $scope.connectionsid.pop();
+            $scope.connections.pop();
+
+          }
+
+          console.log($scope.connectionsid);
+      }
+      dragArrowStarted=false;
       dragStarted=false;
 
+
+
     }
+    var updateConnections=function(){
+
+      $scope.updatingConnection=true;
+
+      var newConnections=new Array();
+      $scope.connectionsid.forEach(function(entry,i) {
+        console.log(entry);
+        x1=$('#'+entry.out).offset().left-offsetX ;
+        y1=$('#'+entry.out).offset().top-offsetY;
+        x2=$('#'+entry.in).offset().left-offsetX;
+        y2=$('#'+entry.in).offset().top-offsetY;
+
+        console.log("offset",x1);
+        newConnections[i]={x1:x1, y1:y1, x2:x2, y2:y2}
+      });
+        $scope.connections=newConnections
+        console.log($scope.connections);
+    }
+      $scope.updatingConnection=false;
+
 
 
 }]);
+
+
 
  // project.factory('Project', ['$resource',function($resource){
  //     return $resource('/project/:projectId', {}, {projectId:'@id'});

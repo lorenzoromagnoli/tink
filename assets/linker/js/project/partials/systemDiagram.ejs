@@ -10,7 +10,8 @@
 	ng-mousedown="mouseDown($event)"
 	ng-mouseup="mouseUp($event)"
 	ng-mousemove="mouseMove($event)"
- 
+
+
  	>
 
 
@@ -21,6 +22,7 @@
 		ng-init="setObjectData(cObject)"
 		transform="translate({{cObject.positionX}},{{cObject.positionY}})"
 		ng-click="selectCobject(cObject)"
+
 
 		class="cObject"
 		style="display: block; margin: auto"
@@ -44,10 +46,10 @@
 			<g ng-repeat="cOAction in cObject.cOActions"
 				transform="translate(60,{{(100+($index*25))}})"
 				> 
-				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" in cOAction-left" id="{{cOActions.id}}"></image> 
+				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" in cOAction-left" id="{{cOAction.id}}"></image> 
 				<rect x="23" y="0" height="19px" width="100px" class="cOAction-rect">{{cOAction.name}}</rect>
 				<text x="23" y="15"  class="cOAction-text">{{cOAction.name}}</text>
-				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="out cOAction-right" id="{{cOActions.id}}"></image> 
+				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="out cOAction-right" id="{{cOAction.id}}"></image> 
 
 			</g>
 
@@ -71,12 +73,16 @@
 		</g>
 
 		<!-- DRAW THE CONNECTION -->
-			<g ng-repeat="connection in connections">
-				<path d="M{{connection.x1}},{{connection.y1}} 
+			<g ng-repeat="connection in connections"  
+				transform="translate(10,10)"
+
+			>
+				<path 	ng-attr-d="M{{connection.x1}},{{connection.y1}} 
 						C{{connection.x1+50}},{{connection.y1}}
 						{{connection.x2-50}},{{connection.y2}} 
 						{{connection.x2}},{{connection.y2}}" 
-						style="stroke: #000000; fill:none;">
+						style="stroke: #000000; fill:none;"
+						>
 				</path>
 			</g>	
 
