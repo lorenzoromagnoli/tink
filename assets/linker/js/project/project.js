@@ -71,6 +71,8 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
                             {x1:50, y1:50, x2:100, y2:150,}]
 
 
+        $scope.connectionsid=new Array();
+
 		  });		
 	  }); 
 
@@ -109,25 +111,31 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
     $scope.mouseDown=function(mouseEvent){
       var elem = document.elementFromPoint(mouseEvent.clientX, mouseEvent.clientY);
-      console.log(elem);
+      //console.log(elem);
       //console.log(mouseEvent.clientX, mouseEvent.clientY);
-      console.log($(elem));
+     // console.log($(elem));
       SDElem=$("#systemDiagram");
       offsetX=SDElem.offset().left;
       offsetY=SDElem.offset().top;
 
-console.log($(elem).hasClass("out"));
-      if ($(elem).hasClass("out")){
-        dragStarted=true;
-        console.log("I start a new arrow");
-        initialTriggerId=elem.id;
-        console.log(initialTriggerId);
+    //console.log($(elem).attr('class'));
+    
+    console.log($(elem).hasClass('out'));
 
-        var newX1=mouseEvent.clientX-offsetX;
-        var newY1=mouseEvent.clientY-offsetY;
 
-        $scope.connections.push({x1:newX1,y1:newY1,x2:newX1,y2:newY1});
-      }
+      // if ($(elem).hasClass("out")){
+      //   dragStarted=true;
+      //   console.log("I start a new arrow");
+        
+      //   initialTriggerId=elem.id;
+      //   console.log(initialTriggerId);
+
+      //   var newX1=mouseEvent.clientX-offsetX;
+      //   var newY1=mouseEvent.clientY-offsetY;
+
+      //   $scope.connections.push({x1:newX1,y1:newY1,x2:newX1,y2:newY1});
+      //   $scope.connectionsid.push({out:initialTriggerId, in:initialTriggerId});
+      // }
     }
 
     $scope.mouseMove=function(mouseEvent){
