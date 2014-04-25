@@ -2,9 +2,9 @@
 var project = angular.module('app.project', ['ngRoute']);
 
  
-project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location', 'Project', '$state','COData','CObject','COTrigger','COAction','Connection',
+project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location', 'Project', '$state','COData','CObject','COTrigger','COAction','Connection','$timeout',
 
- 	function($scope, $routeParams, $route, $location, Project, $state, COData,CObject,COTrigger,COAction, Connection) {
+ 	function($scope, $routeParams, $route, $location, Project, $state, COData,CObject,COTrigger,COAction, Connection, $timeout) {
 
 		$scope.$watch('projectId', function () {//wait until the variable is initialized
     		
@@ -150,7 +150,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
     
     //console.log($(elem).hasClass('out'));
 
-      updateConnections();
 
 
       if ($(elem).hasClass("start")){
@@ -177,7 +176,7 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         $scope.connections[$scope.connections.length-1].y2=mouseEvent.clientY-calcOffsetY;
       }
       if (dragStarted&&!dragArrowStarted){
-        updateConnections();
+        $scope.updateConnections();
     //    console.log("dragging something else than an arrow")
       }
     }
@@ -227,9 +226,8 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
 
     }
-    var updateConnections=function(){
 
-      $scope.updatingConnection=true;
+    $scope.updateConnections=function(){
 
       var newConnections=new Array();
       $scope.connectionsid.forEach(function(entry,i) {
@@ -258,8 +256,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         console.log($scope.connections);
 
     }
-      $scope.updatingConnection=false;
-
 
 
 }]);
@@ -323,11 +319,20 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
  ]);
 
 
-project.directive('systemDiagram', function() {
+project.directive('systemDiagram', function($timeout) {
     return {
         restrict:'AE',
         //replace: true,
         link: function(scope,elem,attrs){
+
+          $(document).ready(function(){
+            setTimeout(function(){
+              SDElem=$("#systemDiagram");
+              offsetX=SDElem.offset().left;
+              offsetY=SDElem.offset().top;
+              scope.updateConnections();  
+            }, 500);
+          });
         },
         templateUrl: "/linker/js/project/partials/systemDiagram.ejs",
     };
