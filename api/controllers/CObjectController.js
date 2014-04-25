@@ -4,13 +4,13 @@
  * @description ::
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
-module.exports = {
-    
+ module.exports = {
+  
 
   new: function (req,res){
     res.view();
   },
-    
+  
   
   create: function(req, res, next) {
 
@@ -36,7 +36,7 @@ module.exports = {
       //  res.redirect('/project/index/' + project.id);
       console.log(cObject);
       res.send(cObject);
-      });
+    });
   },
 
 
@@ -57,36 +57,36 @@ module.exports = {
     });
   },
 
- 'getCOData': function(req, res, next) {
-  CObject.findOne({id:req.param('id')}).populate('cODatas').exec(function foundProject(err, cODatas) {
+  'getCOData': function(req, res, next) {
+    CObject.findOne({id:req.param('id')}).populate('cODatas').exec(function foundProject(err, cODatas) {
       if (err) return next(err);
-            if (!CObject) return next();
+      if (!CObject) return next();
       // pass the array down to the /views/index.ejs page
-       res.send(cODatas)
+      res.send(cODatas)
       //  res.json(user)
       // console.log("datas",cODatas);
 
     });
   },
 
- 'getCOTrigger': function(req, res, next) {
-  CObject.findOne({id:req.param('id')}).populate('cOTriggers').exec(function foundProject(err, cOTriggers) {
+  'getCOTrigger': function(req, res, next) {
+    CObject.findOne({id:req.param('id')}).populate('cOTriggers').exec(function foundProject(err, cOTriggers) {
       if (err) return next(err);
-            if (!CObject) return next();
+      if (!CObject) return next();
       // pass the array down to the /views/index.ejs page
-       res.send(cOTriggers)
+      res.send(cOTriggers)
       //  res.json(user)
        //console.log("triggers",cOTriggers);
 
-    });
+     });
   },
 
-     'getCOAction': function(req, res, next) {
-  CObject.findOne({id:req.param('id')}).populate('cOActions').exec(function foundProject(err, cOActions) {
+  'getCOAction': function(req, res, next) {
+    CObject.findOne({id:req.param('id')}).populate('cOActions').exec(function foundProject(err, cOActions) {
       if (err) return next(err);
-            if (!CObject) return next();
+      if (!CObject) return next();
       // pass the array down to the /views/index.ejs page
-       res.send(cOActions);
+      res.send(cOActions);
      //  console.log("actions",cOActions);
       //  res.json(user)
 

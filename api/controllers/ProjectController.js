@@ -15,12 +15,12 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
-module.exports = {
-    
-'new': function (req,res){
-	res.view();
-},
-     create: function(req, res, next) {
+ module.exports = {
+
+  'new': function (req,res){
+  	res.view();
+  },
+  create: function(req, res, next) {
 
     var projectObj = {
       name: req.param('name'),
@@ -40,9 +40,9 @@ module.exports = {
         // If error redirect back to sign-up page
         return res.redirect('/user/projectList');
       }
-        res.redirect('/project/open/' + project.id);
+      res.redirect('/project/open/' + project.id);
       //res.json(project)
-      });
+    });
   },
 
   'open': function(req, res, next) {
@@ -57,15 +57,27 @@ module.exports = {
 
 
   'show': function(req, res, next) {
-Project.findOne({id:req.param('id')}).populate('cObjects').populate('connections').exec(function foundProject(err, project) {
+    Project.findOne({id:req.param('id')}).populate('cObjects').populate('connections').exec(function foundProject(err, project) {
       if (err) return next(err);
-            if (!project) return next();
+      if (!project) return next();
       // pass the array down to the /views/index.ejs page
-       res.send(project)
+      res.send(project)
       //  res.json(user)
 
     });
   },
+
+  join: function(req, res) {
+    var room = req.param('room');
+
+    // If request from WebSocket, this method is exist.
+    console.log("ciao Socket");
+    req.socket.join(room);
+
+    res.json({
+      success: true
+    });
+  }
 
 
 

@@ -1,10 +1,10 @@
 module.exports = {
-    
+
 
   new: function (req,res){
     res.view();
   },
-    
+
   
   create: function(req, res, next) {
 
@@ -28,18 +28,18 @@ module.exports = {
         return res.send('error');
       }
       //  res.redirect('/project/index/' + project.id);
-//      console.log(Connections);
+      //      console.log(Connections);
       res.send(Connections);
-      });
+    });
   },
 
   'getConnections': function(req, res, next) {
     Connections.find({project:req.param('project')}).exec(function foundProject(err, Connections) {
       if (err) return next(err);
-            if (!CObject) return next();
+      if (!CObject) return next();
       // pass the array down to the /views/index.ejs page
-       res.send(Connections);
-       console.log("connections",Connections);
+      res.send(Connections);
+      console.log("connections",Connections);
       //  res.json(user)
 
     });

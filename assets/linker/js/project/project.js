@@ -2,9 +2,9 @@
 var project = angular.module('app.project', ['ngRoute']);
 
  
-project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location', 'Project', '$state','COData','CObject','COTrigger','COAction','Connection','$timeout',
+project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location', 'Project', '$state','COData','CObject','COTrigger','COAction','Connection','$timeout','Socket',
 
- 	function($scope, $routeParams, $route, $location, Project, $state, COData,CObject,COTrigger,COAction, Connection, $timeout) {
+ 	function($scope, $routeParams, $route, $location, Project, $state, COData,CObject,COTrigger,COAction, Connection, $timeout, Socket) {
 
 		$scope.$watch('projectId', function () {//wait until the variable is initialized
     		
@@ -92,21 +92,18 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
     }
 
 
-    $scope.selectedCOData=new Array(); 
     $scope.selectCOData =function(cOData){
       $scope.selectedCOData=cOData;
       //console.log($scope.selectdCObject);
       $state.go('edit.editCOData');
     }
 
-    $scope.selectedCOTrigger=new Array(); 
     $scope.selectCOTrigger =function(cOTrigger){
       $scope.selectedCOTrigger=cOTrigger;
       //console.log($scope.selectdCObject);
       $state.go('edit.editCOTrigger');
     }
 
-    $scope.selectedCOAction=null; 
     $scope.selectCOAction =function(cOAction){
       $scope.selectedCOAction=cOAction;
       //console.log($scope.selectdCObject);
@@ -121,7 +118,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
     var scrollY;
 
     $scope.mouseDown=function(mouseEvent){
-      
 
 
       dragStarted=true;
@@ -157,7 +153,7 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         console.log("I start a new arrow");
         
         outputID=elem.id;
-        console.log(outputID);
+        //console.log(outputID);
 
         // var newX1=mouseEvent.clientX-calcOffsetX;
         // var newY1=mouseEvent.clientY-calcOffsetY;
@@ -189,20 +185,20 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
             console.log("this is the right place!");
 
             inputId=elem.id;
-            console.log(inputId);
+            //console.log(inputId);
 
             
-            console.log($scope.connectionsid);
-            console.log($scope.connections);
+            //console.log($scope.connectionsid);
+            //console.log($scope.connections);
 
 
             $scope.connectionsid[$scope.connectionsid.length-1].end=inputId;
-            updateConnections();
+            $scope.updateConnections();
             
             var projectID=$scope.projectId;
             var startID=$scope.connectionsid[$scope.connectionsid.length-1].start;
             var endID=$scope.connectionsid[$scope.connectionsid.length-1].end;
-            console.log(projectID)
+            //console.log(projectID)
 
             Connection.salva({project:projectID,start:startID,end:endID}, function(){
               //console.log("newAction", connection);
@@ -210,7 +206,9 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
                //$scope.$parent.selectedCObject.connections.push(connection);
             });
 
-            updateConnections();
+            $scope.updateConnections();
+
+
           }else{
             $scope.connectionsid.pop();
             $scope.connections.pop();
@@ -239,23 +237,25 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         x1=$('#'+entry.start+'.start').offset().left-offsetX ;
         y1=$('#'+entry.start+'.start').offset().top-offsetY;
 
-      console.log($('#'+entry.end));
+      //console.log($('#'+entry.end));
 
-      console.log($('#'+entry.end+'.end'));
+//      console.log($('#'+entry.end+'.end'));
 
         x2=$('#'+entry.end+'.end').offset().left-offsetX;
         y2=$('#'+entry.end+'.end').offset().top-offsetY;
-         console.log("updatingConnections",x1,y1,x2,y2);
+       //  console.log("updatingConnections",x1,y1,x2,y2);
 
         //console.log("offset",x1);
         newConnections[i]={x1:x1, y1:y1, x2:x2, y2:y2}
       });
         $scope.connections=newConnections
-        console.log($scope.connectionsid);
+  //      console.log($scope.connectionsid);
 
-        console.log($scope.connections);
+  //      console.log($scope.connections);
 
     }
+
+
 
 
 }]);
@@ -275,6 +275,13 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
      	});
    }]);
+
+project.factory('Socket', function (socketFactory) {
+  return socketFactory({
+    prefix: 'foo~',
+    ioSocket: io.connect('/project/join')
+  });
+});
 
 
  project.config(['$stateProvider', '$urlRouterProvider',

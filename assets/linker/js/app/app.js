@@ -7,8 +7,8 @@
  */
 var app = angular.module('app', [
 	'ui.router',
+    'btford.socket-io',
 	'ui.bootstrap', 
-	'sails.io', 
 	'app.project',
 	'app.cObject',
     'app.cOData',
@@ -48,4 +48,3 @@ app.config(function($sceProvider) {
 });
 
     
-
