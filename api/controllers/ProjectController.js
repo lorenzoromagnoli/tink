@@ -67,17 +67,23 @@
     });
   },
 
-  join: function(req, res) {
-    var room = req.param('room');
-
-    // If request from WebSocket, this method is exist.
-    console.log("ciao Socket");
-    req.socket.join(room);
-
-    res.json({
-      success: true
+  subscribe: function(req, res) {
+ 
+    // Find all current users in the user model
+    Project.find(function foundUsers(err, projects) {
+      if (err) return next(err);
+ 
+      // subscribe this socket to the User model classroom
+      Project.subscribe(req.socket);
+ 
+      // subscribe this socket to the user instance rooms
+      Project.subscribe(req.socket, projects);
+ 
+      // This will avoid a warning from the socket for trying to render
+      // html over the socket.
+      res.send(200);
     });
-  }
+  },
 
 
 

@@ -1,12 +1,19 @@
 
-var project = angular.module('app.project', ['ngRoute']);
+var project = angular.module('app.project', ['ngRoute','btford.socket-io',]);
 
  
-project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location', 'Project', '$state','COData','CObject','COTrigger','COAction','Connection','$timeout','Socket',
+project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location', 'Project', '$state','COData','CObject','COTrigger','COAction','Connection','$timeout','socket',
 
- 	function($scope, $routeParams, $route, $location, Project, $state, COData,CObject,COTrigger,COAction, Connection, $timeout, Socket) {
+ 	function($scope, $routeParams, $route, $location, Project, $state, COData,CObject,COTrigger,COAction, Connection, $timeout, socket) {
+
+
 
 		$scope.$watch('projectId', function () {//wait until the variable is initialized
+
+
+      socket.on('foo~bar', function () {
+    $scope.bar = true;
+  });
     		
  		  var id=$scope.projectId;
 	  	var project = Project.show({projectId:id}, function(){
@@ -19,8 +26,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         console.log($scope.connectionsid);
   
         $scope.selectedCObject;
-
-
       
         if(project.cObjects){ //if cObjects are already part of the project
 
@@ -58,12 +63,8 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
               cOTriggers=cOtriggerArr.cOTriggers;
               item.cOTriggers=cOTriggers;
               //console.log("initialtriggers",cOTriggers);
-
             });
-
           });
-
-
         }
 
         $scope.connections=new Array();
@@ -72,7 +73,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
 		  });		
 	  }); 
-    $scope.selectedCObject==new Array();
     $scope.selectCobject =function(cObject){
       $scope.selectedCObject=cObject;
       //console.log($scope.selectdCObject);
@@ -90,7 +90,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
       }
     }
-
 
     $scope.selectCOData =function(cOData){
       $scope.selectedCOData=cOData;
@@ -119,6 +118,7 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
     $scope.mouseDown=function(mouseEvent){
 
+      socket.emit('my other event', { my: 'data' });
 
       dragStarted=true;
 
@@ -255,11 +255,48 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
     }
 
+        socket.on('connect', function () {
+            console.log("socket connected");
 
+            $scope.$on('socket:update', function(event, data) {
+                $scope.messages.push(data);
+            });
+
+            $scope.postMessage = function(message, callback) {
+                socket.emit('post', message, function(commitedMessage) {
+                    $scope.messages.push(commitedMessage);
+                    callback(commitedMessage);
+                });
+            };
+        });
 
 
 }]);
 
+
+project.factory('socket', function ($rootScope) {
+  var socket = io.connect();
+  return {
+    on: function (eventName, callback) {
+      socket.on(eventName, function () {  
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      })
+    }
+  };
+});
 
 
  // project.factory('Project', ['$resource',function($resource){
@@ -276,12 +313,7 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
      	});
    }]);
 
-project.factory('Socket', function (socketFactory) {
-  return socketFactory({
-    prefix: 'foo~',
-    ioSocket: io.connect('/project/join')
-  });
-});
+
 
 
  project.config(['$stateProvider', '$urlRouterProvider',
@@ -324,6 +356,9 @@ project.factory('Socket', function (socketFactory) {
 
     }
  ]);
+
+
+
 
 
 project.directive('systemDiagram', function($timeout) {

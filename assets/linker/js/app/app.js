@@ -7,7 +7,6 @@
  */
 var app = angular.module('app', [
 	'ui.router',
-    'btford.socket-io',
 	'ui.bootstrap', 
 	'app.project',
 	'app.cObject',
@@ -46,5 +45,7 @@ app.config(function($sceProvider) {
     // Do not use in new projects.
     $sceProvider.enabled(false);
 });
+
+
 
     
