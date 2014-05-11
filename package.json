@@ -14,9 +14,7 @@
     "bcrypt": "0.7.7",
     "async": "0.2.9",
     "passport-local": "0.1.6",
-    "sails-mongo": "^0.10.0-rc3",
-    "bower": "0.6.x"
-
+    "sails-mongo": "^0.10.0-rc3"
   },
   "scripts": {
     "start": "node app.js",
