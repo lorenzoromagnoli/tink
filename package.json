@@ -14,12 +14,14 @@
     "bcrypt": "0.7.7",
     "async": "0.2.9",
     "passport-local": "0.1.6",
-    "sails-mongo": "^0.10.0-rc3"
+    "sails-mongo": "^0.10.0-rc3",
+    "bower": "0.6.x"
 
   },
   "scripts": {
     "start": "node app.js",
-    "debug": "node debug app.js"
+    "debug": "node debug app.js",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "main": "app.js",
   "repository": "",
