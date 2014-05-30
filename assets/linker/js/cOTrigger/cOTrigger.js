@@ -2,9 +2,9 @@
 var cOTrigger = angular.module('app.cOTrigger', ['ngRoute']);
 
  
-cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$location', 'COTrigger', '$state', 
+cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$location', 'COTrigger', '$state', 'Connection',
 
-    function($scope, $routeParams, $route, $location, COTrigger ,$state) {
+    function($scope, $routeParams, $route, $location, COTrigger ,$state, Connection) {
 
          $scope.$watch('$scope.$parent.selectedCOTrigger', function () {//wait until the variable is initialized
             //console.log('update selectedCOTrigger',$scope.$parent.selectedCOTrigger);
@@ -40,6 +40,22 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
             COTrigger.delete({
               id:$scope.id 
             });
+
+
+            for(i=0;i<$scope.$parent.connectionsid.length;i++){
+              console.log('startId', $scope.$parent.connectionsid[i].start)
+
+              if ($scope.$parent.connectionsid[i].start==$scope.id || $scope.$parent.connectionsid[i].end==$scope.id ){
+                Connection.delete({
+                  id:$scope.$parent.connectionsid[i].id
+                });
+                $scope.$parent.connections.splice(i,1)
+                $scope.$parent.connectionsid.splice(i,1)
+              }
+            }
+
+
+
             $scope.$parent.selectCOTrigger(null);
             $state.go('edit.addcObject');
         }

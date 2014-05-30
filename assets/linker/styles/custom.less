@@ -27,6 +27,7 @@ padding-top: 0px;
 background-image: url("/images/dot_texture.png");
 font-family: 'Ubuntu', sans-serif;
 
+
 }
 
 h1,
@@ -213,10 +214,10 @@ opacity: 0;
       }
 
       h3{
-margin-top: 0px;
-font-size: 17pt;
-display: inline;
-position: absolute;
+        margin-top: 0px;
+        font-size: 17pt;
+        display: inline;
+        position: absolute;
       }
   }
   .content{
@@ -427,6 +428,15 @@ position: absolute;
   font-size:70px;
 }
 .systemDiagram{
+
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
+
   
   .cObject{
     .name{
@@ -467,14 +477,14 @@ min-height:100%;
 }
 
 .debug{
-  visibility: hidden;
-background-color: red;
-width: 200px;
-height: 200px;
+ // visibility: hidden;
+background-color: rgba(255,255,255,0.7);
+border:1px solid green;
+
 position: absolute;
 z-index: 200;
 right: 0;
-top: 100px;
+bottom: 0;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -482,8 +492,54 @@ top: 100px;
 }
 
 
+//here goes the css for the system diagram
+tspan.glyphicon {
+  font-size: 15px;
+  baseline-shift:-2px;
+}
+
+.connection{
+  stroke:#000000;
+  fill:none;
+  stroke-width: 1.5px;
+marker-start: url(#markerCircle);
+marker-end: url(#markerCircle);
+
+}
+
+.connectioninv{
+  opacity:0;
+  stroke:#00eeee;
+  fill:none;
+  stroke-width: 20px;
+marker-start: url(#markerCircle);
+marker-end: url(#markerCircle);
+}
+
+.deleteConnection{
+  opacity:0;
+  -webkit-transition:all .5s ease-in-out;
+  -moz-transition:all .5s ease-in-out;
+  -o-transition:all .5s ease-in-out;
+  transition:all .5s ease-in-out;
+}
 
 
+.deleteConnection:hover{
+  opacity: 1;
+}
+.deleteConnection.visible{
+  opacity: 1;
+}
 
 
+input.entityName  {
+font-size: 20px;
+text-align: -webkit-center;
+background-color: rgba(255, 255, 255, 0);
+width: 200px;
+margin-top: -2px;
+margin-left: -10px;
+
+    }
 

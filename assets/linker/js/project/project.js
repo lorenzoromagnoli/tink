@@ -20,11 +20,11 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
   		 	$scope.cObjects=project.cObjects;
         $scope.connectionsid=project.connections;
-        console.log($scope.connectionsid);
+        console.log("connections",$scope.connectionsid);
   
         $scope.selectedCObject;
       
-        if(project.cObjects){ //if cObjects are already part of the project
+        if(project.cObjects.length>0){ //if cObjects are already part of the project
 
           //set as default the first element as the active one
           $scope.selectedCObject=project.cObjects[0]; 
@@ -65,29 +65,37 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         }
 
         $scope.connections=new Array();
-
         $scope.controlsAreOpen=false;
-
         $scope.$state = $state;
+
+        $scope.highlightedConnectionid=null;
 
 		  });		
 	  }); 
     $scope.selectCobject =function(cObject){
       $scope.selectedCObject=cObject;
       //console.log($scope.selectdCObject);
-      $state.go('edit.addcObject');
-      
-      if(!$scope.selectedCObject.cOTriggers){
-        $scope.selectedCObject.cOTriggers=new Array();
-      }
-      if(!$scope.selectedCObject.cODatas){
-        $scope.selectedCObject.cODatas=new Array();
+        if(cObject!=null){
+          $state.go('edit.addcObject');
+          
+          if(!$scope.selectedCObject.cOTriggers){
+            $scope.selectedCObject.cOTriggers=new Array();
+          }
+          if(!$scope.selectedCObject.cODatas){
+            $scope.selectedCObject.cODatas=new Array();
 
-      }
-      if(!$scope.selectedCObject.cOActions){
-        $scope.selectedCObject.cOActions=new Array();
+          }
+          if(!$scope.selectedCObject.cOActions){
+            $scope.selectedCObject.cOActions=new Array();
 
-      }
+          }
+        }else{
+          $state.go('edit');
+        }
+    }
+
+    $scope.highlightConnection=function(id){
+      $scope.highlightedConnectionid=id;
     }
 
     $scope.selectCOData =function(cOData){
@@ -110,10 +118,14 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
     var dragStarted=false;
     var dragArrowStarted=false;
+    var dragEntityStarted=false;
+
     var calcOffsetX;
     var calcOffsetY;
     var scrollX;
     var scrollY;
+
+    var cObjectDragged=null;
 
     $scope.mouseDown=function(mouseEvent){
 
@@ -135,17 +147,6 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
       calcOffsetX=offsetX-scrollX;
       calcOffsetY=offsetY-scrollY;
 
-      //console.log("offset",offsetX,offsetY)
-
-      //console.log("scroll",scrollX,scrollY);
-      
-      //console.log("calcOffset",calcOffsetX,calcOffsetY)
-
-    //console.log($(elem).attr('class'));
-    
-    //console.log($(elem).hasClass('out'));
-
-
 
       if ($(elem).hasClass("start")){
         dragArrowStarted=true;
@@ -162,13 +163,46 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
         $scope.connections.push({x1:newX1,y1:newY1,x2:newX1,y2:newY1});
         $scope.connectionsid.push({start:outputID, end:null});
+     
+      }else if ($(elem).hasClass("entityIcon")){
+        console.log ("I should start drag the entity");
+
+        entityID=elem.id;
+        console.log(entityID);
+
+        for(i=0;i<$scope.cObjects.length;i++){
+          if ($scope.cObjects[i].id==entityID){
+            cObjectDragged=$scope.cObjects[i];
+            break;
+          }
+        }
+
+        console.log(cObjectDragged);
+        //$scope.$parent.cObjects.splice(arrIndex,1);
+
+        dragEntityStarted=true;
+
+
+        startingX=cObjectDragged.positionX;
+        startingY=cObjectDragged.positionY;
+        startingMouseX=mouseEvent.clientX;
+        startingMouseY=mouseEvent.clientY;
+
       }
     }
 
     $scope.mouseMove=function(mouseEvent){
+  
       if(dragArrowStarted){
         $scope.connections[$scope.connections.length-1].x2=mouseEvent.clientX-calcOffsetX;
         $scope.connections[$scope.connections.length-1].y2=mouseEvent.clientY-calcOffsetY;
+  
+
+      }else if(dragEntityStarted){
+        var newPositionX=-startingMouseX+mouseEvent.clientX+startingX;
+        var newPositionY=-startingMouseY+mouseEvent.clientY+startingY;
+        cObjectDragged.positionX=newPositionX;
+        cObjectDragged.positionY=newPositionY;
       }
       if (dragStarted&&!dragArrowStarted){
         $scope.updateConnections();
@@ -193,20 +227,23 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
 
             $scope.connectionsid[$scope.connectionsid.length-1].end=inputId;
-            $scope.updateConnections();
             
             var projectID=$scope.projectId;
             var startID=$scope.connectionsid[$scope.connectionsid.length-1].start;
             var endID=$scope.connectionsid[$scope.connectionsid.length-1].end;
             //console.log(projectID)
 
-            Connection.salva({project:projectID,start:startID,end:endID}, function(){
+            var newConnection=Connection.salva({project:projectID,start:startID,end:endID}, function(){
               //console.log("newAction", connection);
                 //$scope.$parent.cObjects.push(cObject);
                //$scope.$parent.selectedCObject.connections.push(connection);
+               console.log(newConnection);
+               $scope.connectionsid[$scope.connectionsid.length-1]=newConnection;
+              $scope.updateConnections();
+
+
             });
 
-            $scope.updateConnections();
 
 
           }else{
@@ -218,12 +255,33 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
          // console.log($scope.connectionsid);
 
       }
+      else if(dragEntityStarted){
+        $scope.updateEntityPosition();
+        startingPositionX=0;
+        startingPositionY=0;
+
+      }
       dragArrowStarted=false;
       dragStarted=false;
+      cObjectDragged=null;
+      dragEntityStarted=false;
 
 
 
     }
+        $scope.updateEntityPosition=function(){
+            cObjectId=cObjectDragged.id;
+            newPositionX=cObjectDragged.positionX;
+            newPositionY=cObjectDragged.positionY;
+
+            CObject.update({
+                id:cObjectId, 
+                positionX:newPositionX, 
+                positionY:newPositionY
+            });
+            
+            //console.log("positionUpdated");
+        }
 
     $scope.updateConnections=function(){
 
@@ -245,8 +303,12 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         y2=$('#'+entry.end+'.end').offset().top-offsetY;
        //  console.log("updatingConnections",x1,y1,x2,y2);
 
+       startID=entry.start;
+       endID=entry.end;
+       id=entry.id;
+
         //console.log("offset",x1);
-        newConnections[i]={x1:x1, y1:y1, x2:x2, y2:y2}
+        newConnections[i]={x1:x1, y1:y1, x2:x2, y2:y2, startID:startID, endID:endID, id:id}
       });
         $scope.connections=newConnections
   //      console.log($scope.connectionsid);

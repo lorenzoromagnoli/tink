@@ -6,24 +6,19 @@ connection.controller('connectionCtrl', ['$scope','$route', '$routeParams','$loc
 
     function($scope, $routeParams, $route, $location, Connection ,$state) {
 
-         $scope.$watch('$scope.$parent.selectedConnection', function () {//wait until the variable is initialized
-            console.log('update selectedConnection',$scope.$parent.selectedConnection);
-            
-            if($scope.$parent.selectedConnection){
-                $scope.id=$scope.$parent.selectedConnection.id; 
-                $scope.name=$scope.$parent.selectedConnection.codeVariables;
-                $scope.codeVariables= $scope.$parent.selectedConnection.codeVariables;
-                $scope.codeSetup= $scope.$parent.selectedConnection.codeSetup;
-                $scope.codeFunction= $scope.$parent.selectedConnection.codefunction;
-            }
-         })    
+
+        $scope.setConnData=function(con){
+            $scope.id=con.id;
+            $scope.x1=con.x1;
+            $scope.x2=con.x2;
+            $scope.y1=con.y1;
+            $scope.y2=con.y2;
+
+           // console.log('init',cO);
+        }
+
 
         $scope.create = function() {
-          console.log("create");
-            var cObjectId=$scope.$parent.selectedCObject.id; 
-                
-                console.log("create trigger",cObjectId);
-
             var connection=Connection.salva({cObject:cObjectId}, function(){
               console.log("newAction", connection);
                 //$scope.$parent.cObjects.push(cObject);
@@ -31,20 +26,27 @@ connection.controller('connectionCtrl', ['$scope','$route', '$routeParams','$loc
             });
         }
 
-        $scope.delete=function(){
 
-            var arrIndex=$scope.$parent.selectedCObject.connections.indexOf($scope.$parent.selectedConnection);
-            $scope.$parent.selectedCObject.connections.splice(arrIndex,1);
-            console.log(arrIndex);
+        $scope.delete=function(id){
+            for(i=0;i<$scope.$parent.connectionsid.length;i++){
 
-            Connection.delete({
-              id:$scope.id 
-            });
-            $scope.$parent.selectConnection(null);
-            $state.go('edit.addcObject');
+
+              if ($scope.$parent.connections[i].id==id){
+                Connection.delete({
+                  id:id 
+                });
+                $scope.$parent.connections.splice(i,1)
+                $scope.$parent.connectionsid.splice(i,1)
+              }
+            }
         }
 
-       
+        $scope.highlight=function(connection){
+          $scope.$parent.highlightConnection(connection.id);
+        }
+        $scope.looseFocus=function(){
+          $scope.$parent.highlightConnection(0);
+        }
 
 
 

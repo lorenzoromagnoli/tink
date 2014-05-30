@@ -12,7 +12,7 @@ module.exports = {
 
   	name: {
   		type: 'string',
-  		defaultsTo: 'name'
+  		defaultsTo: 'New Object'
   	},
 
   	project: {
@@ -27,7 +27,7 @@ module.exports = {
 
   	positionX:{
   		type:'integer',
-      defaultsTo: '100'
+      defaultsTo: '500'
 
   	},
 

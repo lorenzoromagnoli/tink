@@ -2,9 +2,9 @@
 var cObject = angular.module('app.cObject', ['ngRoute']);
 
  
-cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location', 'CObject', 
+cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location', 'CObject', '$state', 
 
-    function($scope, $routeParams, $route, $location, CObject ) {
+    function($scope, $routeParams, $route, $location, CObject, $state ) {
 
    //      $scope.$watch('$parent.selectedCObject', function () {//wait until the variable is initialized
             
@@ -29,13 +29,29 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         $scope.create = function() {
             var projectid=$scope.$parent.projectId; 
 
-            var cObject=CObject.salva({project:projectid}, function(){
+            var cObject=CObject.salva({
+              project:projectid, 
+              name: "New Object"}, 
 
+              function(){
                 console.log(cObject);
                 $scope.$parent.cObjects.push(cObject);
-                $scope.$parent.selectedCObject=cObject;
+                $scope.$parent.selectCobject(cObject);
              //  console.log($scope.$parent.selectedCObject);
             });
+        }
+      
+      $scope.delete=function(){
+
+        var arrIndex=$scope.$parent.cObjects.indexOf($scope.$parent.selectedCObject);
+            $scope.$parent.cObjects.splice(arrIndex,1);
+
+            CObject.delete({
+              id:$scope.$parent.selectedCObject.id
+
+            });
+            console.log("deleting id "+ $scope.id);
+            $scope.$parent.selectCobject(null);
         }
 
 
@@ -45,62 +61,6 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
             CObject.update({id:cObjectId, name: newname});
             //console.log("nameUpdated");
         }
-
-        $scope.updatePosition=function(){
-            cObjectId=cObjectDragged.id;
-            newPositionX=cObjectDragged.positionX;
-            newPositionY=cObjectDragged.positionY;
-
-            CObject.update({
-                id:cObjectId, 
-                positionX:newPositionX, 
-                positionY:newPositionY
-            });
-            
-            //console.log("positionUpdated");
-        }
-
-      var dragStarted=false;
-      var cObjectDragged;
-      var startingPositionX;
-      var startingPositionY;
-
-      $scope.objectDragStarted=function(dragEvent,cObject){
-        //console.log(dragEvent);
-        dragStarted=true;
-        cObjectDragged=cObject;
-        //console.log(cObjectDragged);
-        startingX=cObjectDragged.positionX;
-        startingY=cObjectDragged.positionY;
-        startingMouseX=dragEvent.clientX;
-        startingMouseY=dragEvent.clientY;
-
-        //console.log($scope.$parent.cObjects);
-      }
-      
-      $scope.objectDragFinished=function(dragEvent){
-        $scope.updatePosition();
-        //console.log(dragEvent);
-        dragStarted=false;
-        cObjectDragged=null;
-        startingPositionX=0;
-        startingPositionY=0;
-      }
-
-      $scope.objectDrag=function(dragEvent, cObject){
-        if(dragStarted){
-         //  console.log("offset",dragEvent.offsetX, dragEvent.offsetY);
-          // console.log("client",dragEvent.clientX, dragEvent.clientY);
-          var newPositionX=-startingMouseX+dragEvent.clientX+startingX;
-          var newPositionY=-startingMouseY+dragEvent.clientY+startingY;
-
-          cObjectDragged.positionX=newPositionX;
-          cObjectDragged.positionY=newPositionY;
-
-        }
-      }
-
-
 
     }
 ]);
@@ -114,6 +74,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
             'getCOData': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOData/:id'},
             'getCOTrigger': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOTrigger/:id'},
             'getCOAction': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOAction/:id'},
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cObject/destroy/:id' },
 
             'update': {
                 method:'POST', 

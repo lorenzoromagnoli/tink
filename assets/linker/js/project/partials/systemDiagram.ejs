@@ -11,6 +11,69 @@
  	>
 
 
+ 	<defs>
+	    <marker id="markerCircle" 
+		    markerWidth="3" 
+		    markerHeight="3" 
+		    refx="5" 
+		    refy="5">
+		    <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+    	</marker> 	    
+	</defs>
+
+
+
+<!-- DRAW THE CONNECTION -->
+			<g ng-repeat="connection in connections"  
+				transform="translate(10,10)"
+				ng-controller="connectionCtrl" 
+				ng-init="setConnData(connection)"
+			>
+
+				<path 	ng-attr-d="M{{connection.x1}},{{connection.y1}} 
+						C{{connection.x1+50}},{{connection.y1}}
+						{{connection.x2-50}},{{connection.y2}} 
+						{{connection.x2}},{{connection.y2}}"
+						class="connection" 
+						>
+				</path>
+				<path 	ng-attr-d="M{{x1}},{{y1}} 
+						C{{x1+50}},{{y1}}
+						{{x2-50}},{{y2}} 
+						{{x2}},{{y2}}"
+						class="connectioninv" 
+						ng-mouseover="highlight(connection)"
+						ng-mouseleave="looseFocus()"
+
+						>
+				</path>	
+
+			 	
+				
+				<image xlink:href="/images/deleteConnection.svg" 
+					ng-attr-x="{{((connection.x1+connection.x2)/2)-7}}" 
+					ng-attr-y="{{((connection.y1+connection.y2)/2)-7}}"
+					height="15px" 
+					width="15px" 
+					class="deleteConnection" 
+					id="{{connection.id}}"
+					ng-class="{visible:
+						highlightedConnectionid==connection.id }" 
+					ng-click="delete(connection.id)"
+				>
+				</image>  
+
+			<!-- 	<text 
+					ng-attr-x="{{((connection.x1+connection.x2)/2)-7}}" 
+					ng-attr-y="{{((connection.y1+connection.y2)/2)-7}}"
+					text-anchor="start"
+				>
+				{{connection.id}}
+				</text>	 -->
+			</g>	
+
+
+
 		<text x="99%" y="70px"
 		text-anchor="end"
 		class="projectName"
@@ -20,7 +83,6 @@
 		ng-repeat="cObject in cObjects" 
 		ng-controller="cObjectCtrl" 
 		ng-init="setObjectData(cObject)"
-		ng-click="selectCobject(cObject)"
 
 		ng-attr-transform="translate({{cObject.positionX}},{{cObject.positionY}})"
 		class="cObject"
@@ -28,8 +90,35 @@
 		>
 			
 			<!-- DRAW THE NAME -->
-			<text text-anchor="middle" x="45" y="-5" class="name">{{cObject.name}}</text>	
+			<g class="entity">
+				<text 
+					ng-hide="editorEnabled"
+					text-anchor="middle" 
+					x="45" 
+					y="-5" 
+					class="name"
+					ng-dblclick="editorEnabled=!editorEnabled"
+					>
+						{{cObject.name}} 
+					<tspan 
+						href="" 
+						ng-click="selectCobject(cObject)" 
+						class="glyphicon glyphicon-cog">
+							&#xe019;
+					</tspan>
+				</text>	
 
+				<foreignobject x="-55" y="-25" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="cObject.name" 
+						ng-blur="editorEnabled=!editorEnabled" 
+						class="entityName"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+				
+			</g>
 			<!-- DRAW THE TRIGGERS -->
 			<g ng-repeat="cOTriggers in cObject.cOTriggers"
 				ng-attr-transform="translate(-110,{{ (100+($index*25)) }})"
@@ -61,29 +150,25 @@
 				height="90px" 
 				width="90px" 
 				clip-path="url(#ellipseMask)"
-				ng-mousedown="objectDragStarted($event,cObject)"
+				class="entityIcon"
+				id="{{id}}"
+
+				>
+				
+				<!-- ng-mousedown="objectDragStarted($event,cObject)"
 				ng-mouseup="objectDragFinished($event)"
-				ng-mousemove="objectDrag($event)">
+				ng-mousemove="objectDrag($event)"-->
+	
+
 			</image> 
- 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
 
 			
+
+ 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
  			
 		</g>
 
-		<!-- DRAW THE CONNECTION -->
-			<g ng-repeat="connection in connections"  
-				transform="translate(10,10)"
-
-			>
-				<path 	ng-attr-d="M{{connection.x1}},{{connection.y1}} 
-						C{{connection.x1+50}},{{connection.y1}}
-						{{connection.x2-50}},{{connection.y2}} 
-						{{connection.x2}},{{connection.y2}}" 
-						style="stroke: #000000; fill:none;"
-						>
-				</path>
-			</g>	
+		
 
 		<div ng-shape></div ng-shape>
 </svg>
