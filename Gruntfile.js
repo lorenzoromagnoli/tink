@@ -162,6 +162,8 @@ module.exports = function (grunt) {
           { '.tmp/public/linker/js/ace-ui.js': './bower_components/angular-ui-ace/ui-ace.js' },
           { '.tmp/public/linker/js/theme-monokai.js': './bower_components/ace-builds/src-min-noconflict/theme-monokai.js' },
           { '.tmp/public/linker/js/mode-c_cpp.js': './bower_components/ace-builds/src-min-noconflict/mode-c_cpp.js' },
+          { '.tmp/public/linker/js/angular-animate.js': './bower_components/angular-animate/angular-animate.js' },
+
 
 
 

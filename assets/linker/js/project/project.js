@@ -7,13 +7,10 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
  	function($scope, $routeParams, $route, $location, Project, $state, COData,CObject,COTrigger,COAction, Connection, $timeout, socket) {
 
 
-
 		$scope.$watch('projectId', function () {//wait until the variable is initialized
-
-
       socket.on('foo~bar', function () {
-    $scope.bar = true;
-  });
+        $scope.bar = true;
+      });
     		
  		  var id=$scope.projectId;
 	  	var project = Project.show({projectId:id}, function(){
@@ -68,8 +65,10 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         }
 
         $scope.connections=new Array();
-        
 
+        $scope.controlsAreOpen=false;
+
+        $scope.$state = $state;
 
 		  });		
 	  }); 
@@ -178,6 +177,7 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
     }
 
     $scope.mouseUp=function(mouseEvent){
+
 
       if(dragArrowStarted){
         var elem = document.elementFromPoint(mouseEvent.clientX, mouseEvent.clientY);
@@ -325,26 +325,29 @@ project.factory('socket', function ($rootScope) {
             	url: "addEntity",
                 views:{
                   "left":{templateUrl: '/linker/js/project/partials/addEntity.ejs'} 
-                } 
+                }
+
             })
         	.state('edit.addcObject', {       	
                 views:{
                 "left":{templateUrl: '/linker/js/cObject/partials/addcObject.ejs'}  
-                } 
+                }, 
             })
           .state('edit.editCOData', {
                  url: "editCOData",        
                 views:{
                   "left":{templateUrl: '/linker/js/cObject/partials/addcObject.ejs'}, 
                 "editor":{templateUrl: '/linker/js/cOData/partials/editCOData.ejs'}  
-                } 
+                }, 
+
             })
             .state('edit.editCOTrigger', {
                  url: "editCOTrigger",        
                 views:{
                   "left":{templateUrl: '/linker/js/cObject/partials/addcObject.ejs'}, 
                 "editor":{templateUrl: '/linker/js/cOTrigger/partials/editCOTrigger.ejs'}  
-                } 
+                }, 
+
             })
             .state('edit.editCOAction', {
                  url: "editCOAction",        
@@ -356,6 +359,7 @@ project.factory('socket', function ($rootScope) {
 
     }
  ]);
+
 
 
 

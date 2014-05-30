@@ -25,7 +25,27 @@ body {
   min-height: 100%;
 padding-top: 0px;
 background-image: url("/images/dot_texture.png");
+font-family: 'Ubuntu', sans-serif;
+
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+font-family: 'Ubuntu', sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
 .navbar{
   height:100px;
   background-color: @superDarkGray;
@@ -81,11 +101,15 @@ border-radius: 15px;
   }
 }
 
+
+
 .project{
   min-height:100px;
   height: 100%;
   margin: 0px 0px 0px 0px;
 }
+
+
 
 .projectList {
 max-width: 30%;
@@ -116,28 +140,83 @@ padding: 7px 9px;
   position: absolute;
 }
 
+.controls{
+  position:absolute;
+  height: 100%;
+}
+
+.addEntityBTN{
+  float: left;
+  display: flex;
+  -webkit-transition:all .5s ease-in-out;
+  -moz-transition:all .5s ease-in-out;
+  -o-transition:all .5s ease-in-out;
+  transition:all .5s ease-in-out;
+  position:absolute;
+  left:0px;
+  background-image: url("/images/plus.png");
+  width: 32px;
+  height:32px;
+  background-repeat: no-repeat;
+  margin-top:7px;
+  margin-left:3px;
+
+}
+.addEntityBTN a{
+opacity: 0;
+}
+
+
+.addEntityBTN.rotated{
+  //position: absolute;
+  left:300px;
+  transform:rotate(45deg);
+  -ms-transform:rotate(45deg); /* IE 9 */
+  -webkit-transform:rotate(45deg); /* Opera, Chrome, and Safari */
+
+
+}
 
 .project-left{
-  -webkit-transition: width 2s;
-  width:30%;
+
+ // position: absolute;
+  //width:30%;
   float: left;
+
   height:100%;
   min-height:100%;
-  background-color: @lightGray;
+  //width:0px;
 
+  //left:-150px;
+
+  -webkit-transition:all .5s ease-in-out;
+  -moz-transition:all .5s ease-in-out;
+  -o-transition:all .5s ease-in-out;
+  transition:all .5s ease-in-out;
+
+
+//   left:-300px;
+
+.inner{
+  width:300px;
+  background-color: rgba(200, 200, 200, 0.9);
+  height:100%;
+
+}
    .header{
     height:50px;
     background-color: @green;
-    padding: 8px 0px 8px 5px;
+    padding: 14px 0px 8px 5px;
 
       img{
         margin-top: -5px;
       }
 
       h3{
-        margin-top: 0px;
-        font-size: 16pt;
-        display: inline;
+margin-top: 0px;
+font-size: 17pt;
+display: inline;
+position: absolute;
       }
   }
   .content{
@@ -174,19 +253,45 @@ padding: 7px 9px;
     }
     .add_action{
       margin-top:-3px;
-    }
-    
+    } 
   }
+
   .cOData{
-      margin-top: 5px;
-    }
-    .cOTrigger{
-      margin-top: 5px;
-    }
-    .cOAction{
-      margin-top: 5px;
-    }
+    margin-top: 5px;
+  }
+  .cOTrigger{
+    margin-top: 5px;
+   }
+  .cOAction{
+    margin-top: 5px;
+  }
 }
+
+
+
+.project-left.ng-enter {
+  -webkit-transform:translate3d(-300px, 0, 0);
+  -moz-transform:translate3d(-300px, 0, 0);
+  transform:translate3d(-300px, 0, 0);
+      }
+.project-left.ng-enter.ng-enter-active {
+  -webkit-transform:translate3d(0px, 0, 0);
+  -moz-transform:translate3d(0px, 0, 0);
+  transform:translate3d(0px, 0, 0);
+}
+ .project-left.ng-leave {
+  /*padding-left: 0px;*/  
+  -webkit-transform:translate3d(-300px, 0, 0);
+  -moz-transform:translate3d(-300px, 0, 0);
+  transform:translate3d(-300px, 0, 0);
+}
+ .project-left.ng-leave.ng-leave-active {
+  /*padding-left: 100px;*/
+  -webkit-transform:translate3d(-600px, 0, 0);
+  -moz-transform:translate3d(-600px, 0, 0);
+  transform:translate3d(-600px, 0, 0);}
+
+
 
 .cOData{
       display: table;
@@ -316,9 +421,11 @@ padding: 7px 9px;
 
 
 .project-center column{
-  width:70%;
+  width:100%;
 }
-
+.projectName{
+  font-size:70px;
+}
 .systemDiagram{
   
   .cObject{
@@ -359,6 +466,24 @@ min-height:100%;
 
 }
 
+.debug{
+  visibility: hidden;
+background-color: red;
+width: 200px;
+height: 200px;
+position: absolute;
+z-index: 200;
+right: 0;
+top: 100px;
+}
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+
+
+
+
+
+

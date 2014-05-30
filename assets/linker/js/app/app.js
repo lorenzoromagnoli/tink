@@ -15,6 +15,7 @@ var app = angular.module('app', [
     'app.cOAction',
     'app.connection',
 	'ngResource',
+    'ngAnimate',
     'ui.ace',
 	 
 	]);

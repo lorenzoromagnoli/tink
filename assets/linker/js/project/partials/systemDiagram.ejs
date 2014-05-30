@@ -1,37 +1,38 @@
 
 <svg version="1.1"
  	xmlns = 'http://www.w3.org/2000/svg' 
- 	width="69%" 
+ 	width="100%" 
  	height="700px" 
  	class="systemDiagram"
  	id="systemDiagram"	
 	ng-mousedown="mouseDown($event)"
 	ng-mouseup="mouseUp($event)"
 	ng-mousemove="mouseMove($event)"
-
-
  	>
 
 
-		<text x="10" y="10">{{name}}</text>	
+		<text x="99%" y="70px"
+		text-anchor="end"
+		class="projectName"
+		>
+		{{name}}</text>	
 		<g 
 		ng-repeat="cObject in cObjects" 
 		ng-controller="cObjectCtrl" 
 		ng-init="setObjectData(cObject)"
-		transform="translate({{cObject.positionX}},{{cObject.positionY}})"
 		ng-click="selectCobject(cObject)"
 
-
+		ng-attr-transform="translate({{cObject.positionX}},{{cObject.positionY}})"
 		class="cObject"
 		style="display: block; margin: auto"
 		>
 			
 			<!-- DRAW THE NAME -->
-			<text x="1" y="1" class="name">{{cObject.name}}</text>	
+			<text text-anchor="middle" x="45" y="-5" class="name">{{cObject.name}}</text>	
 
 			<!-- DRAW THE TRIGGERS -->
 			<g ng-repeat="cOTriggers in cObject.cOTriggers"
-				transform="translate(-110,{{(100+($index*25))}})"
+				ng-attr-transform="translate(-110,{{ (100+($index*25)) }})"
 				> 
 				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="cOTrigger left"></image> 
 				<rect x="23" y="0" height="19px" width="100px" class="cOTrigger-rect">{{cOTriggers.name}}</rect>
@@ -42,7 +43,7 @@
 
 			<!-- DRAW THE ACTIONS -->
 			<g ng-repeat="cOAction in cObject.cOActions"
-				transform="translate(60,{{(100+($index*25))}})"
+				ng-attr-transform="translate(60,{{(100+($index*25))}})"
 				> 
 				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" end cOAction left" id="{{cOAction.id}}"></image> 
 				<rect x="23" y="0" height="19px" width="100px" class="cOAction-rect">{{cOAction.name}}</rect>

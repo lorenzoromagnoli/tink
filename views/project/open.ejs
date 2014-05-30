@@ -3,32 +3,43 @@
 
 	<section ng-controller="projectCtrl" ng-init="projectId='<%= project.id %>'" ui-view class="project">
 
-
-			<div class="project-left" ui-view="left">
-			        <i>Some content will load here!</i>
+		<div class="controls">
+			<div class="project-left" ui-view="left" >
 			</div>
 
-			<div class="project-center" ui-view="center">
+			<div class="addEntityBTN" 
+			ng-class="{rotated: $state.includes('edit.addcObject') || $state.includes('edit.addEntity') }" ng-switch="$state.includes('edit.addcObject') || $state.includes('edit.addEntity')">
+
+				<a ui-sref="edit" ng-switch-when="true" > remove Entity </a>
+				<a ui-sref="edit.addEntity" ng-switch-when="false" > add Entity </a>
+
+			</div>
+		</div>
+
+		<div class="project-center" ui-view="center">
 				
-				<h2>{{name}} </h2>
+			<div system-diagram>
 
-				<a ui-sref="edit.addEntity"> add Entity </a>
-				<a ui-sref="prova"> prova </a>
+			</div system-diagram>
 
-				<div system-diagram> </div system-diagram>
+				<!-- <ng-include src="'/linker/js/project/partials/snapSystemDiagram.ejs'"></ng-include > -->
+		</div>
 
-				<!-- <ng-include src="'/linker/js/project/partials/snapSystemDiagram.ejs'"></ng-include >
- -->
-			</div>
+    	<div class="debug"> 
+    	<p>
+		current state={{$state.current.name}}
+		</p>
+		</div>
 
-			<div class="project-right" ui-view="right">
+		<div class="project-right" ui-view="right">
+	
+		</div>
+
+		<div class="overlay" ui-view="editor" ng-show="selectedCOData||selectedCOTrigger||selectedCOAction">
 		
-			</div>
-
-			<div class="overlay" ui-view="editor" ng-show="selectedCOData||selectedCOTrigger||selectedCOAction">
-		
-			</div>
+		</div>
     
+
 
 	</section>
 
