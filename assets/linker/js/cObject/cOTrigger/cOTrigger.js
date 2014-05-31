@@ -20,21 +20,21 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
 
         $scope.create = function() {
           console.log("create");
-            var cObjectId=$scope.$parent.selectedCObject.id;    
+            var cObjectId=$scope.$parent.selectedEntity.id;    
                 console.log("create trigger",cObjectId);
 
             var cOTrigger=COTrigger.salva({cObject:cObjectId}, function(){
               console.log("newTrigger", cOTrigger);
                 //$scope.$parent.cObjects.push(cObject);
-                console.log($scope.$parent.selectedCObject.cOTriggers);
-               $scope.$parent.selectedCObject.cOTriggers.push(cOTrigger);
+                console.log($scope.$parent.selectedEntity.cOTriggers);
+               $scope.$parent.selectedEntity.cOTriggers.push(cOTrigger);
             });
         }
 
         $scope.delete=function(){
 
-            var arrIndex=$scope.$parent.selectedCObject.cOTriggers.indexOf($scope.$parent.selectedCOTrigger);
-            $scope.$parent.selectedCObject.cOTriggers.splice(arrIndex,1);
+            var arrIndex=$scope.$parent.selectedEntity.cOTriggers.indexOf($scope.$parent.selectedCOTrigger);
+            $scope.$parent.selectedEntity.cOTriggers.splice(arrIndex,1);
             console.log(arrIndex);
 
             COTrigger.delete({
@@ -103,12 +103,12 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
 
 
  cOTrigger.factory('COTrigger', ['$resource',function($resource){
-     return $resource('/cOTrigger/:id', {}, 
+     return $resource('/cObject/cOTrigger/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cOTrigger/create/' },
-            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cOTrigger/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cOTrigger/destroy/:id' },
+            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cObject/cOTrigger/create/' },
+            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cObject/cOTrigger/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cObject/cOTrigger/destroy/:id' },
 
              'update': {
                  method:'POST', 
@@ -119,7 +119,7 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/cOTrigger/update/:id' 
+                 url:'/cObject/cOTrigger/update/:id' 
              }
 
 

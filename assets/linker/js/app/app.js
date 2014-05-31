@@ -9,10 +9,17 @@ var app = angular.module('app', [
 	'ui.router',
 	'ui.bootstrap', 
 	'app.project',
+
 	'app.cObject',
     'app.cOData',
     'app.cOTrigger',
     'app.cOAction',
+
+    'app.wService',
+    'app.wSData',
+    'app.wSTrigger',
+    'app.wSAction',
+    
     'app.connection',
 	'ngResource',
     'ngAnimate',

@@ -20,7 +20,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         $scope.setObjectData=function(cO){
             $scope.name=cO.name;
             $scope.bigImage='/images/'+cO.image+'_big.png';
-            $scope.smallImage='/images/'+cO.image+'_big.png';
+            $scope.smallImage='/images/'+cO.image+'_small.png';
             $scope.id=cO.id;
             
            // console.log('init',cO);
@@ -33,35 +33,58 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
               project:projectid, 
               name: "New Object"}, 
 
-              function(){
-                console.log(cObject);
-                $scope.$parent.cObjects.push(cObject);
-                $scope.$parent.selectCobject(cObject);
-             //  console.log($scope.$parent.selectedCObject);
+              function(c){
+
+
+                var newCobject={name:cObject.name, 
+                                bigImage:cObject.bigImage, 
+                                id:cObject.id, 
+                                image:cObject.image, 
+                                positionX: cObject.positionX,
+                                positionY: cObject.positionY,
+ }
+
+
+                console.log(newCobject);
+
+                //add newCobject to entities
+                $scope.$parent.entities.push(newCobject);
+                console.log("entities",$scope.$parent.entities);
+
+                //add newCobject to cobjects
+                $scope.$parent.cObjects.push(newCobject);
+                console.log("cObjects", $scope.$parent.cObjects);
+
+
+                //select entity
+                $scope.$parent.selectCobject(newCobject.id);
+                console.log("entities",$scope.$parent.entities);
             });
         }
       
       $scope.delete=function(){
 
+        var arrIndex=$scope.$parent.entities.indexOf($scope.$parent.selectedCObject);
+            $scope.$parent.entities.splice(arrIndex,1);
         var arrIndex=$scope.$parent.cObjects.indexOf($scope.$parent.selectedCObject);
             $scope.$parent.cObjects.splice(arrIndex,1);
 
             CObject.delete({
-              id:$scope.$parent.selectedCObject.id
+              id:$scope.$parent.selectedEntity.id
 
             });
             console.log("deleting id "+ $scope.id);
             $scope.$parent.selectCobject(null);
+            
+            $state.go('edit');
+
         }
 
 
-        $scope.updateName=function(){
-            cObjectId=$scope.$parent.selectedCObject.id; 
-            newname=$scope.$parent.selectedCObject.name;
-            CObject.update({id:cObjectId, name: newname});
+        $scope.updateName=function(id,name){
+            CObject.update({id:id, name: name});
             //console.log("nameUpdated");
         }
-
     }
 ]);
 
@@ -70,7 +93,7 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         {
             id:'@id', 
             'salva': {method:'POST', params:{project:'@id'}, url:'/cObject/create/' },
-            'find': {method:'GET', params:{id:'@id'}, url:'/cObject/find/' },
+            'find': {method:'GET', params:{id:'@id'}, url:'/cObject/cObject/find/' },
             'getCOData': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOData/:id'},
             'getCOTrigger': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOTrigger/:id'},
             'getCOAction': {method:'GET', params:{id:'@id'}, url:'/cObject/getCOAction/:id'},

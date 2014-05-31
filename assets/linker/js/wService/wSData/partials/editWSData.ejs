@@ -1,0 +1,74 @@
+<script>
+	function autoGrow (oField) {
+	  if (oField.scrollHeight > oField.clientHeight) {
+	    oField.style.height = oField.scrollHeight + "px";
+	  }
+	}
+</script>
+
+<div class="editor" ng-controller="wSDataCtrl">
+		<div ng-hide="editorEnabled"  class="name">
+
+					<div class="wSData" >
+						<div class="wSData-left"></div>
+						<div class="wSData-body">
+							{{selectedWSData.name}}
+						</div> 
+						<div class="wSData-right"></div>
+					</div>     
+
+      		<a ng-click="editorEnabled=!editorEnabled" class="glyphicon glyphicon-pencil"></a>
+      		<a ng-click="delete()" class="glyphicon glyphicon-trash"></a>
+
+    	</div>
+    	<div ng-show="editorEnabled" class=name>
+					<div class="wSData" >
+						<div class="wSData-left"></div>
+						<div class="wSData-body">
+							<input ng-model="selectedWSData.name">
+						</div> 
+						<div class="wSData-right"></div>
+					</div>     
+
+      		<a ng-click="editorEnabled=!editorEnabled; updateName();" class="glyphicon glyphicon-ok"></a>
+	</div>
+
+
+		<div class="codeVariables-label">Define your global variables</div>
+		<div ui-ace ="{
+				theme:'monokai',
+  				mode: 'c_cpp',
+			}"
+			style="height:100px"
+			ng-model="codeVariables"
+			>
+		</div>
+
+		<div class="codeVariables-label">Insert the code that goes in the void setup()</div>
+		<div ui-ace ="{
+				theme:'monokai',
+  				mode: 'c_cpp',
+			}"
+			style="height:200px"
+			ng-model="codeSetup"
+			>
+		</div>
+
+
+		<div class="codeVariables-label">write your function</div>
+		<div ui-ace ="{
+				theme:'monokai',
+  				mode: 'c_cpp',
+			}"
+			style="height:200px"
+			ng-model="codeFunction"
+			>
+		</div>
+
+
+		</br>
+		<input type="submit" class="btn btn-lg btn-primary btn-block" value="save" ng-click="updateCode()"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+
+</div>

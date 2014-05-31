@@ -87,9 +87,9 @@ cOData.controller('cODataCtrl', ['$scope','$route', '$routeParams','$location', 
      return $resource('/cOData/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cOData/create/' },
-            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cOData/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cOData/destroy/:id' },
+            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cObject/cOData/create/' },
+            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cObject/cOData/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cObject/cOData/destroy/:id' },
 
              'update': {
                  method:'POST', 
@@ -100,7 +100,7 @@ cOData.controller('cODataCtrl', ['$scope','$route', '$routeParams','$location', 
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/cOData/update/:id' 
+                 url:'/cObject/cOData/update/:id' 
              }
 
 

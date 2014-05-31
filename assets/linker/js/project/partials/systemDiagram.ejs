@@ -102,7 +102,7 @@
 						{{cObject.name}} 
 					<tspan 
 						href="" 
-						ng-click="selectCobject(cObject)" 
+						ng-click="selectCobject(cObject.id)" 
 						class="glyphicon glyphicon-cog">
 							&#xe019;
 					</tspan>
@@ -111,7 +111,7 @@
 				<foreignobject x="-55" y="-25" width="200" height="150" ng-show="editorEnabled" >
 					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
 						ng-model="cObject.name" 
-						ng-blur="editorEnabled=!editorEnabled" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(cObject.id, cObject.name)" 
 						class="entityName"
 						>
       					</input>

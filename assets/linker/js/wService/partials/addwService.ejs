@@ -1,92 +1,92 @@
 <div 
-	id="addCObject" 
-	ng-controller="cObjectCtrl"
+	id="addWService" 
+	ng-controller="wServiceCtrl"
 	class="inner"
 >
 	<div class="header">
 		<image src="/images/connectedObject.png" class="header-img"/>
-		<h3>CONNECTED OBJECT</h3>
+		<h3>WSNNECTED OBJECT</h3>
 	</div>
 	
 
 	<div class="content">
 		
-		<image src="/images/{{selectedEntity.image}}_small.png" width="50px" height="50px"/ class="icon_small">
+		<image src="/images/{{selectedWService.image}}_small.png" width="50px" height="50px"/ class="icon_small">
    		<div ng-hide="editorEnabled" class="project-title">
-			<h2>{{selectedEntity.name}}</h2>
+			<h2>{{selectedWService.name}}</h2>
       		<a href="" ng-click="editorEnabled=!editorEnabled" class="glyphicon glyphicon-pencil"></a>
     	</div>
     	<div ng-show="editorEnabled" class="project-title">
-      		<input ng-model="selectedEntity.name">
+      		<input ng-model="selectedWService.name">
       		<a href="" ng-click="editorEnabled=!editorEnabled; updateName() " class="glyphicon glyphicon-ok"></a>
     	</div>
       	<a href="" ng-click="" class="glyphicon glyphicon-cog"></a>
 		<a href="" ng-click="delete()"class="glyphicon glyphicon-trash"></a>
 
 		<div class="settings">
-			<div class="cObject icon">
+			<div class="wSbject icon">
 			<div>
 			
-			<div class="cObject title">
+			<div class="wSbject title">
 			<div>
 			
-			<div class="cObject settings">
+			<div class="wSbject settings">
 			<div>
 		</div>
 
 		<div class="actions">
-			<div class="block" ng-controller="cODataCtrl">
+			<div class="block" ng-controller="wSDataCtrl">
 				<span class="title">
 				Data to track
 				</span>
 				<image src="/images/plus_cyano.png" class="add_action" ng-click="create()"/>
 				<div class="data list" >
-					<div class="cOData" 
-					ng-repeat="cOData in selectedEntity.cODatas" 
-					ng-click="selectCOData(cOData)"
+					<div class="wSData" 
+					ng-repeat="wSData in selectedWService.wSDatas" 
+					ng-click="selectWSData(wSData)"
 					>
-						<div class="cOData-left"></div>
-						<div class="cOData-body" >{{cOData.name}}</div> 
-						<div class="cOData-right"></div>
+						<div class="wSData-left"></div>
+						<div class="wSData-body" >{{wSData.name}}</div> 
+						<div class="wSData-right"></div>
 								
 					</div>
 
 				</div>
 			</div>
 
-			<div class="block" ng-controller="cOTriggerCtrl">
+			<div class="block" ng-controller="wSTriggerCtrl">
 				<span class="title">
 				Triggers
 				</span>
 				<image src="/images/plus_orange.png" class="add_action" ng-click="create()"/>
 
 				<div class="trigger list">
-					<div class="cOTrigger" 
-					ng-repeat="cOTrigger in selectedEntity.cOTriggers" 
-					ng-click="selectCOTrigger(cOTrigger)"
+					<div class="wSTrigger" 
+					ng-repeat="wSTrigger in selectedWService.wSTriggers" 
+					ng-click="selectWSTrigger(wSTrigger)"
 					>
-						<div class="cOTrigger-left"></div>
-						<div class="cOTrigger-body">{{cOTrigger.name}}</div> 
-						<div class="cOTrigger-right"></div>
+						<div class="wSTrigger-left"></div>
+						<div class="wSTrigger-body">{{wSTrigger.name}}</div> 
+						<div class="wSTrigger-right"></div>
 								
 					</div>
 				</div>
 			</div>
 
-			<div class="block" ng-controller="cOActionCtrl">
+			<div class="block" ng-controller="wSActionCtrl">
 				<span class="title">
 				Actions
 				</span>
 				<image src="/images/plus_yellow.png" class="add_action" ng-click="create()"/>
 
 				<div class="trigger list">
-					<div class="cOAction" 
-					ng-repeat="cOAction in selectedEntity.cOActions" 
-					ng-click="selectCOAction(cOAction)"
+					<div class="wSAction" 
+					ng-repeat="wSAction in selectedWService.wSActions" 
+					ng-click="selectWSAction(wSAction)"
 					>
-						<div class="cOAction-left"></div>
-						<div class="cOAction-body">{{cOAction.name}}</div> 
-						<div class="cOAction-right"></div>
+						<div class="wSAction-left"></div>
+						<div class="wSAction-body">{{wSAction.name}}</div> 
+						<div class="wSAction-right"></div>
 								
 					</div>
 				</div>

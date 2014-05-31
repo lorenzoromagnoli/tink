@@ -20,21 +20,21 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
 
         $scope.create = function() {
           console.log("create");
-            var cObjectId=$scope.$parent.selectedCObject.id; 
+            var cObjectId=$scope.$parent.selectedEntity.id; 
                 
                 console.log("create trigger",cObjectId);
 
             var cOAction=COAction.salva({cObject:cObjectId}, function(){
               console.log("newAction", cOAction);
                 //$scope.$parent.cObjects.push(cObject);
-               $scope.$parent.selectedCObject.cOActions.push(cOAction);
+               $scope.$parent.selectedEntity.cOActions.push(cOAction);
             });
         }
 
         $scope.delete=function(){
 
-            var arrIndex=$scope.$parent.selectedCObject.cOActions.indexOf($scope.$parent.selectedCOAction);
-            $scope.$parent.selectedCObject.cOActions.splice(arrIndex,1);
+            var arrIndex=$scope.$parent.selectedEntity.cOActions.indexOf($scope.$parent.selectedCOAction);
+            $scope.$parent.selectedEntity.cOActions.splice(arrIndex,1);
             console.log(arrIndex);
 
             COAction.delete({
@@ -89,9 +89,9 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
      return $resource('/cOAction/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cOAction/create/' },
-            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cOAction/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cOAction/destroy/:id' },
+            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cObject/cOAction/create/' },
+            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cObject/cOAction/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cObject/cOAction/destroy/:id' },
 
              'update': {
                  method:'POST', 
@@ -102,7 +102,7 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/cOAction/update/:id' 
+                 url:'/cObject/cOAction/update/:id' 
              }
 
 
