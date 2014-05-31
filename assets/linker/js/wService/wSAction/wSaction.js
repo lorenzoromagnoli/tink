@@ -20,28 +20,28 @@ wSAction.controller('wSActionCtrl', ['$scope','$route', '$routeParams','$locatio
 
         $scope.create = function() {
           console.log("create");
-            var wSbjectId=$scope.$parent.selectedWService.id; 
+            var wServiceId=$scope.$parent.selectedEntity.id; 
                 
-                console.log("create trigger",wSbjectId);
+                console.log("create trigger",wServiceId);
 
-            var wSAction=WSAction.salva({wSbject:wSbjectId}, function(){
+            var wSAction=WSAction.salva({wService:wServiceId}, function(){
               console.log("newAction", wSAction);
-                //$scope.$parent.wSbjects.push(wSbject);
-               $scope.$parent.selectedWService.wSActions.push(wSAction);
+                //$scope.$parent.wServices.push(wService);
+               $scope.$parent.selectedEntity.wSActions.push(wSAction);
             });
         }
 
         $scope.delete=function(){
 
-            var arrIndex=$scope.$parent.selectedWService.wSActions.indexOf($scope.$parent.selectedWSAction);
-            $scope.$parent.selectedWService.wSActions.splice(arrIndex,1);
+            var arrIndex=$scope.$parent.selectedEntity.wSActions.indexOf($scope.$parent.selectedWSAction);
+            $scope.$parent.selectedEntity.wSActions.splice(arrIndex,1);
             console.log(arrIndex);
 
             WSAction.delete({
               id:$scope.id 
             });
             $scope.$parent.selectWSAction(null);
-            $state.go('edit.addwSbject');
+            $state.go('edit.addwService');
         }
 
         $scope.updateName=function(){
@@ -68,7 +68,7 @@ wSAction.controller('wSActionCtrl', ['$scope','$route', '$routeParams','$locatio
             console.log(newCodeVariables);
             updateParent();
             $scope.$parent.selectWSAction(null);
-            $state.go('edit.addwSbject');
+            $state.go('edit.addwService');
 
 
         }
@@ -86,12 +86,12 @@ wSAction.controller('wSActionCtrl', ['$scope','$route', '$routeParams','$locatio
 
 
  wSAction.factory('WSAction', ['$resource',function($resource){
-     return $resource('/WService/wSAction/:id', {}, 
+     return $resource('/wSAction/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{wSbject:'@id'}, url:'/WService/wSAction/create/' },
-            'find': {method:'GET', params:{wSbject:'@wSbject'}, url:'/WService/wSAction/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/WService/wSAction/destroy/:id' },
+            'salva': {method:'POST', params:{wService:'@id'}, url:'/wService/wSAction/create/' },
+            'find': {method:'GET', params:{wService:'@wService'}, url:'/wService/wSAction/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wService/wSAction/destroy/:id' },
 
              'update': {
                  method:'POST', 
@@ -102,7 +102,7 @@ wSAction.controller('wSActionCtrl', ['$scope','$route', '$routeParams','$locatio
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/WService/wSAction/update/:id' 
+                 url:'/wService/wSAction/update/:id' 
              }
 
 

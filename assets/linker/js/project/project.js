@@ -29,6 +29,8 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         $scope.cObjects=project.cObjects;
         $scope.wServices=project.wServices;
 
+        console.log("wServices");
+        console.log(project.wServices);
         //combine entities in a single array
 
         //get all the connections
@@ -52,7 +54,7 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         
         //   //get all the COData actions
         $scope.cObjects.forEach( function (item,i){
-          
+
           var cOdataArr=CObject.getCOData({id:item.id}, function(){
             cODatas=cOdataArr.cODatas;
             item.cODatas=cODatas;
@@ -81,6 +83,39 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         });
         // }
 
+
+
+
+
+        $scope.wServices.forEach( function (item,i){
+
+          var cOdataArr=WService.getWSData({id:item.id}, function(){
+            wSDatas=wSdataArr.cODatas;
+            item.wSDatas=wSDatas;
+              //console.log("initialdatas",cODatas);
+            });
+
+        });
+        $scope.wServices.forEach( function (item,i){
+
+          var wStriggerArr=WService.getWSAction({id:item.id}, function(){
+            wSActions=wStriggerArr.wSActions;
+            item.wSActions=wSActions;
+              //console.log("initialactions",cOActions);
+
+            });
+        });
+        $scope.wServices.forEach( function (item,i){
+
+          var wSOtriggerArr=WService.getCOTrigger({id:item.id}, function(){
+              //console.log("triggersData",cOtriggerArr);
+
+              wSTriggers=wStriggerArr.wSTriggers;
+              item.wSTriggers=wSTriggers;
+              //console.log("initialtriggers",cOTriggers);
+            });
+        });
+
         $scope.entities=$scope.cObjects.concat($scope.wServices);
         console.log($scope.entities);
 
@@ -95,6 +130,8 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 }); 
 
 $scope.selectCobject =function(cObjectID){
+    console.log("coID",cObjectID);
+
   for (i=0; i<$scope.entities.length;i++){
     if ($scope.entities[i]){
       if (cObjectID==$scope.entities[i].id){
@@ -106,7 +143,7 @@ $scope.selectCobject =function(cObjectID){
 
   console.log("select entity "+$scope.selectedEntity);
 
-  if(cObject!=null){
+  if($scope.selectedEntity!=null){
     $state.go('edit.addcObject');
     
     if(!$scope.selectedEntity.cOTriggers){
@@ -124,34 +161,46 @@ $scope.selectCobject =function(cObjectID){
     $state.go('edit');
   }
 }
-$scope.selectWservice =function(wService){
-  $scope.selectedEntity=wService;
-      //console.log($scope.selectdCObject);
-      if(cObject!=null){
-        $state.go('edit.addcObject');
-        
-        if(!$scope.selectedEntity.cOTriggers){
-          $scope.selectedEntity.cOTriggers=new Array();
-        }
-        if(!$scope.selectedEntity.cODatas){
-          $scope.selectedEntity.cODatas=new Array();
 
-        }
-        if(!$scope.selectedEntity.cOActions){
-          $scope.selectedEntity.cOActions=new Array();
+$scope.selectWService =function(wServiceID){
+  console.log("wsID",wServiceID);
 
-        }
-      }else{
-        $state.go('edit');
+  for (i=0; i<$scope.entities.length;i++){
+    if ($scope.entities[i]){
+      if (wServiceID==$scope.entities[i].id){
+        $scope.selectedEntity=$scope.entities[i];
+        break;
       }
     }
+  } 
 
-    $scope.highlightConnection=function(id){
-      $scope.highlightedConnectionid=id;
+  console.log("select entity "+$scope.selectedEntity);
+
+  if(cObject!=null){
+    $state.go('edit.addwService');
+    
+    if(!$scope.selectedEntity.cOTriggers){
+      $scope.selectedEntity.cOTriggers=new Array();
     }
+    if(!$scope.selectedEntity.cODatas){
+      $scope.selectedEntity.cODatas=new Array();
 
-    $scope.selectCOData =function(cOData){
-      $scope.selectedCOData=cOData;
+    }
+    if(!$scope.selectedEntity.cOActions){
+      $scope.selectedEntity.cOActions=new Array();
+
+    }
+  }else{
+    $state.go('edit');
+  }
+}
+
+$scope.highlightConnection=function(id){
+  $scope.highlightedConnectionid=id;
+}
+
+$scope.selectCOData =function(cOData){
+  $scope.selectedCOData=cOData;
       //console.log($scope.selectdCObject);
       $state.go('edit.editCOData');
     }
@@ -171,13 +220,15 @@ $scope.selectWservice =function(wService){
     var dragStarted=false;
     var dragArrowStarted=false;
     var dragEntityStarted=false;
+    var dragEntityType=null;
+
 
     var calcOffsetX;
     var calcOffsetY;
     var scrollX;
     var scrollY;
 
-    var cObjectDragged=null;
+    var entityDragged=null;
 
     $scope.mouseDown=function(mouseEvent){
 
@@ -224,19 +275,29 @@ $scope.selectWservice =function(wService){
 
         for(i=0;i<$scope.cObjects.length;i++){
           if ($scope.cObjects[i].id==entityID){
-            cObjectDragged=$scope.cObjects[i];
+            entityDragged=$scope.cObjects[i];
+            dragEntityType="cObject";
+            break;
+          }
+        }
+        for(i=0;i<$scope.wServices.length;i++){
+          if ($scope.wServices[i].id==entityID){
+            entityDragged=$scope.wServices[i];
+            dragEntityType="wService";
             break;
           }
         }
 
-        console.log(cObjectDragged);
+        console.log(entityDragged);
+        console.log("type",dragEntityType);
+
         //$scope.$parent.cObjects.splice(arrIndex,1);
 
         dragEntityStarted=true;
 
 
-        startingX=cObjectDragged.positionX;
-        startingY=cObjectDragged.positionY;
+        startingX=entityDragged.positionX;
+        startingY=entityDragged.positionY;
         startingMouseX=mouseEvent.clientX;
         startingMouseY=mouseEvent.clientY;
 
@@ -244,7 +305,7 @@ $scope.selectWservice =function(wService){
     }
 
     $scope.mouseMove=function(mouseEvent){
-      
+
       if(dragArrowStarted){
         $scope.connections[$scope.connections.length-1].x2=mouseEvent.clientX-calcOffsetX;
         $scope.connections[$scope.connections.length-1].y2=mouseEvent.clientY-calcOffsetY;
@@ -253,8 +314,8 @@ $scope.selectWservice =function(wService){
       }else if(dragEntityStarted){
         var newPositionX=-startingMouseX+mouseEvent.clientX+startingX;
         var newPositionY=-startingMouseY+mouseEvent.clientY+startingY;
-        cObjectDragged.positionX=newPositionX;
-        cObjectDragged.positionY=newPositionY;
+        entityDragged.positionX=newPositionX;
+        entityDragged.positionY=newPositionY;
       }
       if (dragStarted&&!dragArrowStarted){
         $scope.updateConnections();
@@ -278,62 +339,71 @@ $scope.mouseUp=function(mouseEvent){
             //console.log($scope.connections);
 
 
-            $scope.connectionsid[$scope.connectionsid.length-1].end=inputId;
+      $scope.connectionsid[$scope.connectionsid.length-1].end=inputId;
             
-            var projectID=$scope.projectId;
-            var startID=$scope.connectionsid[$scope.connectionsid.length-1].start;
-            var endID=$scope.connectionsid[$scope.connectionsid.length-1].end;
+      var projectID=$scope.projectId;
+      var startID=$scope.connectionsid[$scope.connectionsid.length-1].start;
+      var endID=$scope.connectionsid[$scope.connectionsid.length-1].end;
             //console.log(projectID)
 
-            var newConnection=Connection.salva({project:projectID,start:startID,end:endID}, function(){
+      var newConnection=Connection.salva({project:projectID,start:startID,end:endID}, function(){
               //console.log("newAction", connection);
                 //$scope.$parent.cObjects.push(cObject);
                //$scope.$parent.selectedCObject.connections.push(connection);
-               console.log(newConnection);
-               $scope.connectionsid[$scope.connectionsid.length-1]=newConnection;
-               $scope.updateConnections();
+      console.log(newConnection);
+      $scope.connectionsid[$scope.connectionsid.length-1]=newConnection;
+      $scope.updateConnections();
 
 
-             });
+    });
 
-
-
-          }else{
-            $scope.connectionsid.pop();
-            $scope.connections.pop();
-
-          }
+    }else{
+      $scope.connectionsid.pop();
+      $scope.connections.pop();
+    }
           //updateConnections();
          // console.log($scope.connectionsid);
+    
+    startingPositionX=0;  
+    startingPositionY=0;
 
-       }
-       else if(dragEntityStarted){
-        $scope.updateEntityPosition();
-        startingPositionX=0;
-        startingPositionY=0;
+  }else if(dragEntityStarted){
+    $scope.updateEntityPosition(dragEntityType);
+    console.log("type to change",dragEntityType);
+  }
+  dragArrowStarted=false;
+  dragStarted=false;
+  entityDragged=null;
+  dragEntityStarted=false;
+  dragEntityType=null;
+}
 
-      }
-      dragArrowStarted=false;
-      dragStarted=false;
-      cObjectDragged=null;
-      dragEntityStarted=false;
-
-
-
-    }
-    $scope.updateEntityPosition=function(){
-      cObjectId=cObjectDragged.id;
-      newPositionX=cObjectDragged.positionX;
-      newPositionY=cObjectDragged.positionY;
-
-      CObject.update({
-        id:cObjectId, 
-        positionX:newPositionX, 
-        positionY:newPositionY
-      });
+$scope.updateEntityPosition=function(type){
       
-            //console.log("positionUpdated");
-          }
+      newPositionX=entityDragged.positionX;
+      newPositionY=entityDragged.positionY;
+      console.log(type);
+
+      if (type=="cObject"){
+        console.log("update cObject Position")
+        cObjectId=entityDragged.id;
+        CObject.update({
+          id:cObjectId, 
+          positionX:newPositionX, 
+          positionY:newPositionY
+        });
+      }
+      else if(type=="wService"){
+        console.log("update wservice Position")
+        wServiceId=entityDragged.id;
+        WService.update({
+          id:wServiceId, 
+          positionX:newPositionX, 
+          positionY:newPositionY
+        });
+      }  
+          //console.log("positionUpdated");
+      }
 
           $scope.updateConnections=function(){
 
@@ -432,7 +502,7 @@ project.factory('Project', ['$resource',function($resource){
 
 project.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
-   
+
     $stateProvider
 
     .state('edit.addEntity', {

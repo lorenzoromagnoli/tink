@@ -1,7 +1,6 @@
 <div 
-	id="addWService" 
 	ng-controller="wServiceCtrl"
-	class="inner"
+	class="addWService inner"
 >
 	<div class="header">
 		<image src="/images/connectedObject.png" class="header-img"/>
@@ -11,26 +10,26 @@
 
 	<div class="content">
 		
-		<image src="/images/{{selectedWService.image}}_small.png" width="50px" height="50px"/ class="icon_small">
+		<image src="/images/{{selectedEntity.image}}_small.png" width="50px" height="50px"/ class="icon_small">
    		<div ng-hide="editorEnabled" class="project-title">
-			<h2>{{selectedWService.name}}</h2>
+			<h2>{{selectedEntity.name}}</h2>
       		<a href="" ng-click="editorEnabled=!editorEnabled" class="glyphicon glyphicon-pencil"></a>
     	</div>
     	<div ng-show="editorEnabled" class="project-title">
-      		<input ng-model="selectedWService.name">
+      		<input ng-model="selectedEntity.name">
       		<a href="" ng-click="editorEnabled=!editorEnabled; updateName() " class="glyphicon glyphicon-ok"></a>
     	</div>
       	<a href="" ng-click="" class="glyphicon glyphicon-cog"></a>
-		<a href="" ng-click="delete()"class="glyphicon glyphicon-trash"></a>
+		<a href="" ng-click="delete()" class="glyphicon glyphicon-trash"></a>
 
 		<div class="settings">
-			<div class="wSbject icon">
+			<div class="wService icon">
 			<div>
 			
-			<div class="wSbject title">
+			<div class="wService title">
 			<div>
 			
-			<div class="wSbject settings">
+			<div class="wService settings">
 			<div>
 		</div>
 
@@ -42,7 +41,7 @@
 				<image src="/images/plus_cyano.png" class="add_action" ng-click="create()"/>
 				<div class="data list" >
 					<div class="wSData" 
-					ng-repeat="wSData in selectedWService.wSDatas" 
+					ng-repeat="wSData in selectedEntity.wSDatas" 
 					ng-click="selectWSData(wSData)"
 					>
 						<div class="wSData-left"></div>
@@ -62,7 +61,7 @@
 
 				<div class="trigger list">
 					<div class="wSTrigger" 
-					ng-repeat="wSTrigger in selectedWService.wSTriggers" 
+					ng-repeat="wSTrigger in selectedEntity.wSTriggers" 
 					ng-click="selectWSTrigger(wSTrigger)"
 					>
 						<div class="wSTrigger-left"></div>
@@ -81,7 +80,7 @@
 
 				<div class="trigger list">
 					<div class="wSAction" 
-					ng-repeat="wSAction in selectedWService.wSActions" 
+					ng-repeat="wSAction in selectedEntity.wSActions" 
 					ng-click="selectWSAction(wSAction)"
 					>
 						<div class="wSAction-left"></div>

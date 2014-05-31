@@ -12,6 +12,10 @@
 @darkGray: #666666;   // paragraphs
 @superDarkGray: #333333;
 @red: #D16565; // error
+
+
+@cyano:#ACFBDB;
+
 html {
     height: 100%;
     min-height: 100%;
@@ -186,15 +190,28 @@ opacity: 0;
 
 //   left:-300px;
 
-.inner{
-  width:300px;
-  background-color: rgba(200, 200, 200, 0.9);
-  height:100%;
 
-}
-   .header{
+  .addCObject .header{
+        background-color: @green;
+
+  }
+
+  .addWService .header{
+            background-color: pink;
+
+  }
+
+
+  .inner{
+    width:300px;
+    background-color: rgba(200, 200, 200, 0.9);
+    height:100%;
+
+  }
+
+
+  .header{
     height:50px;
-    background-color: @green;
     padding: 14px 0px 8px 5px;
 
       img{
@@ -451,7 +468,36 @@ user-select: none;
 
     }
   }
+
+    .wService{
+    .name{
+      font-size: 20px;
+    }
+    .iconMask{
+      stroke: @cyano;
+      fill: none;
+      stroke-width: 5;    
+    }
+      
+    .cOTrigger-rect{
+      fill: @darkGray;
+    }
+    .cOTrigger-text{
+      fill: @white;
+
+    }
+    .cOAction-rect{
+      fill: @darkGray;
+    }
+    .cOAction-text{
+      fill: @white;
+
+    }
+  }
 }
+
+
+
 
 .project-right{
   -webkit-transition: width 2s;

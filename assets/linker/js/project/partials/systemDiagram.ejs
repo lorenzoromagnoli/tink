@@ -22,8 +22,15 @@
 	</defs>
 
 
+			<!-- ##################################################-->
+			<!-- ##################################################-->
+			<!-- ######                                    ########-->
+			<!-- ######     Draw the connections           ########-->
+			<!-- ######                                    ########-->
+			<!-- ##################################################-->
+			<!-- ##################################################-->
+			
 
-<!-- DRAW THE CONNECTION -->
 			<g ng-repeat="connection in connections"  
 				transform="translate(10,10)"
 				ng-controller="connectionCtrl" 
@@ -74,11 +81,29 @@
 
 
 
+			<!-- ##################################################-->
+			<!-- ##################################################-->
+			<!-- ######                                    ########-->
+			<!-- ######     Draw the project name          ########-->
+			<!-- ######                                    ########-->
+			<!-- ##################################################-->
+			<!-- ##################################################-->
+
+
 		<text x="99%" y="70px"
 		text-anchor="end"
 		class="projectName"
 		>
 		{{name}}</text>	
+
+
+			<!-- ##################################################-->
+			<!-- ##################################################-->
+			<!-- ######                                    ########-->
+			<!-- ######     Draw the connected objects     ########-->
+			<!-- ######                                    ########-->
+			<!-- ##################################################-->
+			<!-- ##################################################-->
 		<g 
 		ng-repeat="cObject in cObjects" 
 		ng-controller="cObjectCtrl" 
@@ -88,7 +113,7 @@
 		class="cObject"
 		style="display: block; margin: auto"
 		>
-			
+
 			<!-- DRAW THE NAME -->
 			<g class="entity">
 				<text 
@@ -151,7 +176,104 @@
 				width="90px" 
 				clip-path="url(#ellipseMask)"
 				class="entityIcon"
-				id="{{id}}"
+				id="{{cObject.id}}"
+
+				>
+				
+				<!-- ng-mousedown="objectDragStarted($event,cObject)"
+				ng-mouseup="objectDragFinished($event)"
+				ng-mousemove="objectDrag($event)"-->
+	
+
+			</image> 
+
+			
+
+ 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
+ 			
+		</g>
+
+
+
+		<!-- ##################################################-->
+			<!-- ##################################################-->
+			<!-- ######                                    ########-->
+			<!-- ######     Draw the web  services         ########-->
+			<!-- ######                                    ########-->
+			<!-- ##################################################-->
+			<!-- ##################################################-->
+		<g 
+		ng-repeat="wService in wServices" 
+		ng-controller="wServiceCtrl" 
+		ng-init="setObjectData(wService)"
+
+		ng-attr-transform="translate({{wService.positionX}},{{wService.positionY}})"
+		class="wService"
+		style="display: block; margin: auto"
+		>
+			<!-- DRAW THE NAME -->
+			<g class="entity">
+				<text 
+					ng-hide="editorEnabled"
+					text-anchor="middle" 
+					x="45" 
+					y="-5" 
+					class="name"
+					ng-dblclick="editorEnabled=!editorEnabled"
+					>
+						{{wService.name}} 
+					<tspan 
+						href="" 
+						ng-click="selectWService(wService.id)" 
+						class="glyphicon glyphicon-cog">
+							&#xe019;
+					</tspan>
+				</text>	
+
+				<foreignobject x="-55" y="-25" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="wService.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(wService.id, wService.name)" 
+						class="entityName"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+				
+			</g>
+			<!-- DRAW THE TRIGGERS -->
+			<g ng-repeat="wSTriggers in wService.wSTriggers"
+				ng-attr-transform="translate(-110,{{ (100+($index*25)) }})"
+				> 
+				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="wSTrigger left"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="wSTrigger-rect">{{cOTriggers.name}}</rect>
+				<text x="23" y="15"  class="wSTrigger-text">{{cOTriggers.name}}</text>
+				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="start wSTrigger right" id="{{wSTriggers.id}}"></image> 
+
+			</g>
+
+			<!-- DRAW THE ACTIONS -->
+			<g ng-repeat="wSAction in wService.wSActions"
+				ng-attr-transform="translate(60,{{(100+($index*25))}})"
+				> 
+				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" end wSAction left" id="{{wSAction.id}}"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="wSAction-rect">{{cOAction.name}}</rect>
+				<text x="23" y="15"  class="wSAction-text">{{cOAction.name}}</text>
+				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="start wSAction right" id="{{wSAction.id}}"></image> 
+
+			</g>
+
+			<!-- DRAW THE ICON -->
+ 			<clipPath id="ellipseMask">
+	 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
+ 			</clipPath>
+			<image xlink:href="{{bigImage}}" 
+				x="0" y="0" 
+				height="90px" 
+				width="90px" 
+				clip-path="url(#ellipseMask)"
+				class="entityIcon"
+				id="{{wService.id}}"
 
 				>
 				

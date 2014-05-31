@@ -57,7 +57,7 @@
 
 
   'show': function(req, res, next) {
-    Project.findOne({id:req.param('id')}).populate('cObjects').populate('connections').exec(function foundProject(err, project) {
+    Project.findOne({id:req.param('id')}).populate('cObjects').populate('wServices').populate('connections').exec(function foundProject(err, project) {
       if (err) return next(err);
       if (!project) return next();
       // pass the array down to the /views/index.ejs page

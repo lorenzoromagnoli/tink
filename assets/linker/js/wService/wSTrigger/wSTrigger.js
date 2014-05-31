@@ -20,20 +20,21 @@ wSTrigger.controller('wSTriggerCtrl', ['$scope','$route', '$routeParams','$locat
 
         $scope.create = function() {
           console.log("create");
-            var wServiceId=$scope.$parent.selectedWService.id;    
+            var wServiceId=$scope.$parent.selectedEntity.id;    
                 console.log("create trigger",wServiceId);
 
             var wSTrigger=WSTrigger.salva({wService:wServiceId}, function(){
               console.log("newTrigger", wSTrigger);
                 //$scope.$parent.wServices.push(wService);
-                console.log($scope.$parent.selectedWService.wSTriggers);
-               $scope.$parent.selectedWService.wSTriggers.push(wSTrigger);
+                console.log($scope.$parent.selectedEntity.wSTriggers);
+               $scope.$parent.selectedEntity.wSTriggers.push(wSTrigger);
             });
         }
 
         $scope.delete=function(){
-            var arrIndex=$scope.$parent.selectedWService.wSTriggers.indexOf($scope.$parent.selectedWSTrigger);
-            $scope.$parent.selectedWService.wSTriggers.splice(arrIndex,1);
+
+            var arrIndex=$scope.$parent.selectedEntity.wSTriggers.indexOf($scope.$parent.selectedWSTrigger);
+            $scope.$parent.selectedEntity.wSTriggers.splice(arrIndex,1);
             console.log(arrIndex);
 
             WSTrigger.delete({
@@ -52,6 +53,9 @@ wSTrigger.controller('wSTriggerCtrl', ['$scope','$route', '$routeParams','$locat
                 $scope.$parent.connectionsid.splice(i,1)
               }
             }
+
+
+
             $scope.$parent.selectWSTrigger(null);
             $state.go('edit.addwService');
         }
@@ -81,23 +85,30 @@ wSTrigger.controller('wSTriggerCtrl', ['$scope','$route', '$routeParams','$locat
             updateParent();
             $scope.$parent.selectWSTrigger(null);
             $state.go('edit.addwService');
+
+
         }
+
         var updateParent= function(){
               $scope.$parent.selectedWSTrigger.codeVariables = $scope.codeVariables;
               $scope.$parent.selectedWSTrigger.codeSetup = $scope.codeSetup;
-              $scope.$parent.selectedWSTrigger.codefunction = $scope.codeFunction;     
+              $scope.$parent.selectedWSTrigger.codefunction = $scope.codeFunction;
+              
         }
+
+
+
     }
 ]);
 
 
  wSTrigger.factory('WSTrigger', ['$resource',function($resource){
-     return $resource('/wSTrigger/:id', {}, 
+     return $resource('/wService/wSTrigger/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{wService:'@id'}, url:'/wSTrigger/create/' },
-            'find': {method:'GET', params:{wService:'@wService'}, url:'/wSTrigger/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wSTrigger/destroy/:id' },
+            'salva': {method:'POST', params:{wService:'@id'}, url:'/wService/wSTrigger/create/' },
+            'find': {method:'GET', params:{wService:'@wService'}, url:'/wService/wSTrigger/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wService/wSTrigger/destroy/:id' },
 
              'update': {
                  method:'POST', 
@@ -108,7 +119,7 @@ wSTrigger.controller('wSTriggerCtrl', ['$scope','$route', '$routeParams','$locat
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/wSTrigger/update/:id' 
+                 url:'/wService/wSTrigger/update/:id' 
              }
 
 

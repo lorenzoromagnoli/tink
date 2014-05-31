@@ -19,12 +19,12 @@ wSData.controller('wSDataCtrl', ['$scope','$route', '$routeParams','$location', 
          })    
 
         $scope.create = function() {
-            var wSbjectId=$scope.$parent.selectedWService.id; 
-                console.log(wSbjectId);
+            var wServiceId=$scope.$parent.selectedWService.id; 
+                console.log(wServiceId);
 
-            var wSData=WSData.salva({wSbject:wSbjectId}, function(){
+            var wSData=WSData.salva({wService:wServiceId}, function(){
 
-                //$scope.$parent.wSbjects.push(wSbject);
+                //$scope.$parent.wServices.push(wService);
                $scope.$parent.selectedWService.wSDatas.push(wSData);
             });
         }
@@ -39,7 +39,7 @@ wSData.controller('wSDataCtrl', ['$scope','$route', '$routeParams','$location', 
               id:$scope.id 
             });
             $scope.$parent.selectWSData(null);
-            $state.go('edit.addwSbject');
+            $state.go('edit.addwService');
         }
 
         $scope.updateName=function(){
@@ -66,7 +66,7 @@ wSData.controller('wSDataCtrl', ['$scope','$route', '$routeParams','$location', 
             console.log(newCodeVariables);
             updateParent();
             $scope.$parent.selectWSData(null);
-            $state.go('edit.addwSbject');
+            $state.go('edit.addwService');
 
 
         }
@@ -87,9 +87,9 @@ wSData.controller('wSDataCtrl', ['$scope','$route', '$routeParams','$location', 
      return $resource('/wSData/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{wSbject:'@id'}, url:'/WService/wSData/create/' },
-            'find': {method:'GET', params:{wSbject:'@wSbject'}, url:'/WService/wSData/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/WService/wSData/destroy/:id' },
+            'salva': {method:'POST', params:{wService:'@id'}, url:'/wService/wSData/create/' },
+            'find': {method:'GET', params:{wService:'@wService'}, url:'/wService/wSData/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wService/wSData/destroy/:id' },
 
              'update': {
                  method:'POST', 
@@ -100,7 +100,7 @@ wSData.controller('wSDataCtrl', ['$scope','$route', '$routeParams','$location', 
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/WService/wSData/update/:id' 
+                 url:'/wService/wSData/update/:id' 
              }
 
 

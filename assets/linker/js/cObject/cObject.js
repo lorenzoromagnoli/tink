@@ -63,21 +63,32 @@ cObject.controller('cObjectCtrl', ['$scope','$route', '$routeParams','$location'
         }
       
       $scope.delete=function(){
+        id=$scope.$parent.selectedEntity.id;
+        console.log ("deleting",id);
 
-        var arrIndex=$scope.$parent.entities.indexOf($scope.$parent.selectedCObject);
-            $scope.$parent.entities.splice(arrIndex,1);
-        var arrIndex=$scope.$parent.cObjects.indexOf($scope.$parent.selectedCObject);
-            $scope.$parent.cObjects.splice(arrIndex,1);
+         for (i=0; i<$scope.entities.length;i++){
+            if ($scope.entities[i]){
+              if (id==$scope.entities[i].id){
 
-            CObject.delete({
-              id:$scope.$parent.selectedEntity.id
 
-            });
-            console.log("deleting id "+ $scope.id);
-            $scope.$parent.selectCobject(null);
-            
-            $state.go('edit');
+                var arrIndex=$scope.$parent.cObjects.indexOf($scope.entities[i]);
+                //delete from the entities array
+                $scope.$parent.entities.splice(i,1);
+                //delete from the cObjects array
+                $scope.$parent.cObjects.splice(arrIndex,1);     
+                
+                CObject.delete({
+                  id:id
 
+                });
+                console.log("deleting id "+id);
+                
+                $state.go('edit');
+
+                break;
+              }
+            }
+          } 
         }
 
 
