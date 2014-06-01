@@ -1,4 +1,4 @@
-module.exports = {
+var COActionController ={
     
 
   new: function (req,res){
@@ -9,10 +9,10 @@ module.exports = {
   create: function(req, res, next) {
 
     var cOActionObj = {
-      wService: req.param('wService'),
+      cObject: req.param('cObject'),
 
     }
-    WSAction.create(wSActionObj, function cObjectCreated(err, WSAction) {
+    COAction.create(cOActionObj, function cObjectCreated(err, COAction) {
 
       // // If there's an error
       // if (err) return next(err);
@@ -27,14 +27,22 @@ module.exports = {
         return res.send('error');
       }
       //  res.redirect('/project/index/' + project.id);
-      console.log(WSAction);
-      res.send(WSAction);
+      console.log(COAction);
+      res.send(COAction);
       });
   },
 
+    delete: function(req,res,next){
+    COAction.destroy({id:req.param('id')}).exec(function(err,data){
+      console.log ("deleted COAction", req.param('id'));
+    });
+      res.send(COAction);
+
+    },
+
 
   // show: function(req, res, next) {
-  //   WSbject.findOne(req.param('id'), function foundWSbject(err, WSAction) {
+  //   CObject.findOne(req.param('id'), function foundCObject(err, COAction) {
   //     if (err) return next(err);
   //     if (!cObject) return next();
   //     res.send(cObject);
@@ -44,7 +52,7 @@ module.exports = {
   // index: function(req, res, next) {
 
   //   // Get an array of all users in the User collection(e.g. table)
-  //   WSbject.find(function foundUsers(err, cObjects) {
+  //   CObject.find(function foundUsers(err, cObjects) {
   //     if (err) return next(err);
   //     // pass the array down to the /views/index.ejs page
   //     res.send(cObjects)
@@ -52,3 +60,5 @@ module.exports = {
   // },
 
 };
+
+module.exports = COActionController;

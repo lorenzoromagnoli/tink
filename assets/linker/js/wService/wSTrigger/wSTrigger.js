@@ -31,41 +31,29 @@ wSTrigger.controller('wSTriggerCtrl', ['$scope','$route', '$routeParams','$locat
             });
         }
 
-        $scope.delete=function(){
+        $scope.delete=function(id){
 
             var arrIndex=$scope.$parent.selectedEntity.wSTriggers.indexOf($scope.$parent.selectedWSTrigger);
             $scope.$parent.selectedEntity.wSTriggers.splice(arrIndex,1);
-            console.log(arrIndex);
+            console.log("delete", id);
 
             WSTrigger.delete({
-              id:$scope.id 
+              id: id
             });
+                       //serach there where connections and delete those
+            $scope.$parent.deleteConnectionsbyActionID(id);
 
 
-            for(i=0;i<$scope.$parent.connectionsid.length;i++){
-              console.log('startId', $scope.$parent.connectionsid[i].start)
-
-              if ($scope.$parent.connectionsid[i].start==$scope.id || $scope.$parent.connectionsid[i].end==$scope.id ){
-                Connection.delete({
-                  id:$scope.$parent.connectionsid[i].id
-                });
-                $scope.$parent.connections.splice(i,1)
-                $scope.$parent.connectionsid.splice(i,1)
-              }
-            }
-
-
-
-            $scope.$parent.selectWSTrigger(null);
+           // $scope.$parent.selectWSTrigger(null);
             $state.go('edit.addwService');
         }
 
-        $scope.updateName=function(){
-            wSTriggerId=$scope.$parent.selectedWSTrigger.id; 
-            newname=$scope.$parent.selectedWSTrigger.name;
-            WSTrigger.update({id:wSTriggerId, name: newname});
-            //console.log("nameUpdated");
+
+        $scope.updateName=function(id, newname){
+            WSTrigger.update({id:id, name: newname});
+            console.log("nameUpdated");
         }
+
 
         $scope.updateCode=function(){
             wSTriggerId=$scope.$parent.selectedWSTrigger.id; 
@@ -103,12 +91,12 @@ wSTrigger.controller('wSTriggerCtrl', ['$scope','$route', '$routeParams','$locat
 
 
  wSTrigger.factory('WSTrigger', ['$resource',function($resource){
-     return $resource('/wService/wSTrigger/:id', {}, 
+     return $resource('/wSTrigger/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{wService:'@id'}, url:'/wService/wSTrigger/create/' },
-            'find': {method:'GET', params:{wService:'@wService'}, url:'/wService/wSTrigger/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wService/wSTrigger/destroy/:id' },
+            'salva': {method:'POST', params:{wService:'@id'}, url:'/wSTrigger/create/' },
+            'find': {method:'GET', params:{wService:'@wService'}, url:'/wSTrigger/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wSTrigger/delete/:id' },
 
              'update': {
                  method:'POST', 
@@ -119,7 +107,7 @@ wSTrigger.controller('wSTriggerCtrl', ['$scope','$route', '$routeParams','$locat
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/wService/wSTrigger/update/:id' 
+                 url:'/wSTrigger/update/:id' 
              }
 
 

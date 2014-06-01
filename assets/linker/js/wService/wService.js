@@ -57,7 +57,7 @@ wService.controller('wServiceCtrl', ['$scope','$route', '$routeParams','$locatio
 
 
                 //select entity
-                $scope.$parent.selectWservice(newWservice.id);
+                $scope.$parent.selectWService(newWservice.id);
                 console.log("entities",$scope.$parent.entities);
             });
         }

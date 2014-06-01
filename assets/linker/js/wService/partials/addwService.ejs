@@ -1,10 +1,10 @@
 <div 
 	ng-controller="wServiceCtrl"
-	class="addWService inner"
+	class="addEntity wService inner"
 >
 	<div class="header">
-		<image src="/images/connectedObject.png" class="header-img"/>
-		<h3>WSNNECTED OBJECT</h3>
+		<image src="/images/webService.png" class="header-img"/>
+		<h3>WEB SERVICE</h3>
 	</div>
 	
 
@@ -40,14 +40,25 @@
 				</span>
 				<image src="/images/plus_cyano.png" class="add_action" ng-click="create()"/>
 				<div class="data list" >
-					<div class="wSData" 
+					<div class="data" 
 					ng-repeat="wSData in selectedEntity.wSDatas" 
 					ng-click="selectWSData(wSData)"
+					ng-mouseenter="mouseover=true"
+					ng-mouseleave="mouseover=false"
 					>
-						<div class="wSData-left"></div>
-						<div class="wSData-body" >{{wSData.name}}</div> 
-						<div class="wSData-right"></div>
-								
+						<div class="left"></div>
+						<div class="body" >{{wSData.name}}</div> 
+						<div class="right"></div>
+
+						<a 
+						ng-show="mouseover" 
+						href="" 
+						ng-click="delete()" 
+						class="glyphicon glyphicon-trash canFade"
+						ng-animate="{show:'animate-show', hide:'animate-hide'}"
+						></a>
+
+
 					</div>
 
 				</div>
@@ -60,13 +71,27 @@
 				<image src="/images/plus_orange.png" class="add_action" ng-click="create()"/>
 
 				<div class="trigger list">
-					<div class="wSTrigger" 
+					<div class="trigger" 
 					ng-repeat="wSTrigger in selectedEntity.wSTriggers" 
 					ng-click="selectWSTrigger(wSTrigger)"
+					ng-mouseenter="mouseover=true"
+					ng-mouseleave="mouseover=false"
+
 					>
-						<div class="wSTrigger-left"></div>
-						<div class="wSTrigger-body">{{wSTrigger.name}}</div> 
-						<div class="wSTrigger-right"></div>
+						<div class="left"></div>
+						<div class="body">{{wSTrigger.name}}</div> 
+						<div class="right"></div>
+
+					
+					<a ng-show="mouseover" 
+						href="" 
+						ng-click="delete(wSTrigger.id)" 
+						class="glyphicon glyphicon-trash canFade" 
+						ng-animate="{show:'animate-show', hide:'animate-hide'}"
+						>
+					</a>
+
+
 								
 					</div>
 				</div>
@@ -78,14 +103,25 @@
 				</span>
 				<image src="/images/plus_yellow.png" class="add_action" ng-click="create()"/>
 
-				<div class="trigger list">
-					<div class="wSAction" 
+				<div class="action list">
+					<div class="action" 
 					ng-repeat="wSAction in selectedEntity.wSActions" 
 					ng-click="selectWSAction(wSAction)"
+					ng-mouseenter="mouseover=true"
+					ng-mouseleave="mouseover=false"
 					>
-						<div class="wSAction-left"></div>
-						<div class="wSAction-body">{{wSAction.name}}</div> 
-						<div class="wSAction-right"></div>
+						<div class="left"></div>
+						<div class="body">{{wSAction.name}}</div> 
+						<div class="right"></div>
+
+						<a 
+						ng-show="mouseover" 
+						href="" ng-click="delete(wSAction.id)" 
+						class="glyphicon glyphicon-trash canFade"
+						ng-animate="{show:'animate-show', hide:'animate-hide'}"
+						>
+						</a>
+
 								
 					</div>
 				</div>

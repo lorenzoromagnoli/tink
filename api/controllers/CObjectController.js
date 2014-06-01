@@ -4,7 +4,7 @@
  * @description ::
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
- module.exports = {
+ var  CObjectController={
   
 
   new: function (req,res){
@@ -94,3 +94,5 @@
   },
 
 };
+
+module.exports =  CObjectController;

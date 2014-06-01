@@ -31,24 +31,25 @@ wSAction.controller('wSActionCtrl', ['$scope','$route', '$routeParams','$locatio
             });
         }
 
-        $scope.delete=function(){
+        $scope.delete=function(id){
 
             var arrIndex=$scope.$parent.selectedEntity.wSActions.indexOf($scope.$parent.selectedWSAction);
             $scope.$parent.selectedEntity.wSActions.splice(arrIndex,1);
-            console.log(arrIndex);
+            console.log("delete",id);
 
             WSAction.delete({
-              id:$scope.id 
+              id:id 
             });
-            $scope.$parent.selectWSAction(null);
+            //$scope.$parent.selectWSAction(null);
             $state.go('edit.addwService');
+
+                                   //serach there where connections and delete those
+            $scope.$parent.deleteConnectionsbyActionID(id);
         }
 
-        $scope.updateName=function(){
-            wSActionId=$scope.$parent.selectedWSAction.id; 
-            newname=$scope.$parent.selectedWSAction.name;
-            WSAction.update({id:wSActionId, name: newname});
-            //console.log("nameUpdated");
+        $scope.updateName=function(id, newname){
+            WSAction.update({id:id, name: newname});
+            console.log("nameUpdated");
         }
 
         $scope.updateCode=function(){
@@ -89,9 +90,9 @@ wSAction.controller('wSActionCtrl', ['$scope','$route', '$routeParams','$locatio
      return $resource('/wSAction/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{wService:'@id'}, url:'/wService/wSAction/create/' },
-            'find': {method:'GET', params:{wService:'@wService'}, url:'/wService/wSAction/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wService/wSAction/destroy/:id' },
+            'salva': {method:'POST', params:{wService:'@id'}, url:'/wSAction/create/' },
+            'find': {method:'GET', params:{wService:'@wService'}, url:'/wSAction/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wSAction/delete/:id' },
 
              'update': {
                  method:'POST', 
@@ -102,7 +103,7 @@ wSAction.controller('wSActionCtrl', ['$scope','$route', '$routeParams','$locatio
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/wService/wSAction/update/:id' 
+                 url:'/wSAction/update/:id' 
              }
 
 

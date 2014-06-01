@@ -1,4 +1,4 @@
-module.exports = {
+var cotrigger = {
     
 
   new: function (req,res){
@@ -32,23 +32,16 @@ module.exports = {
       });
   },
 
+    delete: function(req,res,next){
+    COTrigger.destroy({id:req.param('id')}).exec(function(err,data){
+      console.log ("deleted COTrigger", req.param('id'));
+    });
+      res.send(COTrigger);
 
-  // show: function(req, res, next) {
-  //   CObject.findOne(req.param('id'), function foundCObject(err, COData) {
-  //     if (err) return next(err);
-  //     if (!cObject) return next();
-  //     res.send(cObject);
-  //   });
-  // },
+    },
 
-  // index: function(req, res, next) {
 
-  //   // Get an array of all users in the User collection(e.g. table)
-  //   CObject.find(function foundUsers(err, cObjects) {
-  //     if (err) return next(err);
-  //     // pass the array down to the /views/index.ejs page
-  //     res.send(cObjects)
-  //   });
-  // },
 
 };
+
+module.exports = cotrigger;

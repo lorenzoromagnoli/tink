@@ -32,6 +32,15 @@ module.exports = {
       });
   },
 
+  delete: function(req,res,next){
+    WSData.destroy({id:req.param('id')}).exec(function(err,data){
+      console.log ("deleted WSData", req.param('id'));
+    });
+    res.send(WSData);
+
+
+  },
+
 
   // show: function(req, res, next) {
   //   WSbject.findOne(req.param('id'), function foundWSbject(err, WSData) {

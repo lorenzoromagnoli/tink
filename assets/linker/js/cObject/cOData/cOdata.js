@@ -19,27 +19,30 @@ cOData.controller('cODataCtrl', ['$scope','$route', '$routeParams','$location', 
          })    
 
         $scope.create = function() {
-            var cObjectId=$scope.$parent.selectedCObject.id; 
+            var cObjectId=$scope.$parent.selectedEntity.id; 
                 console.log(cObjectId);
 
             var cOData=COData.salva({cObject:cObjectId}, function(){
 
                 //$scope.$parent.cObjects.push(cObject);
-               $scope.$parent.selectedCObject.cODatas.push(cOData);
+               $scope.$parent.selectedEntity.cODatas.push(cOData);
             });
         }
 
-        $scope.delete=function(){
+        $scope.delete=function(id){
 
-            var arrIndex=$scope.$parent.selectedCObject.cODatas.indexOf($scope.$parent.selectedCOData);
-            $scope.$parent.selectedCObject.cODatas.splice(arrIndex,1);
+            var arrIndex=$scope.$parent.selectedEntity.cODatas.indexOf($scope.$parent.selectedCOAction);
+            $scope.$parent.selectedEntity.cODatas.splice(arrIndex,1);
             console.log(arrIndex);
 
             COData.delete({
-              id:$scope.id 
+              id:id 
             });
             $scope.$parent.selectCOData(null);
             $state.go('edit.addcObject');
+
+                        //serach there where connections and delete those
+            $scope.$parent.deleteConnectionsbyActionID(id);
         }
 
         $scope.updateName=function(){
@@ -87,9 +90,9 @@ cOData.controller('cODataCtrl', ['$scope','$route', '$routeParams','$location', 
      return $resource('/cOData/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cObject/cOData/create/' },
-            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cObject/cOData/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cObject/cOData/destroy/:id' },
+            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cOData/create/' },
+            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cOData/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cOData/delete/:id' },
 
              'update': {
                  method:'POST', 
@@ -100,7 +103,7 @@ cOData.controller('cODataCtrl', ['$scope','$route', '$routeParams','$location', 
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/cObject/cOData/update/:id' 
+                 url:'/cOData/update/:id' 
              }
 
 

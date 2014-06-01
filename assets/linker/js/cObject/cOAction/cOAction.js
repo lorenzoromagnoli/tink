@@ -31,25 +31,28 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
             });
         }
 
-        $scope.delete=function(){
+        $scope.delete=function(id){
 
             var arrIndex=$scope.$parent.selectedEntity.cOActions.indexOf($scope.$parent.selectedCOAction);
             $scope.$parent.selectedEntity.cOActions.splice(arrIndex,1);
             console.log(arrIndex);
 
             COAction.delete({
-              id:$scope.id 
+              id:id 
             });
             $scope.$parent.selectCOAction(null);
             $state.go('edit.addcObject');
+
+            //serach there where connections and delete those
+            $scope.$parent.deleteConnectionsbyActionID(id);
         }
 
-        $scope.updateName=function(){
-            cOActionId=$scope.$parent.selectedCOAction.id; 
-            newname=$scope.$parent.selectedCOAction.name;
-            COAction.update({id:cOActionId, name: newname});
-            //console.log("nameUpdated");
+
+        $scope.updateName=function(id, newname){
+            COAction.update({id:id, name: newname});
+            console.log("nameUpdated");
         }
+        
 
         $scope.updateCode=function(){
             cOActionId=$scope.$parent.selectedCOAction.id; 
@@ -78,9 +81,6 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
               $scope.$parent.selectedCOAction.codeSetup = $scope.codeSetup;
               $scope.$parent.selectedCOAction.codefunction = $scope.codeFunction;
         }
-
-
-
     }
 ]);
 
@@ -89,9 +89,9 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
      return $resource('/cOAction/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cObject/cOAction/create/' },
-            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cObject/cOAction/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cObject/cOAction/destroy/:id' },
+            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cOAction/create/' },
+            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cOAction/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cOAction/delete/:id' },
 
              'update': {
                  method:'POST', 
@@ -102,7 +102,7 @@ cOAction.controller('cOActionCtrl', ['$scope','$route', '$routeParams','$locatio
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/cObject/cOAction/update/:id' 
+                 url:'/cOAction/update/:id' 
              }
 
 

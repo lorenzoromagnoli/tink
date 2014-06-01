@@ -1,61 +1,61 @@
 /**********
  * COLORS
  *********/
-@white: #FFFFFF;
-@green: #91e945;
-@orange: #F48744;
-@blue: #189ECA;
-@gray: #777574;
-@lightGray: #f2f2f2;
-@black: #1C1C1C;
-@darkBlue: #106E8D;
+ @white: #FFFFFF;
+ @green: #91e945;
+ @orange: #F48744;
+ @blue: #189ECA;
+ @gray: #777574;
+ @lightGray: #f2f2f2;
+ @black: #1C1C1C;
+ @darkBlue: #106E8D;
 @darkGray: #666666;   // paragraphs
 @superDarkGray: #333333;
 @red: #D16565; // error
 
 
-@cyano:#ACFBDB;
+@cyano:#8AFCDA;
 
 html {
-    height: 100%;
-    min-height: 100%;
+	height: 100%;
+	min-height: 100%;
 }
-    
+
 
 body {
 	padding-top: 60px;
 	padding-bottom: 40px;
-  height:100%;
-  min-height: 100%;
-padding-top: 0px;
-background-image: url("/images/dot_texture.png");
-font-family: 'Ubuntu', sans-serif;
+	height:100%;
+	min-height: 100%;
+	padding-top: 0px;
+	background-image: url("/images/dot_texture.png");
+	font-family: 'Ubuntu', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-font-family: 'Ubuntu', sans-serif;
-  font-weight: 500;
-  line-height: 1.1;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 500;
+	line-height: 1.1;
 }
 
 .navbar{
-  height:100px;
-  background-color: @superDarkGray;
-  position:relative;
-  margin-bottom: 0px;
+	height:100px;
+	background-color: @superDarkGray;
+	position:relative;
+	margin-bottom: 0px;
 
-  .container {
-    max-width: 100%;
-    padding:20px 50px 0px 50px;
+	.container {
+		max-width: 100%;
+		padding:20px 50px 0px 50px;
 
-  }
-  .navbar-brand{
-    margin-top: -20px;
-  }
+	}
+	.navbar-brand{
+		margin-top: -20px;
+	}
 }
 
 .main-container{
-  width:100%;
+	width:100%;
 }
 
 .jumbotron {
@@ -63,102 +63,101 @@ font-family: 'Ubuntu', sans-serif;
 }
 
 .jumbotron h2 {
-  font-size: 1.5em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: gray;
+	font-size: 1.5em;
+	letter-spacing: -1px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-weight: normal;
+	color: gray;
 }
 
 .container {
-  .footer {
-    width: 25%;
-  }
+	.footer {
+		width: 25%;
+	}
 }
 
 .form-signin {
-  max-width: 30%;
-  padding: 19px 29px 29px;
-  margin: 0 auto 20px;
-  margin-top: 20px;
-  background-color: @lightGray;
-  border: 1px solid @green;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+	max-width: 30%;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	margin-top: 20px;
+	background-color: @lightGray;
+	border: 1px solid @green;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 
-  h2 {
-    text-align: center;
-    margin-top: 0px;
-  }
+	h2 {
+		text-align: center;
+		margin-top: 0px;
+	}
 }
 
 
 
 .project{
-  min-height:100px;
-  height: 100%;
-  margin: 0px 0px 0px 0px;
+	min-height:100px;
+	height: 100%;
+	margin: 0px 0px 0px 0px;
 }
 
 
 
 .projectList {
-max-width: 30%;
-padding: 19px 29px 29px;
-margin: 0 auto 20px;
-margin-top: 20px;
-background-color: @lightGray;
-border: 1px solid @green;
--webkit-border-radius: 15px;
--moz-border-radius: 15px;
-border-radius: 15px;
+	max-width: 30%;
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	margin-top: 20px;
+	background-color: @lightGray;
+	border: 1px solid @green;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 
-  h2 {
-    text-align: center;
-    margin-top: 0px;
-  }
+	h2 {
+		text-align: center;
+		margin-top: 0px;
+	}
 }
 
 .form-signin input[type="text"],
 .form-signin input[type="password"] {
-font-size: 16px;
-height: auto;
-margin-bottom: 15px;
-padding: 7px 9px;
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
 }
 
 .alert {
-  position: absolute;
+	position: absolute;
 }
 
 .controls{
-  position:absolute;
-  height: 100%;
+	position:absolute;
+	height: 100%;
 }
 
 .addEntityBTN{
-  float: left;
-  display: flex;
-  -webkit-transition:all .5s ease-in-out;
-  -moz-transition:all .5s ease-in-out;
-  -o-transition:all .5s ease-in-out;
-  transition:all .5s ease-in-out;
-  position:absolute;
-  left:0px;
-  background-image: url("/images/plus.png");
-  width: 32px;
-  height:32px;
-  background-repeat: no-repeat;
-  margin-top:7px;
-  margin-left:3px;
+	float: left;
+	display: flex;
+	-webkit-transition:all .5s ease-in-out;
+	-moz-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
+	position:absolute;
+	left:0px;
+	background-image: url("/images/plus.png");
+	width: 32px;
+	height:32px;
+	background-repeat: no-repeat;
+	margin-top:7px;
+	margin-left:3px;
 
 }
 .addEntityBTN a{
-opacity: 0;
+	opacity: 0;
 }
-
 
 .addEntityBTN.rotated{
   //position: absolute;
@@ -167,332 +166,313 @@ opacity: 0;
   -ms-transform:rotate(45deg); /* IE 9 */
   -webkit-transform:rotate(45deg); /* Opera, Chrome, and Safari */
 
-
 }
 
 .project-left{
 
- // position: absolute;
-  //width:30%;
-  float: left;
+	float: left;
+	height:100%;
+	min-height:100%;
+	-webkit-transition:all .5s ease-in-out;
+	-moz-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
 
-  height:100%;
-  min-height:100%;
-  //width:0px;
+	.addEntity.cObject{
+		.header{
+			background-color: @green;
+		}
+		.icon_small{
+			border: 2px solid @green;
+			
+		}
+	} 
 
-  //left:-150px;
+	.addEntity.wService{
+		.header{
+			background-color: @cyano;
+		}
+		.icon_small{
+			border: 2px solid @cyano;
+			
+		}
+	}
 
-  -webkit-transition:all .5s ease-in-out;
-  -moz-transition:all .5s ease-in-out;
-  -o-transition:all .5s ease-in-out;
-  transition:all .5s ease-in-out;
+	.inner{
+		width:300px;
+		background-color: rgba(200, 200, 200, 0.9);
+		height:100%;
 
+	}
 
-//   left:-300px;
+	.header{
+		height:50px;
+		padding: 14px 0px 8px 5px;
 
+		img{
+			margin-top: -5px;
+		}
 
-  .addCObject .header{
-        background-color: @green;
+		h3{
+			margin-top: 0px;
+			font-size: 17pt;
+			display: inline;
+			position: absolute;
+		}
+	}
+	.content{
+		padding:15px;
 
-  }
+		.icon_small{
+			border: 2px solid @green;
+			-webkit-border-radius: 25px;
+			-moz-border-radius: 25px;
+			border-radius: 25px;
+		}
+		h2{
+			display: inline;
+			font-size: 25px;
 
-  .addWService .header{
-            background-color: pink;
+		}
+		.project-title{
+			display: inline;
 
-  }
+		}
+		input{
+			font-size: 25px;
+			width: 60%;
+		}
+	}
+	.list{
+		width: 100%;
+	}
+	.actions{
+		padding-left:20px;
+		margin-top: 20px;
+		.title{
+			font-size:20px;
+		}
+		.block{
+			margin-top: 20px;
+		}
+		.add_action{
+			margin-top:-3px;
+		} 
+	}
 
-
-  .inner{
-    width:300px;
-    background-color: rgba(200, 200, 200, 0.9);
-    height:100%;
-
-  }
-
-
-  .header{
-    height:50px;
-    padding: 14px 0px 8px 5px;
-
-      img{
-        margin-top: -5px;
-      }
-
-      h3{
-        margin-top: 0px;
-        font-size: 17pt;
-        display: inline;
-        position: absolute;
-      }
-  }
-  .content{
-      padding:15px;
-
-      .icon_small{
-        border: 2px solid @green;
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
-        border-radius: 25px;
-      }
-      h2{
-        display: inline;
-        font-size: 25px;
-
-      }
-      .project-title{
-        display: inline;
-
-      }
-      input{
-       font-size: 25px;
-       width: 60%;
-      }
-  }
-  .actions{
-    padding-left:20px;
-    margin-top: 20px;
-    .title{
-      font-size:20px;
-    }
-    .block{
-      margin-top: 20px;
-    }
-    .add_action{
-      margin-top:-3px;
-    } 
-  }
-
-  .cOData{
-    margin-top: 5px;
-  }
-  .cOTrigger{
-    margin-top: 5px;
-   }
-  .cOAction{
-    margin-top: 5px;
-  }
+	.data{
+		margin-top: 5px;
+	}
+	.trigger{
+		margin-top: 5px;
+	}
+	.action{
+		margin-top: 5px;
+	}
 }
 
 
 
 .project-left.ng-enter {
-  -webkit-transform:translate3d(-300px, 0, 0);
-  -moz-transform:translate3d(-300px, 0, 0);
-  transform:translate3d(-300px, 0, 0);
-      }
+	-webkit-transform:translate3d(-300px, 0, 0);
+	-moz-transform:translate3d(-300px, 0, 0);
+	transform:translate3d(-300px, 0, 0);
+}
 .project-left.ng-enter.ng-enter-active {
-  -webkit-transform:translate3d(0px, 0, 0);
-  -moz-transform:translate3d(0px, 0, 0);
-  transform:translate3d(0px, 0, 0);
+	-webkit-transform:translate3d(0px, 0, 0);
+	-moz-transform:translate3d(0px, 0, 0);
+	transform:translate3d(0px, 0, 0);
 }
- .project-left.ng-leave {
-  /*padding-left: 0px;*/  
-  -webkit-transform:translate3d(-300px, 0, 0);
-  -moz-transform:translate3d(-300px, 0, 0);
-  transform:translate3d(-300px, 0, 0);
+.project-left.ng-leave {
+	/*padding-left: 0px;*/  
+	-webkit-transform:translate3d(-300px, 0, 0);
+	-moz-transform:translate3d(-300px, 0, 0);
+	transform:translate3d(-300px, 0, 0);
 }
- .project-left.ng-leave.ng-leave-active {
-  /*padding-left: 100px;*/
-  -webkit-transform:translate3d(-600px, 0, 0);
-  -moz-transform:translate3d(-600px, 0, 0);
-  transform:translate3d(-600px, 0, 0);}
+.project-left.ng-leave.ng-leave-active {
+	/*padding-left: 100px;*/
+	-webkit-transform:translate3d(-600px, 0, 0);
+	-moz-transform:translate3d(-600px, 0, 0);
+	transform:translate3d(-600px, 0, 0);}
 
 
 
-.cOData{
-      display: table;
-      margin-top: 0px;
-    }
-    .cOData-left{
-      background-image:url('/images/data_left.png');
-      width:24px;
-      height: 19px;
-      float:left;
-    }
-    .cOData-right{
-      background-image:url('/images/data_right.png');
-      width:23px;
-      height: 19px;
-      float:left;
-    }
-    .cOData-body{
-      background-color:@darkGray;
-      height: 19px;
-      float:left;
-      color: @white;
-      
-      input{
-        height:19px;
-        background-color: @darkGray;
-        color: @white;
-        border:0px;
-      }
+	.data{
+		display: table;
+		margin-top: 0px;
+		width:100%;
 
-    }
+		.left{
+			background-image:url('/images/data_left.png');
+			width:24px;
+			height: 19px;
+			float:left;
+		}
+		.right{
+			background-image:url('/images/data_right.png');
+			width:23px;
+			height: 19px;
+			float:left;
+		}
+		.body{
+			background-color:@darkGray;
+			height: 19px;
+			float:left;
+			color: @white;
 
-
-.cOTrigger{
-      display: table;
-      margin-top: 0px;
-    }
-.cOTrigger-left{
-      background-image:url('/images/trigger_left.png');
-      width:23px;
-      height: 19px;
-      float:left;
-}
-.cOTrigger-right{
-      background-image:url('/images/trigger_right.png');
-      width:23px;
-      height: 19px;
-      float:left;
-}
-.cOTrigger-body{
-      background-color:@darkGray;
-      height: 19px;
-      float:left;
-      color: @white;
-      
-      input{
-        height:19px;
-        background-color: @darkGray;
-        color: @white;
-        border:0px;
-      }
-
-}
+			input{
+				height:19px;
+				background-color: @darkGray;
+				color: @white;
+				border:0px;
+			}
+		}
+	}
 
 
-.cOAction{
-      display: table;
-      margin-top: 0px;
-    }
-.cOAction-left{
-      background-image:url('/images/action_left.png');
-      width:23px;
-      height: 19px;
-      float:left;
-}
-.cOAction-right{
-      background-image:url('/images/action_right.png');
-      width:23px;
-      height: 19px;
-      float:left;
-}
-.cOAction-body{
-      background-color:@darkGray;
-      height: 19px;
-      float:left;
-      color: @white;
-      
-      input{
-        height:19px;
-        background-color: @darkGray;
-        color: @white;
-        border:0px;
-      }
+	.trigger{
+		display: table;
+		margin-top: 0px;
+		width:100%;
 
-}
+		.left{
+			background-image:url('/images/trigger_left.png');
+			width:23px;
+			height: 19px;
+			float:left;
+		}
+		.right{
+			background-image:url('/images/trigger_right.png');
+			width:23px;
+			height: 19px;
+			float:left;
+		}
+		.body{
+			background-color:@darkGray;
+			height: 19px;
+			float:left;
+			color: @white;
 
-.glyphicon{
-        margin-left:5px;
-}
-.overlay{
-  position:absolute;
-  width: 100%;
-  height: 100%;
-  top:100px;
-  background-color: rgba(0,0,0,0.3);
-  z-index: 1001;
-  .editor{
-    width:60%;
-    min-height:600px;
-    background-color: white;
-    margin-top: 20px;
-    margin-left:20%;
-    padding: 20px;
+			input{
+				height:19px;
+				background-color: @darkGray;
+				color: @white;
+				border:0px;
+			}
+		}
+	}
 
-    .name{
-      display: flex;
-    }
-    textarea{
-      width:100%;
-      margin-top:10px;
-      height: 100px;
-    }
+
+	.action{
+		display: table;
+		margin-top: 0px;
+		width:100%;
+
+		.left{
+			background-image:url('/images/action_left.png');
+			width:23px;
+			height: 19px;
+			float:left;
+		}
+		.right{
+			background-image:url('/images/action_right.png');
+			width:23px;
+			height: 19px;
+			float:left;
+		}
+		.body{
+			background-color:@darkGray;
+			height: 19px;
+			float:left;
+			color: @white;
+
+			input{
+				height:19px;
+				background-color: @darkGray;
+				color: @white;
+				border:0px;
+			}
+		}
+	}
+
+	.glyphicon{
+		margin-left:5px;
+	}
+	.overlay{
+		position:absolute;
+		width: 100%;
+		height: 100%;
+		top:100px;
+		background-color: rgba(0,0,0,0.3);
+		z-index: 1001;
+		.editor{
+			width:60%;
+			min-height:600px;
+			background-color: white;
+			margin-top: 20px;
+			margin-left:20%;
+			padding: 20px;
+
+			.name{
+				display: flex;
+			}
+			textarea{
+				width:100%;
+				margin-top:10px;
+				height: 100px;
+			}
+		}
+
+
+	}
+
+
+	.project-center column{
+		width:100%;
+	}
+	.projectName{
+		font-size:70px;
+	}
+	.systemDiagram{
+
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+
+		.entity{
+			.name{
+				font-size: 20px;
+			}
+			.iconMask{
+				stroke: @darkGray;
+				fill: none;
+				stroke-width: 5;    
+			}
+			.trigger, .action{
+				.rect{
+					fill: @darkGray;
+				}
+				.text{
+					fill: @white;
+				}
+			}
+
+      //special property for the different entities
+
   }
-  
-
-}
-
-
-.project-center column{
-  width:100%;
-}
-.projectName{
-  font-size:70px;
-}
-.systemDiagram{
-
--webkit-touch-callout: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
--o-user-select: none;
-user-select: none;
-
-  
-  .cObject{
-    .name{
-      font-size: 20px;
-    }
-    .iconMask{
-      stroke: @green;
-      fill: none;
-      stroke-width: 5;    
-    }
-      
-    .cOTrigger-rect{
-      fill: @darkGray;
-    }
-    .cOTrigger-text{
-      fill: @white;
-
-    }
-    .cOAction-rect{
-      fill: @darkGray;
-    }
-    .cOAction-text{
-      fill: @white;
-
-    }
+  .entity.wService{
+  	.iconMask{
+  		stroke: @cyano;
+  	}
   }
-
-    .wService{
-    .name{
-      font-size: 20px;
-    }
-    .iconMask{
-      stroke: @cyano;
-      fill: none;
-      stroke-width: 5;    
-    }
-      
-    .cOTrigger-rect{
-      fill: @darkGray;
-    }
-    .cOTrigger-text{
-      fill: @white;
-
-    }
-    .cOAction-rect{
-      fill: @darkGray;
-    }
-    .cOAction-text{
-      fill: @white;
-
-    }
+  .entity.cObject{
+  	.iconMask{
+  		stroke: @green;
+  	}
   }
 }
 
@@ -500,80 +480,106 @@ user-select: none;
 
 
 .project-right{
-  -webkit-transition: width 2s;
-  width:0%;
-  float: right;
-    height:100%;
-min-height:100%;
+	-webkit-transition: width 2s;
+	width:0%;
+	float: right;
+	height:100%;
+	min-height:100%;
 
-  background-color: @lightGray;
+	background-color: @lightGray;
 
 }
 
 .debug{
  // visibility: hidden;
-background-color: rgba(255,255,255,0.7);
-border:1px solid green;
+ background-color: rgba(255,255,255,0.7);
+ border:1px solid green;
 
-position: absolute;
-z-index: 200;
-right: 0;
-bottom: 0;
+ position: absolute;
+ z-index: 200;
+ right: 0;
+ bottom: 0;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-  display: none !important;
+	display: none !important;
 }
 
 
 //here goes the css for the system diagram
 tspan.glyphicon {
-  font-size: 15px;
-  baseline-shift:-2px;
+	font-size: 15px;
+	baseline-shift:-2px;
 }
 
 .connection{
-  stroke:#000000;
-  fill:none;
-  stroke-width: 1.5px;
-marker-start: url(#markerCircle);
-marker-end: url(#markerCircle);
+	stroke:#000000;
+	fill:none;
+	stroke-width: 1.5px;
+	marker-start: url(#markerCircle);
+	marker-end: url(#markerCircle);
 
 }
 
 .connectioninv{
-  opacity:0;
-  stroke:#00eeee;
-  fill:none;
-  stroke-width: 20px;
-marker-start: url(#markerCircle);
-marker-end: url(#markerCircle);
+	opacity:0;
+	stroke:#00eeee;
+	fill:none;
+	stroke-width: 20px;
+	marker-start: url(#markerCircle);
+	marker-end: url(#markerCircle);
 }
 
 .deleteConnection{
-  opacity:0;
-  -webkit-transition:all .5s ease-in-out;
-  -moz-transition:all .5s ease-in-out;
-  -o-transition:all .5s ease-in-out;
-  transition:all .5s ease-in-out;
+	opacity:0;
+	-webkit-transition:all .5s ease-in-out;
+	-moz-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
 }
 
 
 .deleteConnection:hover{
-  opacity: 1;
+	opacity: 1;
 }
 .deleteConnection.visible{
-  opacity: 1;
+	opacity: 1;
 }
 
 
 input.entityName  {
-font-size: 20px;
-text-align: -webkit-center;
-background-color: rgba(255, 255, 255, 0);
-width: 200px;
-margin-top: -2px;
-margin-left: -10px;
+	font-size: 20px;
+	text-align: -webkit-center;
+	background-color: rgba(255, 255, 255, 0);
+	width: 200px;
+	margin-top: -2px;
+	margin-left: -10px;
 
-    }
+}
+input.text  {
+	background-color: @darkGray;
+	width: 101px;
+	height: 19px;
+	border: none;
+	color: white;	
+}
 
+//animate hide and show fade with angular
+.canFade{
+	width:20px;
+}
+.canFade.ng-hide-add, .canFade.ng-hide-remove, {
+	-webkit-transition:all linear 0.5s;
+	-moz-transition:all linear 0.5s;
+	-o-transition:all linear 0.5s;
+	transition:all linear 0.5s;
+	display:inline-block!important;
+}
+.canFade.ng-hide-add.ng-hide-add-active,
+.canFade.ng-hide-remove {
+	opacity:0;
+}
+.canFade.ng-hide-add,
+.canFade.ng-hide-remove.ng-hide-remove-active {
+	opacity:1;
+}

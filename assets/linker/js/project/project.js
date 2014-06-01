@@ -21,8 +21,9 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
       var id=$scope.projectId;
       var project = Project.show({projectId:id}, function(){
 
-       $scope.project=project;
-       $scope.name=project.name;
+        console.log(project);
+        $scope.project=project;
+        $scope.name=project.name;
 
 
         //get the entities separately
@@ -85,15 +86,13 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
 
 
-
-
         $scope.wServices.forEach( function (item,i){
 
-          var cOdataArr=WService.getWSData({id:item.id}, function(){
-            wSDatas=wSdataArr.cODatas;
+          var wSdataArr=WService.getWSData({id:item.id}, function(){
+            wSDatas=wSdataArr.wSDatas;
             item.wSDatas=wSDatas;
-              //console.log("initialdatas",cODatas);
-            });
+            console.log("initialdatas",wSDatas);
+          });
 
         });
         $scope.wServices.forEach( function (item,i){
@@ -101,18 +100,18 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
           var wStriggerArr=WService.getWSAction({id:item.id}, function(){
             wSActions=wStriggerArr.wSActions;
             item.wSActions=wSActions;
-              //console.log("initialactions",cOActions);
+            console.log("initialactions",wSActions);
 
-            });
+          });
         });
         $scope.wServices.forEach( function (item,i){
 
-          var wSOtriggerArr=WService.getCOTrigger({id:item.id}, function(){
+          var wStriggerArr=WService.getWSTrigger({id:item.id}, function(){
               //console.log("triggersData",cOtriggerArr);
 
               wSTriggers=wStriggerArr.wSTriggers;
               item.wSTriggers=wSTriggers;
-              //console.log("initialtriggers",cOTriggers);
+              console.log("initialtriggers",wSTriggers);
             });
         });
 
@@ -130,7 +129,7 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 }); 
 
 $scope.selectCobject =function(cObjectID){
-    console.log("coID",cObjectID);
+  console.log("coID",cObjectID);
 
   for (i=0; i<$scope.entities.length;i++){
     if ($scope.entities[i]){
@@ -179,15 +178,15 @@ $scope.selectWService =function(wServiceID){
   if(cObject!=null){
     $state.go('edit.addwService');
     
-    if(!$scope.selectedEntity.cOTriggers){
-      $scope.selectedEntity.cOTriggers=new Array();
+    if(!$scope.selectedEntity.wSTriggers){
+      $scope.selectedEntity.wSTriggers=new Array();
     }
     if(!$scope.selectedEntity.cODatas){
-      $scope.selectedEntity.cODatas=new Array();
+      $scope.selectedEntity.wSDatas=new Array();
 
     }
-    if(!$scope.selectedEntity.cOActions){
-      $scope.selectedEntity.cOActions=new Array();
+    if(!$scope.selectedEntity.wSActions){
+      $scope.selectedEntity.wSActions=new Array();
 
     }
   }else{
@@ -339,47 +338,47 @@ $scope.mouseUp=function(mouseEvent){
             //console.log($scope.connections);
 
 
-      $scope.connectionsid[$scope.connectionsid.length-1].end=inputId;
+            $scope.connectionsid[$scope.connectionsid.length-1].end=inputId;
             
-      var projectID=$scope.projectId;
-      var startID=$scope.connectionsid[$scope.connectionsid.length-1].start;
-      var endID=$scope.connectionsid[$scope.connectionsid.length-1].end;
+            var projectID=$scope.projectId;
+            var startID=$scope.connectionsid[$scope.connectionsid.length-1].start;
+            var endID=$scope.connectionsid[$scope.connectionsid.length-1].end;
             //console.log(projectID)
 
-      var newConnection=Connection.salva({project:projectID,start:startID,end:endID}, function(){
+            var newConnection=Connection.salva({project:projectID,start:startID,end:endID}, function(){
               //console.log("newAction", connection);
                 //$scope.$parent.cObjects.push(cObject);
                //$scope.$parent.selectedCObject.connections.push(connection);
-      console.log(newConnection);
-      $scope.connectionsid[$scope.connectionsid.length-1]=newConnection;
-      $scope.updateConnections();
+               console.log(newConnection);
+               $scope.connectionsid[$scope.connectionsid.length-1]=newConnection;
+               $scope.updateConnections();
 
 
-    });
+             });
 
-    }else{
-      $scope.connectionsid.pop();
-      $scope.connections.pop();
-    }
+          }else{
+            $scope.connectionsid.pop();
+            $scope.connections.pop();
+          }
           //updateConnections();
          // console.log($scope.connectionsid);
-    
-    startingPositionX=0;  
-    startingPositionY=0;
 
-  }else if(dragEntityStarted){
-    $scope.updateEntityPosition(dragEntityType);
-    console.log("type to change",dragEntityType);
-  }
-  dragArrowStarted=false;
-  dragStarted=false;
-  entityDragged=null;
-  dragEntityStarted=false;
-  dragEntityType=null;
-}
+         startingPositionX=0;  
+         startingPositionY=0;
 
-$scope.updateEntityPosition=function(type){
-      
+       }else if(dragEntityStarted){
+        $scope.updateEntityPosition(dragEntityType);
+        console.log("type to change",dragEntityType);
+      }
+      dragArrowStarted=false;
+      dragStarted=false;
+      entityDragged=null;
+      dragEntityStarted=false;
+      dragEntityType=null;
+    }
+
+    $scope.updateEntityPosition=function(type){
+
       newPositionX=entityDragged.positionX;
       newPositionY=entityDragged.positionY;
       console.log(type);
@@ -403,12 +402,31 @@ $scope.updateEntityPosition=function(type){
         });
       }  
           //console.log("positionUpdated");
+        }
+
+      $scope.deleteConnectionsbyActionID=function(id){
+      
+        $scope.connectionsid.forEach(function(entry,i) {
+
+          console.log(id,entry.start,entry.end, entry.id );
+
+          if (entry.start==id||entry.end==id){
+
+                Connection.delete({
+                  id:entry.id
+                });
+
+            $scope.connectionsid.splice(i,1);
+            $scope.connections.splice(i,1);
+          }
+
+        });
       }
 
-          $scope.updateConnections=function(){
+        $scope.updateConnections=function(){
 
-            var newConnections=new Array();
-            $scope.connectionsid.forEach(function(entry,i) {
+          var newConnections=new Array();
+          $scope.connectionsid.forEach(function(entry,i) {
          //console.log(entry.start);
          
         // console.log($('#'+entry.start));
@@ -432,7 +450,7 @@ y2=$('#'+entry.end+'.end').offset().top-offsetY;
         //console.log("offset",x1);
         newConnections[i]={x1:x1, y1:y1, x2:x2, y2:y2, startID:startID, endID:endID, id:id}
       });
-            $scope.connections=newConnections
+          $scope.connections=newConnections
   //      console.log($scope.connectionsid);
 
   //      console.log($scope.connections);
@@ -521,7 +539,7 @@ project.config(['$stateProvider', '$urlRouterProvider',
      url: "editCOData",        
      views:{
       "left":{templateUrl: '/linker/js/cObject/partials/addcObject.ejs'}, 
-      "editor":{templateUrl: '/linker/js/cOData/partials/editCOData.ejs'}  
+      "editor":{templateUrl: '/linker/js/cObject/cOData/partials/editCOData.ejs'}  
     }, 
 
   })
@@ -529,7 +547,7 @@ project.config(['$stateProvider', '$urlRouterProvider',
      url: "editCOTrigger",        
      views:{
       "left":{templateUrl: '/linker/js/cObject/partials/addcObject.ejs'}, 
-      "editor":{templateUrl: '/linker/js/cOTrigger/partials/editCOTrigger.ejs'}  
+      "editor":{templateUrl: '/linker/js/cObject/cOTrigger/partials/editCOTrigger.ejs'}  
     }, 
 
   })
@@ -537,7 +555,7 @@ project.config(['$stateProvider', '$urlRouterProvider',
      url: "editCOAction",        
      views:{
       "left":{templateUrl: '/linker/js/cObject/partials/addcObject.ejs'}, 
-      "editor":{templateUrl: '/linker/js/cOAction/partials/editCOAction.ejs'}  
+      "editor":{templateUrl: '/linker/js/cObject/cOAction/partials/editCOAction.ejs'}  
     } 
   })
     .state('edit.addwService', {         
@@ -549,7 +567,7 @@ project.config(['$stateProvider', '$urlRouterProvider',
      url: "editWSData",        
      views:{
       "left":{templateUrl: '/linker/js/wService/partials/addwService.ejs'}, 
-      "editor":{templateUrl: '/linker/js/wSData/partials/editWSData.ejs'}  
+      "editor":{templateUrl: '/linker/js/wService/wSData/partials/editWSData.ejs'}  
     }, 
 
   })
@@ -557,7 +575,7 @@ project.config(['$stateProvider', '$urlRouterProvider',
      url: "editWSTrigger",        
      views:{
       "left":{templateUrl: '/linker/js/wService/partials/addwService.ejs'}, 
-      "editor":{templateUrl: '/linker/js/wSTrigger/partials/editWSTrigger.ejs'}  
+      "editor":{templateUrl: '/linker/js/wService/wSTrigger/partials/editWSTrigger.ejs'}  
     }, 
 
   })
@@ -565,7 +583,7 @@ project.config(['$stateProvider', '$urlRouterProvider',
      url: "editWSAction",        
      views:{
       "left":{templateUrl: '/linker/js/wService/partials/addwService.ejs'}, 
-      "editor":{templateUrl: '/linker/js/wSAction/partials/editWSAction.ejs'}  
+      "editor":{templateUrl: '/linker/js/wService/wSAction/partials/editWSAction.ejs'}  
     } 
   })
 

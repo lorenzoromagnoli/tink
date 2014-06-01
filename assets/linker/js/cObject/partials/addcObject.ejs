@@ -1,6 +1,6 @@
 <div 
 	ng-controller="cObjectCtrl"
-	class="addCObject inner"
+	class="addEntity cObject inner"
 >
 	<div class="header">
 		<image src="/images/connectedObject.png" class="header-img"/>
@@ -40,14 +40,26 @@
 				</span>
 				<image src="/images/plus_cyano.png" class="add_action" ng-click="create()"/>
 				<div class="data list" >
-					<div class="cOData" 
+					<div class="data" 
 					ng-repeat="cOData in selectedEntity.cODatas" 
-					ng-click="selectCOData(cOData)"
+					ng-mouseenter="mouseover=true"
+					ng-mouseleave="mouseover=false"
 					>
-						<div class="cOData-left"></div>
-						<div class="cOData-body" >{{cOData.name}}</div> 
-						<div class="cOData-right"></div>
-								
+						<div class="left"></div>
+						<div class="body" ng-click="selectCOData(cOData)">
+							{{cOData.name}}
+						</div> 
+						
+						<div class="right"></div>
+						
+						<a 
+						ng-show="mouseover" 
+						href="" 
+						ng-click="delete(cOData.id)" 
+						class="glyphicon glyphicon-trash canFade"
+						ng-animate="{show:'animate-show', hide:'animate-hide'}"
+						></a>
+
 					</div>
 
 				</div>
@@ -60,14 +72,24 @@
 				<image src="/images/plus_orange.png" class="add_action" ng-click="create()"/>
 
 				<div class="trigger list">
-					<div class="cOTrigger" 
+					<div class="trigger" 
 					ng-repeat="cOTrigger in selectedEntity.cOTriggers" 
-					ng-click="selectCOTrigger(cOTrigger)"
+					ng-mouseenter="mouseover=true"
+					ng-mouseleave="mouseover=false"
 					>
-						<div class="cOTrigger-left"></div>
-						<div class="cOTrigger-body">{{cOTrigger.name}}</div> 
-						<div class="cOTrigger-right"></div>
-								
+						<div class="left"></div>
+						<div class="body" ng-click="selectCOData(cOTrigger)">
+							{{cOTrigger.name}}</div> 
+						<div class="right"></div>
+						
+						<a 
+						ng-show="mouseover" 
+						href="" 
+						ng-click="delete(cOTrigger.id)" 
+						class="glyphicon glyphicon-trash canFade"
+						ng-animate="{show:'animate-show', hide:'animate-hide'}"
+						></a>
+
 					</div>
 				</div>
 			</div>
@@ -79,14 +101,25 @@
 				<image src="/images/plus_yellow.png" class="add_action" ng-click="create()"/>
 
 				<div class="trigger list">
-					<div class="cOAction" 
+					<div class="action" 
 					ng-repeat="cOAction in selectedEntity.cOActions" 
-					ng-click="selectCOAction(cOAction)"
+					ng-mouseenter="mouseover=true"
+					ng-mouseleave="mouseover=false"
 					>
-						<div class="cOAction-left"></div>
-						<div class="cOAction-body">{{cOAction.name}}</div> 
-						<div class="cOAction-right"></div>
-								
+						<div class="left"></div>
+						<div class="body" ng-click="selectCOData(cOAction)">
+							{{cOAction.name}}</div> 
+						<div class="right"></div>
+						
+						<a 
+						ng-show="mouseover" 
+						href="" 
+						ng-click="delete(cOAction.id)" 
+						class="glyphicon glyphicon-trash canFade"
+						ng-animate="{show:'animate-show', hide:'animate-hide'}"
+						></a>
+
+
 					</div>
 				</div>
 			</div>

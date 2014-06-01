@@ -28,6 +28,7 @@ connection.controller('connectionCtrl', ['$scope','$route', '$routeParams','$loc
 
 
         $scope.delete=function(id){
+          console.log("deleting connection", id);
             for(i=0;i<$scope.$parent.connectionsid.length;i++){
 
 

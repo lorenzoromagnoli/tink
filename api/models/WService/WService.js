@@ -12,7 +12,7 @@ module.exports = {
 
   	name: {
   		type: 'string',
-  		defaultsTo: 'New Object'
+  		defaultsTo: 'New Web Service'
   	},
 
   	project: {
@@ -36,17 +36,17 @@ module.exports = {
       defaultsTo: '100'
 
   	},
-    cODatas:{
+    wSDatas:{
       collection:'wSData',
       via:'wService',
     },
     
-    cOTriggers:{
+    wSTriggers:{
       collection:'wSTrigger',
       via:'wService',
     },
 
-    cOActions:{
+    wSActions:{
       collection:'wSAction',
       via:'wService',
     },

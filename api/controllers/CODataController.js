@@ -8,11 +8,11 @@ module.exports = {
   
   create: function(req, res, next) {
 
-    var wSTriggerObj = {
-      wService: req.param('wService'),
+    var cODataObj = {
+      cObject: req.param('cObject'),
 
     }
-    WSTrigger.create(wSTriggerObj, function wServiceCreated(err, WSTrigger) {
+    COData.create(cODataObj, function cObjectCreated(err, COData) {
 
       // // If there's an error
       // if (err) return next(err);
@@ -27,27 +27,34 @@ module.exports = {
         return res.send('error');
       }
       //  res.redirect('/project/index/' + project.id);
-      console.log("new TRigger",WSTrigger);
-      res.send(WSTrigger);
+      console.log(COData);
+      res.send(COData);
       });
   },
+    delete: function(req,res,next){
+    COData.destroy({id:req.param('id')}).exec(function(err,data){
+      console.log ("deleted COData", req.param('id'));
+    });
+      res.send(COData);
+
+    },
 
 
   // show: function(req, res, next) {
-  //   WService.findOne(req.param('id'), function foundWService(err, WSData) {
+  //   CObject.findOne(req.param('id'), function foundCObject(err, COData) {
   //     if (err) return next(err);
-  //     if (!wService) return next();
-  //     res.send(wService);
+  //     if (!cObject) return next();
+  //     res.send(cObject);
   //   });
   // },
 
   // index: function(req, res, next) {
 
   //   // Get an array of all users in the User collection(e.g. table)
-  //   WService.find(function foundUsers(err, wServices) {
+  //   CObject.find(function foundUsers(err, cObjects) {
   //     if (err) return next(err);
   //     // pass the array down to the /views/index.ejs page
-  //     res.send(wServices)
+  //     res.send(cObjects)
   //   });
   // },
 

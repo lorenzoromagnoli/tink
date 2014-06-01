@@ -45,6 +45,8 @@ module.exports.routes = {
     action: 'create'
   }
 
+  
+
 //thore where the standard route for this project
   // '/': {
   //   view: 'main/index'

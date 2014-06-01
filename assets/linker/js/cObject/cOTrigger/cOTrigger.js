@@ -31,40 +31,27 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
             });
         }
 
-        $scope.delete=function(){
+        $scope.delete=function(id){
 
             var arrIndex=$scope.$parent.selectedEntity.cOTriggers.indexOf($scope.$parent.selectedCOTrigger);
             $scope.$parent.selectedEntity.cOTriggers.splice(arrIndex,1);
             console.log(arrIndex);
 
             COTrigger.delete({
-              id:$scope.id 
+              id:id 
             });
-
-
-            for(i=0;i<$scope.$parent.connectionsid.length;i++){
-              console.log('startId', $scope.$parent.connectionsid[i].start)
-
-              if ($scope.$parent.connectionsid[i].start==$scope.id || $scope.$parent.connectionsid[i].end==$scope.id ){
-                Connection.delete({
-                  id:$scope.$parent.connectionsid[i].id
-                });
-                $scope.$parent.connections.splice(i,1)
-                $scope.$parent.connectionsid.splice(i,1)
-              }
-            }
-
-
-
+             
             $scope.$parent.selectCOTrigger(null);
             $state.go('edit.addcObject');
+                       //serach there where connections and delete those
+            $scope.$parent.deleteConnectionsbyActionID(id);
+
+
         }
 
-        $scope.updateName=function(){
-            cOTriggerId=$scope.$parent.selectedCOTrigger.id; 
-            newname=$scope.$parent.selectedCOTrigger.name;
-            COTrigger.update({id:cOTriggerId, name: newname});
-            //console.log("nameUpdated");
+        $scope.updateName=function(id, newname){
+            COTrigger.update({id:id, name: newname});
+            console.log("nameUpdated");
         }
 
         $scope.updateCode=function(){
@@ -103,12 +90,12 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
 
 
  cOTrigger.factory('COTrigger', ['$resource',function($resource){
-     return $resource('/cObject/cOTrigger/:id', {}, 
+     return $resource('/cOTrigger/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cObject/cOTrigger/create/' },
-            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cObject/cOTrigger/find/' },
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cObject/cOTrigger/destroy/:id' },
+            'salva': {method:'POST', params:{cObject:'@id'}, url:'/cOTrigger/create/' },
+            'find': {method:'GET', params:{cObject:'@cObject'}, url:'/cOTrigger/find/' },
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/cOTrigger/delete/:id' },
 
              'update': {
                  method:'POST', 
@@ -119,7 +106,7 @@ cOTrigger.controller('cOTriggerCtrl', ['$scope','$route', '$routeParams','$locat
                      codeSetup:'@codeSetup',
                      codeFunction:'@codeFunction'
                  }, 
-                 url:'/cObject/cOTrigger/update/:id' 
+                 url:'/cOTrigger/update/:id' 
              }
 
 

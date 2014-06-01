@@ -110,12 +110,12 @@
 		ng-init="setObjectData(cObject)"
 
 		ng-attr-transform="translate({{cObject.positionX}},{{cObject.positionY}})"
-		class="cObject"
 		style="display: block; margin: auto"
+		class="entity cObject"
 		>
 
 			<!-- DRAW THE NAME -->
-			<g class="entity">
+			<g class="header">
 				<text 
 					ng-hide="editorEnabled"
 					text-anchor="middle" 
@@ -147,22 +147,63 @@
 			<!-- DRAW THE TRIGGERS -->
 			<g ng-repeat="cOTriggers in cObject.cOTriggers"
 				ng-attr-transform="translate(-110,{{ (100+($index*25)) }})"
+				ng-controller="cOTriggerCtrl"
+				class="trigger"
 				> 
-				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="cOTrigger left"></image> 
-				<rect x="23" y="0" height="19px" width="100px" class="cOTrigger-rect">{{cOTriggers.name}}</rect>
-				<text x="23" y="15"  class="cOTrigger-text">{{cOTriggers.name}}</text>
-				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="start cOTrigger right" id="{{cOTriggers.id}}"></image> 
+				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="left"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="rect">{{cOTriggers.name}}</rect>
+				
+				<text x="23" y="15"  
+					class="text"
+					ng-hide="editorEnabled"
+					ng-dblclick="editorEnabled=!editorEnabled"
+					>
+						{{cOTriggers.name}}
+				</text>
+				<foreignobject x="23" y="0" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="cOTriggers.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(cOTriggers.id, cOTriggers.name)" 
+						class="text"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+
+
+
+				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="start right" id="{{cOTriggers.id}}"></image> 
 
 			</g>
 
 			<!-- DRAW THE ACTIONS -->
 			<g ng-repeat="cOAction in cObject.cOActions"
 				ng-attr-transform="translate(60,{{(100+($index*25))}})"
+				ng-controller="cOActionCtrl"
+
+				class="action"
 				> 
-				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" end cOAction left" id="{{cOAction.id}}"></image> 
-				<rect x="23" y="0" height="19px" width="100px" class="cOAction-rect">{{cOAction.name}}</rect>
-				<text x="23" y="15"  class="cOAction-text">{{cOAction.name}}</text>
-				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="start cOAction right" id="{{cOAction.id}}"></image> 
+				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class="end left" id="{{cOAction.id}}"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="rect">{{cOAction.name}}</rect>
+				<text x="23" y="15"  
+					class="text"
+					ng-hide="editorEnabled"
+					ng-dblclick="editorEnabled=!editorEnabled"
+				>
+						{{cOAction.name}}
+				</text>
+
+				<foreignobject x="23" y="0" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="cOAction.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(cOAction.id, cOAction.name)" 
+						class="text"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+
+				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="start right" id="{{cOAction.id}}"></image> 
 
 			</g>
 
@@ -208,11 +249,11 @@
 		ng-init="setObjectData(wService)"
 
 		ng-attr-transform="translate({{wService.positionX}},{{wService.positionY}})"
-		class="wService"
 		style="display: block; margin: auto"
+		class="entity wService"
 		>
 			<!-- DRAW THE NAME -->
-			<g class="entity">
+			<g class="header">
 				<text 
 					ng-hide="editorEnabled"
 					text-anchor="middle" 
@@ -242,24 +283,64 @@
 				
 			</g>
 			<!-- DRAW THE TRIGGERS -->
-			<g ng-repeat="wSTriggers in wService.wSTriggers"
+			<g ng-repeat="wSTrigger in wService.wSTriggers"
 				ng-attr-transform="translate(-110,{{ (100+($index*25)) }})"
+				class="trigger"
+				ng-controller="wSTriggerCtrl"
+
+
 				> 
-				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="wSTrigger left"></image> 
-				<rect x="23" y="0" height="19px" width="100px" class="wSTrigger-rect">{{cOTriggers.name}}</rect>
-				<text x="23" y="15"  class="wSTrigger-text">{{cOTriggers.name}}</text>
-				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="start wSTrigger right" id="{{wSTriggers.id}}"></image> 
+				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="left"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="rect">{{wSTrigger.name}}</rect>
+				<text x="23" y="15"  
+					class="text"
+					ng-hide="editorEnabled"
+					ng-dblclick="editorEnabled=!editorEnabled"
+				>
+					{{wSTrigger.name}}
+				</text>
+				<foreignobject x="23" y="0" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="wSTrigger.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(wSTrigger.id, wSTrigger.name)" 
+						class="text"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+
+				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="start right" id="{{wSTrigger.id}}"></image> 
 
 			</g>
 
 			<!-- DRAW THE ACTIONS -->
 			<g ng-repeat="wSAction in wService.wSActions"
 				ng-attr-transform="translate(60,{{(100+($index*25))}})"
+				class="action"
+				ng-controller="wSActionCtrl"
+
+
 				> 
-				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" end wSAction left" id="{{wSAction.id}}"></image> 
-				<rect x="23" y="0" height="19px" width="100px" class="wSAction-rect">{{cOAction.name}}</rect>
-				<text x="23" y="15"  class="wSAction-text">{{cOAction.name}}</text>
-				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="start wSAction right" id="{{wSAction.id}}"></image> 
+				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" end left" id="{{wSAction.id}}"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="rect">{{wSAction.name}}</rect>
+				<text x="23" y="15"  
+					class="text"
+					ng-hide="editorEnabled"
+					ng-dblclick="editorEnabled=!editorEnabled"
+				>
+					{{wSAction.name}}
+
+				</text>
+				<foreignobject x="23" y="0" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="wSAction.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(wSAction.id, wSAction.name)" 
+						class="text"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="start right" id="{{wSAction.id}}"></image> 
 
 			</g>
 

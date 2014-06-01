@@ -12,7 +12,7 @@ module.exports = {
 
   	name: {
   		type: 'string',
-  		defaultsTo: 'new trigger'
+  		defaultsTo: 'new action'
   	},
 
     codeVariables:{
