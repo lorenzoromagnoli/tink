@@ -10,11 +10,15 @@
 			<div class="addEntityBTN" 
 			ng-class="{rotated: $state.includes('edit.addcObject') 
 				|| $state.includes('edit.addEntity')
-				|| $state.includes('edit.addwService') 
+				|| $state.includes('edit.addwService')
+				|| $state.includes('edit.adddAnalyst') 
+ 
 			}" 
 			ng-switch="$state.includes('edit.addcObject') 
 				|| $state.includes('edit.addEntity')
 				|| $state.includes('edit.addwService')
+				|| $state.includes('edit.adddAnalyst') 
+
 				">
 
 				<a ui-sref="edit" ng-switch-when="true" > remove Entity </a>

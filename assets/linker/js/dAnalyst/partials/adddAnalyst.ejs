@@ -1,12 +1,12 @@
 <div 
-	ng-controller="wServiceCtrl"
-	class="addEntity wService inner"
+	ng-controller="dAnalystCtrl"
+	class="addEntity dAnalyst inner"
 >
 	<div class="header">
-		<image src="/images/webService.png" class="header-img"/>
-		<h3>WEB SERVICE</h3>
+		<image src="/images/dataAnalyst.png" class="header-img"/>
+		<h3>DATA ANALYST</h3>
 	</div>
-	
+
 
 	<div class="content">
 		
@@ -23,31 +23,31 @@
 		<a href="" ng-click="delete()" class="glyphicon glyphicon-trash"></a>
 
 		<div class="settings">
-			<div class="wService icon">
+			<div class="dAnalyst icon">
 			<div>
 			
-			<div class="wService title">
+			<div class="dAnalyst title">
 			<div>
 			
-			<div class="wService settings">
+			<div class="dAnalyst settings">
 			<div>
 		</div>
 
 		<div class="actions">
-			<div class="block" ng-controller="wSDataCtrl">
+			<div class="block" ng-controller="dADataCtrl">
 				<span class="title">
 				Data to track
 				</span>
 				<image src="/images/plus_cyano.png" class="add_action" ng-click="create()"/>
 				<div class="data list" >
 					<div class="data" 
-					ng-repeat="wSData in selectedEntity.wSDatas" 
-					ng-click="selectWSData(wSData)"
+					ng-repeat="dAData in selectedEntity.dADatas" 
+					ng-click="selectDAData(dAData)"
 					ng-mouseenter="mouseover=true"
 					ng-mouseleave="mouseover=false"
 					>
 						<div class="left"></div>
-						<div class="body" >{{wSData.name}}</div> 
+						<div class="body" >{{dAData.name}}</div> 
 						<div class="right"></div>
 
 						<a 
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 
-			<div class="block" ng-controller="wSTriggerCtrl">
+			<div class="block" ng-controller="dATriggerCtrl">
 				<span class="title">
 				Triggers
 				</span>
@@ -72,20 +72,20 @@
 
 				<div class="trigger list">
 					<div class="trigger" 
-					ng-repeat="wSTrigger in selectedEntity.wSTriggers" 
-					ng-click="selectWSTrigger(wSTrigger)"
+					ng-repeat="dATrigger in selectedEntity.dATriggers" 
+					ng-click="selectDATrigger(dATrigger)"
 					ng-mouseenter="mouseover=true"
 					ng-mouseleave="mouseover=false"
 
 					>
 						<div class="left"></div>
-						<div class="body">{{wSTrigger.name}}</div> 
+						<div class="body">{{dATrigger.name}}</div> 
 						<div class="right"></div>
 
 					
 					<a ng-show="mouseover" 
 						href="" 
-						ng-click="delete(wSTrigger.id)" 
+						ng-click="delete(dATrigger.id)" 
 						class="glyphicon glyphicon-trash canFade" 
 						ng-animate="{show:'animate-show', hide:'animate-hide'}"
 						>
@@ -97,7 +97,7 @@
 				</div>
 			</div>
 
-			<div class="block" ng-controller="wSActionCtrl">
+			<div class="block" ng-controller="dAActionCtrl">
 				<span class="title">
 				Actions
 				</span>
@@ -105,18 +105,18 @@
 
 				<div class="action list">
 					<div class="action" 
-					ng-repeat="wSAction in selectedEntity.wSActions" 
-					ng-click="selectWSAction(wSAction)"
+					ng-repeat="dAAction in selectedEntity.dAActions" 
+					ng-click="selectDAAction(dAAction)"
 					ng-mouseenter="mouseover=true"
 					ng-mouseleave="mouseover=false"
 					>
 						<div class="left"></div>
-						<div class="body">{{wSAction.name}}</div> 
+						<div class="body">{{dAAction.name}}</div> 
 						<div class="right"></div>
 
 						<a 
 						ng-show="mouseover" 
-						href="" ng-click="delete(wSAction.id)" 
+						href="" ng-click="delete(dAAction.id)" 
 						class="glyphicon glyphicon-trash canFade"
 						ng-animate="{show:'animate-show', hide:'animate-hide'}"
 						>

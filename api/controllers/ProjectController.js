@@ -57,14 +57,19 @@
 
 
   'show': function(req, res, next) {
-    Project.findOne({id:req.param('id')}).populate('cObjects').populate('wServices').populate('connections').exec(function foundProject(err, project) {
-      if (err) return next(err);
-      if (!project) return next();
-      // pass the array down to the /views/index.ejs page
-      res.send(project)
-      //  res.json(user)
+    Project.findOne({id:req.param('id')})
+                    .populate('cObjects')
+                    .populate('wServices')
+                    .populate('dAnalysts')
+                    .populate('connections')
+                    .exec(function foundProject(err, project) {
+                        if (err) return next(err);
+                        if (!project) return next();
+                        // pass the array down to the /views/index.ejs page
+                        res.send(project)
+                        //  res.json(user)
 
-    });
+                      });
   },
 
   subscribe: function(req, res) {

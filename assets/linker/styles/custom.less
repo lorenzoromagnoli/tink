@@ -15,11 +15,13 @@
 
 
 @cyano:#8AFCDA;
+@pink:#F288E3;
 
 html {
 	height: 100%;
 	min-height: 100%;
 }
+
 
 
 body {
@@ -194,6 +196,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 		}
 		.icon_small{
 			border: 2px solid @cyano;
+			
+		}
+	}
+
+	.addEntity.dAnalyst{
+		.header{
+			background-color: @pink;
+		}
+		.icon_small{
+			border: 2px solid @pink;
 			
 		}
 	}
@@ -472,6 +484,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   .entity.cObject{
   	.iconMask{
   		stroke: @green;
+  	}
+  }
+    .entity.dAnalyst{
+  	.iconMask{
+  		stroke: @pink;
   	}
   }
 }

@@ -371,7 +371,140 @@
  			
 		</g>
 
-		
+		<!-- ##################################################-->
+			<!-- ##################################################-->
+			<!-- ######                                    ########-->
+			<!-- ######     Draw the data analysts         ########-->
+			<!-- ######                                    ########-->
+			<!-- ##################################################-->
+			<!-- ##################################################-->
+		<g 
+		ng-repeat="dAnalyst in dAnalysts" 
+		ng-controller="dAnalystCtrl" 
+		ng-init="setObjectData(dAnalyst)"
+
+		ng-attr-transform="translate({{dAnalyst.positionX}},{{dAnalyst.positionY}})"
+		style="display: block; margin: auto"
+		class="entity dAnalyst"
+		>
+			<!-- DRAW THE NAME -->
+			<g class="header">
+				<text 
+					ng-hide="editorEnabled"
+					text-anchor="middle" 
+					x="45" 
+					y="-5" 
+					class="name"
+					ng-dblclick="editorEnabled=!editorEnabled"
+					>
+						{{dAnalyst.name}} 
+					<tspan 
+						href="" 
+						ng-click="selectWService(dAnalyst.id)" 
+						class="glyphicon glyphicon-cog">
+							&#xe019;
+					</tspan>
+				</text>	
+
+				<foreignobject x="-55" y="-25" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="dAnalyst.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(dAnalyst.id, dAnalyst.name)" 
+						class="entityName"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+				
+			</g>
+			<!-- DRAW THE TRIGGERS -->
+			<g ng-repeat="dATrigger in dAnalyst.dATriggers"
+				ng-attr-transform="translate(-110,{{ (100+($index*25)) }})"
+				class="trigger"
+				ng-controller="dATriggerCtrl"
+
+
+				> 
+				<image xlink:href="/images/trigger_left.png" x="0" y="0" height="19px" width="23px" class="left"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="rect">{{dATrigger.name}}</rect>
+				<text x="23" y="15"  
+					class="text"
+					ng-hide="editorEnabled"
+					ng-dblclick="editorEnabled=!editorEnabled"
+				>
+					{{dATrigger.name}}
+				</text>
+				<foreignobject x="23" y="0" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="dATrigger.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(dATrigger.id, dATrigger.name)" 
+						class="text"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+
+				<image xlink:href="/images/trigger_right.png" x="123" y="0" height="19px" width="23px" class="start right" id="{{dATrigger.id}}"></image> 
+
+			</g>
+
+			<!-- DRAW THE ACTIONS -->
+			<g ng-repeat="dAAction in dAnalyst.dAActions"
+				ng-attr-transform="translate(60,{{(100+($index*25))}})"
+				class="action"
+				ng-controller="dAActionCtrl"
+
+
+				> 
+				<image xlink:href="/images/action_left.png" x="0" y="0" height="19px" width="23px" class=" end left" id="{{dAAction.id}}"></image> 
+				<rect x="23" y="0" height="19px" width="100px" class="rect">{{dAAction.name}}</rect>
+				<text x="23" y="15"  
+					class="text"
+					ng-hide="editorEnabled"
+					ng-dblclick="editorEnabled=!editorEnabled"
+				>
+					{{dAAction.name}}
+
+				</text>
+				<foreignobject x="23" y="0" width="200" height="150" ng-show="editorEnabled" >
+					<body xmlns="http://www.w3.org/1999/xhtml">    						<input 
+						ng-model="dAAction.name" 
+						ng-blur="editorEnabled=!editorEnabled; updateName(dAAction.id, dAAction.name)" 
+						class="text"
+						>
+      					</input>
+    				</body>
+    			</foreignobject >
+				<image xlink:href="/images/action_right.png" x="123" y="0" height="19px" width="23px" class="start right" id="{{dAAction.id}}"></image> 
+
+			</g>
+
+			<!-- DRAW THE ICON -->
+ 			<clipPath id="ellipseMask">
+	 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
+ 			</clipPath>
+			<image xlink:href="{{bigImage}}" 
+				x="0" y="0" 
+				height="90px" 
+				width="90px" 
+				clip-path="url(#ellipseMask)"
+				class="entityIcon"
+				id="{{dAnalyst.id}}"
+
+				>
+				
+				<!-- ng-mousedown="objectDragStarted($event,cObject)"
+				ng-mouseup="objectDragFinished($event)"
+				ng-mousemove="objectDrag($event)"-->
+	
+
+			</image> 
+
+			
+
+ 			<circle cx="45" cy="45" r="45" class="iconMask"></circle>
+ 			
+		</g>
 
 		<div ng-shape></div ng-shape>
 </svg>

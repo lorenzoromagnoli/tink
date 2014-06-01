@@ -1,37 +1,37 @@
 
-var wService = angular.module('app.wService', ['ngRoute']);
+var dAnalyst = angular.module('app.dAnalyst', ['ngRoute']);
 
  
-wService.controller('wServiceCtrl', ['$scope','$route', '$routeParams','$location', 'WService', '$state', 
+dAnalyst.controller('dAnalystCtrl', ['$scope','$route', '$routeParams','$location', 'DAnalyst', '$state', 
 
-    function($scope, $routeParams, $route, $location, WService, $state ) {
+    function($scope, $routeParams, $route, $location, DAnalyst, $state ) {
 
-   //      $scope.$watch('$parent.selectedWService', function () {//wait until the variable is initialized
+   //      $scope.$watch('$parent.selectedDAnalyst', function () {//wait until the variable is initialized
             
 
-     //         var wService = WService.get({wServiceId:id}, function(){
+     //         var dAnalyst = DAnalyst.get({dAnalystId:id}, function(){
 
         // });
     // });
    
-        // $scope.create=WService.save({ProjectId:projectid}, function(){
+        // $scope.create=DAnalyst.save({ProjectId:projectid}, function(){
 
         // })
-        $scope.setObjectData=function(wS){
-            $scope.name=wS.name;
-            $scope.bigImage='/images/'+wS.image+'_big.png';
-            $scope.smallImage='/images/'+wS.image+'_small.png';
-            $scope.id=wS.id;
+        $scope.setObjectData=function(dA){
+            $scope.name=dA.name;
+            $scope.bigImage='/images/'+dA.image+'_big.png';
+            $scope.smallImage='/images/'+dA.image+'_small.png';
+            $scope.id=dA.id;
             
-           // console.log('init',wS);
+           // console.log('init',dA);
         }
 
         $scope.create = function() {
             var projectid=$scope.$parent.projectId; 
 
-            var wService=WService.salva({
+            var dAnalyst=DAnalyst.salva({
               project:projectid, 
-              name: "New Web Service"}, 
+              name: "Data Analyst"}, 
 
               function(w){
 
@@ -52,12 +52,12 @@ wService.controller('wServiceCtrl', ['$scope','$route', '$routeParams','$locatio
                 console.log("entities",$scope.$parent.entities);
 
                 //add newWservice to wservices
-                $scope.$parent.wServices.push(newWservice);
-                console.log("wServices", $scope.$parent.wServices);
+                $scope.$parent.dAnalysts.push(newWservice);
+                console.log("dAnalysts", $scope.$parent.dAnalysts);
 
 
                 //select entity
-                $scope.$parent.selectWService(newWservice.id);
+                $scope.$parent.selectDAnalyst(newWservice.id);
                 console.log("entities",$scope.$parent.entities);
             });
         }
@@ -69,13 +69,13 @@ wService.controller('wServiceCtrl', ['$scope','$route', '$routeParams','$locatio
               if (id==$scope.entities[i].id){
 
 
-                var arrIndex=$scope.$parent.wServices.indexOf($scope.entities[i]);
+                var arrIndex=$scope.$parent.dAnalysts.indexOf($scope.entities[i]);
                 //delete from the entities array
                 $scope.$parent.entities.splice(i,1);
                 //delete from the cObjects array
-                $scope.$parent.wServices.splice(arrIndex,1);     
+                $scope.$parent.dAnalysts.splice(arrIndex,1);     
                 
-                WService.delete({
+                DAnalyst.delete({
                   id:id
 
                 });
@@ -91,22 +91,22 @@ wService.controller('wServiceCtrl', ['$scope','$route', '$routeParams','$locatio
 
 
         $scope.updateName=function(id,name){
-            WService.update({id:id, name: name});
+            DAnalyst.update({id:id, name: name});
             //console.log("nameUpdated");
         }
     }
 ]);
 
- wService.factory('WService', ['$resource',function($resource){
-     return $resource('/wService/:id', {}, 
+ dAnalyst.factory('DAnalyst', ['$resource',function($resource){
+     return $resource('/dAnalyst/:id', {}, 
         {
             id:'@id', 
-            'salva': {method:'POST', params:{project:'@id'}, url:'/wService/create/' },
-            'find': {method:'GET', params:{id:'@id'}, url:'/wService/wService/find/' },
-            'getWSData': {method:'GET', params:{id:'@id'}, url:'/wService/getWSData/:id'},
-            'getWSTrigger': {method:'GET', params:{id:'@id'}, url:'/wService/getWSTrigger/:id'},
-            'getWSAction': {method:'GET', params:{id:'@id'}, url:'/wService/getWSAction/:id'},
-            'delete': {method:'DELETE', params:{id:'@id'}, url:'/wService/destroy/:id' },
+            'salva': {method:'POST', params:{project:'@id'}, url:'/dAnalyst/create/' },
+            'find': {method:'GET', params:{id:'@id'}, url:'/dAnalyst/dAnalyst/find/' },
+            'getDAData': {method:'GET', params:{id:'@id'}, url:'/dAnalyst/getDAData/:id'},
+            'getDATrigger': {method:'GET', params:{id:'@id'}, url:'/dAnalyst/getDATrigger/:id'},
+            'getDAAction': {method:'GET', params:{id:'@id'}, url:'/dAnalyst/getDAAction/:id'},
+            'delete': {method:'DELETE', params:{id:'@id'}, url:'/dAnalyst/destroy/:id' },
 
             'update': {
                 method:'POST', 
@@ -117,7 +117,7 @@ wService.controller('wServiceCtrl', ['$scope','$route', '$routeParams','$locatio
                     positionY:'@positionY'
 
                 }, 
-                url:'/wService/update/:id' 
+                url:'/dAnalyst/update/:id' 
             }
 
 

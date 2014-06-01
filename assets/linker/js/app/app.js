@@ -20,6 +20,11 @@ var app = angular.module('app', [
     'app.wSTrigger',
     'app.wSAction',
     
+    'app.dAnalyst',
+    'app.dAData',
+    'app.dATrigger',
+    'app.dAAction',
+
     'app.connection',
 	'ngResource',
     'ngAnimate',

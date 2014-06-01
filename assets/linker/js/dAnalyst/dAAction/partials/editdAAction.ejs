@@ -6,15 +6,15 @@
 	}
 </script>
 
-<div class="editor" ng-controller="wSActionCtrl">
+<div class="editor" ng-controller="dAActionCtrl">
 		<div ng-hide="editorEnabled"  class="name">
 
-					<div class="wSAction" >
-						<div class="wSAction-left"></div>
-						<div class="wSAction-body">
-							{{selectedWSAction.name}}
+					<div class="dAAction" >
+						<div class="dAAction-left"></div>
+						<div class="dAAction-body">
+							{{selectedDAAction.name}}
 						</div> 
-						<div class="wSAction-right"></div>
+						<div class="dAAction-right"></div>
 					</div>     
 
       		<a ng-click="editorEnabled=!editorEnabled" class="glyphicon glyphicon-pencil"></a>
@@ -22,12 +22,12 @@
 
     	</div>
     	<div ng-show="editorEnabled" class=name>
-					<div class="wSAction" >
-						<div class="wSAction-left"></div>
-						<div class="wSAction-body">
-							<input ng-model="selectedWSAction.name">
+					<div class="dAAction" >
+						<div class="dAAction-left"></div>
+						<div class="dAAction-body">
+							<input ng-model="selectedDAAction.name">
 						</div> 
-						<div class="wSAction-right"></div>
+						<div class="dAAction-right"></div>
 					</div>     
 
       		<a ng-click="editorEnabled=!editorEnabled; updateName();" class="glyphicon glyphicon-ok"></a>

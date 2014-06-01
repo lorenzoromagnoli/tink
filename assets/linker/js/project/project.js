@@ -5,11 +5,15 @@ var project = angular.module('app.project', ['ngRoute','btford.socket-io',]);
 project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location', 'Project', '$state',
   'COData','CObject','COTrigger','COAction',
   'WSData','WService','WSTrigger','WSAction',
+  'DAData','DAnalyst','DATrigger','DAAction',
+
   'Connection','$timeout','socket',
 
   function($scope, $routeParams, $route, $location, Project, $state, 
     COData,CObject,COTrigger,COAction, 
     WSData,WService,WSTrigger,WSAction, 
+    DAData,DAnalyst,DATrigger,DAAction, 
+
     Connection, $timeout, socket) {
 
 
@@ -29,9 +33,10 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
         //get the entities separately
         $scope.cObjects=project.cObjects;
         $scope.wServices=project.wServices;
+        $scope.dAnalysts=project.dAnalysts;
 
-        console.log("wServices");
-        console.log(project.wServices);
+        //console.log("wServices");
+        //console.log(project.wServices);
         //combine entities in a single array
 
         //get all the connections
@@ -91,8 +96,8 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
           var wSdataArr=WService.getWSData({id:item.id}, function(){
             wSDatas=wSdataArr.wSDatas;
             item.wSDatas=wSDatas;
-            console.log("initialdatas",wSDatas);
-          });
+         //   console.log("initialdatas",wSDatas);
+       });
 
         });
         $scope.wServices.forEach( function (item,i){
@@ -100,9 +105,9 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
           var wStriggerArr=WService.getWSAction({id:item.id}, function(){
             wSActions=wStriggerArr.wSActions;
             item.wSActions=wSActions;
-            console.log("initialactions",wSActions);
+          //  console.log("initialactions",wSActions);
 
-          });
+        });
         });
         $scope.wServices.forEach( function (item,i){
 
@@ -111,11 +116,43 @@ project.controller('projectCtrl', ['$scope','$route', '$routeParams','$location'
 
               wSTriggers=wStriggerArr.wSTriggers;
               item.wSTriggers=wSTriggers;
-              console.log("initialtriggers",wSTriggers);
-            });
+            //  console.log("initialtriggers",wSTriggers);
+          });
         });
 
-        $scope.entities=$scope.cObjects.concat($scope.wServices);
+
+
+
+        $scope.dAnalysts.forEach( function (item,i){
+
+          var dAdataArr=DAnalyst.getDAData({id:item.id}, function(){
+            wSDatas=dAdataArr.wSDatas;
+            item.wSDatas=wSDatas;
+            //console.log("initialdatas",wSDatas);
+          });
+
+        });
+        $scope.dAnalysts.forEach( function (item,i){
+
+          var dAtriggerArr=DAnalyst.getDAAction({id:item.id}, function(){
+            dAActions=dAtriggerArr.dAActions;
+            item.dAActions=dAActions;
+            //console.log("initialactions",dAActions);
+
+          });
+        });
+        $scope.dAnalysts.forEach( function (item,i){
+
+          var dAtriggerArr=DAnalyst.getDATrigger({id:item.id}, function(){
+              //console.log("triggersData",cOtriggerArr);
+
+              dATriggers=dAtriggerArr.dATriggers;
+              item.dATriggers=dATriggers;
+             // console.log("initialtriggers",dATriggers);
+           });
+        });
+
+        $scope.entities=$scope.cObjects.concat($scope.wServices).concat($scope.dAnalysts);
         console.log($scope.entities);
 
         //determine if the sidepanel is opened
@@ -187,6 +224,39 @@ $scope.selectWService =function(wServiceID){
     }
     if(!$scope.selectedEntity.wSActions){
       $scope.selectedEntity.wSActions=new Array();
+
+    }
+  }else{
+    $state.go('edit');
+  }
+}
+
+$scope.selectDAnalyst =function(dAnalystID){
+  console.log("daID",dAnalystID);
+
+  for (i=0; i<$scope.entities.length;i++){
+    if ($scope.entities[i]){
+      if (dAnalystID==$scope.entities[i].id){
+        $scope.selectedEntity=$scope.entities[i];
+        break;
+      }
+    }
+  } 
+
+  console.log("select entity "+$scope.selectedEntity);
+
+  if(cObject!=null){
+    $state.go('edit.adddAnalyst');
+    
+    if(!$scope.selectedEntity.dATriggers){
+      $scope.selectedEntity.dATriggers=new Array();
+    }
+    if(!$scope.selectedEntity.dADatas){
+      $scope.selectedEntity.dADatas=new Array();
+
+    }
+    if(!$scope.selectedEntity.dAActions){
+      $scope.selectedEntity.dAActions=new Array();
 
     }
   }else{
@@ -283,6 +353,13 @@ $scope.selectCOData =function(cOData){
           if ($scope.wServices[i].id==entityID){
             entityDragged=$scope.wServices[i];
             dragEntityType="wService";
+            break;
+          }
+        }
+        for(i=0;i<$scope.dAnalysts.length;i++){
+          if ($scope.dAnalysts[i].id==entityID){
+            entityDragged=$scope.dAnalysts[i];
+            dragEntityType="dAnalyst";
             break;
           }
         }
@@ -400,28 +477,37 @@ $scope.mouseUp=function(mouseEvent){
           positionX:newPositionX, 
           positionY:newPositionY
         });
-      }  
+      } 
+      else if(type=="dAnalyst"){
+        console.log("update dAnalyst Position")
+        dAnalystId=entityDragged.id;
+        DAnalyst.update({
+          id:dAnalystId, 
+          positionX:newPositionX, 
+          positionY:newPositionY
+        });
+      }   
           //console.log("positionUpdated");
         }
 
-      $scope.deleteConnectionsbyActionID=function(id){
-      
-        $scope.connectionsid.forEach(function(entry,i) {
+        $scope.deleteConnectionsbyActionID=function(id){
 
-          console.log(id,entry.start,entry.end, entry.id );
+          $scope.connectionsid.forEach(function(entry,i) {
 
-          if (entry.start==id||entry.end==id){
+            console.log(id,entry.start,entry.end, entry.id );
 
-                Connection.delete({
-                  id:entry.id
-                });
+            if (entry.start==id||entry.end==id){
 
-            $scope.connectionsid.splice(i,1);
-            $scope.connections.splice(i,1);
-          }
+              Connection.delete({
+                id:entry.id
+              });
 
-        });
-      }
+              $scope.connectionsid.splice(i,1);
+              $scope.connections.splice(i,1);
+            }
+
+          });
+        }
 
         $scope.updateConnections=function(){
 
@@ -587,9 +673,40 @@ project.config(['$stateProvider', '$urlRouterProvider',
     } 
   })
 
+
+
+
+    .state('edit.adddAnalyst', {         
+      views:{
+        "left":{templateUrl: '/linker/js/dAnalyst/partials/adddAnalyst.ejs'}  
+      }, 
+    })
+    .state('edit.editDAData', {
+     url: "editWSData",        
+     views:{
+      "left":{templateUrl: '/linker/js/dAnalyst/partials/adddAnalyst.ejs'}, 
+      "editor":{templateUrl: '/linker/js/dAnalyst/dAData/partials/editDAData.ejs'}  
+    }, 
+
+  })
+    .state('edit.editDATrigger', {
+     url: "editWSTrigger",        
+     views:{
+      "left":{templateUrl: '/linker/js/dAnalyst/partials/adddAnalyst.ejs'}, 
+      "editor":{templateUrl: '/linker/js/dAnalyst/dATrigger/partials/editDATrigger.ejs'}  
+    }, 
+
+  })
+    .state('edit.editDAAction', {
+     url: "editWSAction",        
+     views:{
+      "left":{templateUrl: '/linker/js/dAnalyst/partials/adddAnalyst.ejs'}, 
+      "editor":{templateUrl: '/linker/js/dAnalyst/dAAction/partials/editDAAction.ejs'}  
+    } 
+  })
+
   }
   ]);
-
 
 
 

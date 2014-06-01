@@ -26,6 +26,10 @@ module.exports = {
       collection:'wService',
       via:'project',
     },
+    dAnalysts:{
+      collection:'dAnalyst',
+      via:'project',
+    },
     connections:{
       collection:"connections",
       via: 'project',
